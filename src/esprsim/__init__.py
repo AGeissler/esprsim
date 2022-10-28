@@ -5,6 +5,10 @@ Author: gac 2022
 Contents of __init__.py is based on SIA 380/1 package from mm
 """
 
+from .espr_ms_sim import *
+from .espr_sim import *
+from .espr_res import *
+
 import os
 import sys
 import builtins
@@ -20,9 +24,9 @@ assert sys.version_info[0] == 3
 plt.rcParams["figure.figsize"] = (12, 6)
 plt.rcParams["figure.dpi"] = 300
 # do not set a font that might not exist, use default
-plt.rcParams["font.family"] = "Inconsolata"
-plt.rcParams["font.weight"] = "light"
-plt.rcParams["font.size"] = 14
+#plt.rcParams["font.family"] = "Inconsolata"
+#plt.rcParams["font.weight"] = "light"
+#plt.rcParams["font.size"] = 14
 plt.rcParams["figure.autolayout"] = True
 plt.rcParams["axes.grid"] = True
 plt.rcParams["axes.labelpad"] = 20
