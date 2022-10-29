@@ -61,6 +61,7 @@ def qa_report(config, variant):
                 "m\n"  # file names (toggle)
                 ">\n"  # QA report to
                 + variant + ".contents\n"  # model contents file
+                + config + ".cnn\n"        # cnn file
                 "!\n"  # generate QA report
                 "-\n"  # exit menu
                 "-\n"  # exit this menu
@@ -183,11 +184,11 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
                  "*\n"  # Save 4
                  "s\n"  # commence simulation
                  "Y\n"  # use suggested control file [Y/N]
-                 "Run:" + variant + "\n"  # result-set description
+#                 "Run:" + variant + "\n"  # result-set description
                  "Y\n"  # continue with simulation? [Y/N]
                  "Y\n"  # save simulation results? [Y/N]
                  "-\n"  # exit menu
-                 "-",   # quit module
+                 "-\n", # quit module
                  encoding="utf-8")
 
     cmd = cmd1.decode('utf-8')   \
@@ -229,12 +230,13 @@ def set_ctl(config, ctl_file):
             ]
 
     cmd = bytes("m\n"  # browse/ edit/ simulate
-                "j\n"  # controls: zones
+                "i\n"  # controls: zones
                 "../ctl/" + ctl_file + ".ctl\n"  # control file?
                 "-\n"  # exit this menu
                 "Y\n"  # ctl-functions have not yet been associated w/ zones. exit anyway? [Y/N]
                 "Y\n"  # save changes to control file? [Y/N]
                 "Y\n"  # overwrite this file? [Y/N]
+                + config + ".cnn\n"  # cnn file
                 "-\n"  # exit this menu
                 "-\n-",  # exit Project Manager
                 encoding="utf-8")
@@ -392,6 +394,7 @@ def set_spm(config, cnn_file, spm_file):
                 "!\n"  # save model
                 + config + ".cfg\n"  # update system configuration file?
                 + cnn_file + ".cnn\n"  # surface connections file name? 
+                + cnn_file + ".cnn\n"  # surface connections file name?
                 "-\n"  # exit this menu
                 "-\n-",  # exit Project Manager
                 encoding="utf-8")
