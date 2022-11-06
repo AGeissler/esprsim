@@ -65,7 +65,7 @@ def qa_report(config, variant):
                 "!\n"  # generate QA report
                 "-\n"  # exit menu
                 "-\n"  # exit this menu
-                "-\n-",  # exit Project Manager
+                "-\n",  # exit Project Manager
                 encoding="utf-8")
 
     f = open(variant + "_qa.scratch", "w")  # creates scratch file
@@ -238,7 +238,7 @@ def set_ctl(config, ctl_file):
                 "Y\n"  # overwrite this file? [Y/N]
                 + config + ".cnn\n"  # cnn file
                 "-\n"  # exit this menu
-                "-\n-",  # exit Project Manager
+                "-\n", # exit Project Manager
                 encoding="utf-8")
 
     f = open(config + "_set_" + ctl_file + ".scratch", "w")  # creates scratch file
@@ -396,7 +396,7 @@ def set_spm(config, cnn_file, spm_file):
                 + cnn_file + ".cnn\n"  # surface connections file name? 
                 + cnn_file + ".cnn\n"  # surface connections file name?
                 "-\n"  # exit this menu
-                "-\n-",  # exit Project Manager
+                "-\n",  # exit Project Manager
                 encoding="utf-8")
 
     f = open(config + "_set_" + spm_file + ".scratch", "w")  # creates scratch file
