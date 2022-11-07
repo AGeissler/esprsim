@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Last changed: 30/07/2020
+# Last changed: 07/11/2022
 # Status: development
 #
 # Module contains following functions calling res for ESP-r:
@@ -29,7 +29,7 @@ def res_supplied_energy(resfile):
     
     args = [
             "res",
-            "-file", resfile + ".res", # executable file
+            "-file", "../tmp/" + resfile + ".res", # executable file
             "-mode", "text",           # opens file in mode text
             ]
     
@@ -75,7 +75,7 @@ def res_PMV(resfile, zone, clo, met, veloc):
 
     args = [
             "res",
-            "-file", resfile + ".res", # executable file
+            "-file", "../tmp/" + resfile + ".res", # executable file
             "-mode", "text",           # opens file in mode text
             ]
 

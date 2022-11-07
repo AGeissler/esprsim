@@ -184,7 +184,7 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
                  "*\n"  # Save 4
                  "s\n"  # commence simulation
                  "Y\n"  # use suggested control file [Y/N]
-#                 "Run:" + variant + "\n"  # result-set description
+                 "Run:" + variant + "\n"  # result-set description
                  "Y\n"  # continue with simulation? [Y/N]
                  "Y\n"  # save simulation results? [Y/N]
                  "-\n"  # exit menu
