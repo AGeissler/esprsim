@@ -144,6 +144,8 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
     """
 
     from subprocess import run
+    import glob
+    import shutil
 
     print("\tRun bps with      : " + config + ".cfg")
     print(list_dms(dms,variant))
@@ -209,6 +211,9 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
             print("\n\t" + line + "\n")
 #        if "XML postprocessor cpu runtime" in line:
 #            print(line)
+
+    for file in glob.glob("../tmp/" + variant + ".*"):
+        shutil.move(file, './')
 
 
 def set_ctl(config, ctl_file):

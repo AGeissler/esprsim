@@ -29,7 +29,7 @@ def res_supplied_energy(resfile):
     
     args = [
             "res",
-            "-file", "../tmp/" + resfile + ".res", # executable file
+            "-file", resfile + ".res", # executable file
             "-mode", "text",           # opens file in mode text
             ]
     
@@ -75,7 +75,7 @@ def res_PMV(resfile, zone, clo, met, veloc):
 
     args = [
             "res",
-            "-file", "../tmp/" + resfile + ".res", # executable file
+            "-file", resfile + ".res", # executable file
             "-mode", "text",           # opens file in mode text
             ]
 
