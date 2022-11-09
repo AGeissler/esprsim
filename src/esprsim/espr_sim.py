@@ -207,8 +207,8 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
 
     # Postprocessing
     for line in open(variant + "_bps.scratch"):
-        if "Simulation completed" in line:
-            print("\n\t" + line + "\n")
+        if "CPU time:" in line:
+            print("\n\t" + line)
 #        if "XML postprocessor cpu runtime" in line:
 #            print(line)
 
