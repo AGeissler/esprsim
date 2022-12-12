@@ -1,23 +1,25 @@
 # esprsim
 
 ## Introduction
-The 'esprsim' package provides an interface to running ESP-r 
-using Python scripts. There is an example how such an automation
-script can be set up in the examples folder.
+The 'esprsim' package provides an interface for running ESP-r using
+Python scripts. There is an example how such an automation script can
+be set up in the example folder.
 
 ## Installing esprsim
 ### Step One
 Clone the Gitlab repository from 'git@gitlab.fhnw.ch:GruppeBau/esprsim.git'
-to your usual git project directory.
+to your usual git repository directory.
 
 ### Step Two
-If your ESP-r project already has a Python virtual environment, jump to step
-three. Otherwise:
+If your ESP-r project already has a Python virtual environment(or if you
+use a central Python installation and wish to add this package to it), 
+jump to step three. Otherwise:
 
 Set up a virtual Python environment for your ESP-r project, ideally
 in '<project path>', which is either the ESP-r project path if this is 
 'stand alone' or the path of the project of which ESP-r files are in 
-a subdirectory.
+a subdirectory. The following assumes you are working in a console
+window.
 
     1. Create virtual environment by 
         <project path>$ python3 -m venv env (evironment name is name arbitrary)
@@ -33,6 +35,9 @@ a subdirectory.
         pip install wheel
         pip install setuptools
 
+Note: to avoid clutter in git "changed files" tracking, add the environment
+subdirectory to .gitignore of the project.
+
 ### Step three
 Change to the source directory of epsim and issue the command
 
@@ -42,8 +47,8 @@ Thats it. Now, esprsim should be available in your project-specific virtual
 environment every time you activate it.
 
 ## Usage example
-The subdirectory 'example' contains a 'Real world' example using the
-functionality of the epsim package. 
+The subdirectory 'example' contains a 'real world' example using the
+functionality of the esprsim package. 
 
 The example requires an ESP-r installation @ version 13.3.15.
 
