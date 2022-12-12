@@ -35,16 +35,17 @@ window.
         pip install wheel
         pip install setuptools
 
-Note: to avoid clutter in git "changed files" tracking, add the environment
-subdirectory to .gitignore of the project.
+Note: to avoid clutter in git "changed files" tracking, add the
+environment subdirectory to .gitignore of the project.
 
 ### Step three
-Change to the source directory of epsim and issue the command
+In the console with active environment from step two, change to the 
+source directory of esprsim and issue the command
 
     $ pip install .
 
-Thats it. Now, esprsim should be available in your project-specific virtual
-environment every time you activate it.
+That's it. Now, esprsim should be available in your project-specific 
+virtual environment every time you activate it.
 
 ## Usage example
 The subdirectory 'example' contains a 'real world' example using the
