@@ -7,8 +7,7 @@ be set up in the example folder.
 
 ## Installing esprsim
 ### Step One
-Clone the Gitlab repository from 'git@gitlab.fhnw.ch:GruppeBau/esprsim.git'
-to your usual git repository directory.
+Clone this repository to your usual git repository directory.
 
 ### Step Two
 If your ESP-r project already has a Python virtual environment(or if you
