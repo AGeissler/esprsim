@@ -1,5 +1,0 @@
-[build]
-build_base = build
-
-#[egg_info]
-#egg_base = egg

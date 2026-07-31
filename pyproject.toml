@@ -1,3 +1,78 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=77.0.3"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools.package-data]
+'felupe.view' = ['logo.png']
+
+[tool.isort]
+profile = "black"
+
+[project]
+name = "esprsim"
+description = "Run and evaluate ESP-r simulations using Python. "
+readme = "Readme.md"
+authors = [
+  {name = "Achim Geissler", email = "achim.geissler@nothere.ch"},
+]
+requires-python = ">=3.10"
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
+keywords = [
+  "ESP-r",
+  "automated",
+  "simulation",
+  "transient building",
+  "python",
+  "scientific-computing",
+]
+classifiers = [
+  "Development Status :: 3 - Development",
+  "Programming Language :: Python",
+  "Intended Audience :: Science/Research",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Utilities"
+]
+dynamic = ["version"]
+
+dependencies = [
+  "pandas",
+]
+
+[project.optional-dependencies]
+docs = [
+    "pydata-sphinx-theme",
+    "sphinx-autoapi",
+    "sphinx-codeautolink",
+    "sphinx-copybutton",
+    "sphinx-design",
+    "sphinx-gallery",
+    "sphinx-inline-tabs",
+    "pypandoc",
+]
+autodiff = []
+examples = [
+]
+io = [
+]
+parallel = []
+progress = []
+plot = ["matplotlib"]
+view = ["pyvista[jupyter]"]
+all = ["esprsim[plot,view]"]
+
+[tool.setuptools.dynamic]
+version = {attr = "esprsim.__about__.__version__"}
+
+[project.urls]
+Homepage = "https://esprsim.readthedocs.io/en/latest"
+Documentation = "https://esprsim.readthedocs.io/en/latest"
+Repository = "https://github.com/AGeissler/esprsim"
