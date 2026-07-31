@@ -64,12 +64,15 @@ autodiff = []
 examples = [
 ]
 io = [
+    "imageio",
+    "h5py",
+    "meshio",
 ]
 parallel = []
 progress = []
 plot = ["matplotlib"]
 view = ["pyvista[jupyter]"]
-all = ["esprsim[plot]"]
+all = ["esprsim[plot,io]"]
 
 [tool.setuptools.dynamic]
 version = {attr = "esprsim.__about__.__version__"}
