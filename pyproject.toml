@@ -45,7 +45,8 @@ dynamic = ["version"]
 
 dependencies = [
   "pandas",
-  "pyvista"
+  "pyvista",
+  "trame-vtk"
 ]
 
 [project.optional-dependencies]
@@ -64,15 +65,12 @@ autodiff = []
 examples = [
 ]
 io = [
-    "imageio",
-    "h5py",
-    "meshio",
 ]
 parallel = []
 progress = []
 plot = ["matplotlib"]
 view = ["pyvista[jupyter]"]
-all = ["esprsim[plot,io]"]
+all = ["esprsim[plot]"]
 
 [tool.setuptools.dynamic]
 version = {attr = "esprsim.__about__.__version__"}
