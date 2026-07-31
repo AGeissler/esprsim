@@ -45,6 +45,7 @@ dynamic = ["version"]
 
 dependencies = [
   "pandas",
+  "pyvista"
 ]
 
 [project.optional-dependencies]
@@ -67,7 +68,7 @@ parallel = []
 progress = []
 plot = ["matplotlib"]
 view = ["pyvista[jupyter]"]
-all = ["esprsim[plot,view]"]
+all = ["esprsim[plot]"]
 
 [tool.setuptools.dynamic]
 version = {attr = "esprsim.__about__.__version__"}
