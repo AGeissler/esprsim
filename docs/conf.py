@@ -36,6 +36,9 @@ extensions = [
     "sphinx_design",
     "sphinx_gallery.gen_gallery",
     "myst_parser",
+    "matplotlib.sphinxext.plot_directive",
+    "pyvista.ext.plot_directive",
+    "pyvista.ext.viewer_directive",
 ]
 source_suffix = {
     ".rst": "restructuredtext",
