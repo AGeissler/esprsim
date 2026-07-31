@@ -57,6 +57,7 @@ docs = [
     "sphinx-design",
     "sphinx-gallery",
     "sphinx-inline-tabs",
+    "myst-parser",
     "pypandoc",
 ]
 autodiff = []
