@@ -10,17 +10,20 @@
 #
 # 55:  def res_PMV(resfile, zone, PMVdat):
 #          """Function extracts PMV data from simulation results.
+from subprocess import run
 
 """
 Module contains functions for ESP-r res module text mode scripts.
 """
 def res_supplied_energy(resfile):
-    """ Extract summary of energy delivered.
-    
-    Arguments expected:
-    1. results file name (with relative path w/o extension)"""
+    r"""Extract summary of energy delivered.
 
-    from subprocess import run
+    Parameters
+    ----------
+    resfile : str | Path
+        results file name (with relative path w/o extension)
+
+    """
 
     print("\n\tExtracting summary of energy delivered from")
     print("\t\t" + resfile + ".res,")
@@ -53,21 +56,29 @@ def res_supplied_energy(resfile):
 
 
 def res_PMV(resfile, zone, clo, met, veloc):
-    """ Extract PMV data from simulation results.
+    r"""Extract PMV data from simulation results.
 
-    Call with dict: res_PMV(res, z, **PMV[<var>]),
-        where <var> is the list variable of the loop going through
-        a list of desired key strings var_list = ('key1', 'keyN').
+    Parameters
+    ----------
+    resfile : str | Path
+        results file name (with relative path w/o extension) ($1).
+    zone : str
+        Zone name for which evaluation is desired ($2).
+    clo : float
+        Value of clothing level for PMV calculation ($3).
+    met : float
+        Value of metabolic rate for PMV calculation ($4).
+    veloc : float
+        Value of relative air velocity for PMV calculation ($5).
 
-    Arguments:
-    RESFILE=$1
-    ZONE=$2
-    CLO=$3
-    MET=$4
-    VELOC=$5    """
+    Notes
+    -----
+    Optionally call with dict: res_PMV(res, z, **PMV[<var>]),
+    where <var> is the list variable of the loop going through a list
+    of desired key strings var_list = ('key1', 'keyN').
 
-    from subprocess import run
-    
+    """
+
     thefile = resfile + "_" + zone + "_PMV_" + clo + "_" + met + "_" + veloc + ".dat"
 
     print("\tWriting PMV for zone " + zone + " to")

@@ -18,6 +18,7 @@
 # 261: def set_abs_o(config, matclass, material, abs):
 #            Set outside solar absorption for materials in model w/o CFC
 #            constructions(!).
+    from subprocess import run
 
 """
 Module contains model specific functions using ESP-r project manager
@@ -25,17 +26,24 @@ in text mode.
 """
 
 def set_corecon(config, cnn_file, old_coreclass, old_corecon, new_coreclass, new_corecon):
-    """Function changes construction globally for "movable" rooms
+    r"""Function to change construction globally for "movable" rooms.
 
-    arguments:
-    [1] configuration file name without extension
-    [2] connections file name without extension
-    [3] old construction category
-    [4] old construction name
-    [5] new construction category
-    [6] new construction name"""
+    Parameters
+    ----------
+    config : str
+        Configuration file name without extension.
+    cnn_file : str
+        Connections file name without extension.
+    old_core_class : int
+        Old construction category.
+    old_corecon : str
+        Old construction name.
+    new_coreclass : int
+        New construction category.
+    new_corecon : str
+        New construction name.
 
-    from subprocess import run
+    """
 
     print("\n\n\n"
           "-----------------------------------------------\n"
@@ -94,13 +102,19 @@ def set_corecon(config, cnn_file, old_coreclass, old_corecon, new_coreclass, new
 
 
 def set_htc(config, cnn_file, set_unset):
-    """Function sets heat transfer coefficients
+    r"""Function to set heat transfer coefficients.
 
-    arguments:
-    [1] configuration file name without extension
-    [2] connections file name without extension"""
+    Parameters
+    ----------
+    config : str
+        Configuration file name without extension.
+    cnn_file : str
+        Connections file name without extension.
+    set_unset : str
+        Zone convection file selection key (must be last part of to-be-switched zone
+        convection file name).
 
-    from subprocess import run
+    """
 
     print("\n\n\n"
           "------------------------------------------------------------\n"
@@ -154,18 +168,23 @@ def set_htc(config, cnn_file, set_unset):
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
 def set_lam_w6CFC(config, mat_class, mat_entry, lam):
-    """ Set thermal conductivity for specific material in materials
-        database - for model w/ 6 zones featuring CFC constructions(!!).
+    r"""Set thermal conductivity for specific material in materials database - for model
+    w/ six (6) zones featuring CFC constructions(!).
 
-    Arguments:
-     1. configuration file name (with relative path)
-     2. database materials class of interest
-     3. database entry letter for material of interest
-     4. thermal conductivity value to be used in W/(m K)"""
+    Parameters
+    ----------
+    config : str | Path
+        Configuration file name (with relative path!).
+    mat_class : str
+        Database materials class of interest.
+    mat_entry : str
+        Database entry letter for material of interest.
+    lam : str
+        Thermal conductivity value to be used in W/(m K) as string.
 
-    from subprocess import run
+    """
 
-    print("   Setting new conductivity in materials database of" + config + ":")     
+    print("   Setting new conductivity in materials database of" + config + ":")
     print("      New value for material class" + mat_class +
           ", material index ", + mat_entry + " is " + lam + " W/(m K).")
 
@@ -208,17 +227,20 @@ def set_lam_w6CFC(config, mat_class, mat_entry, lam):
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
 def set_lam(config, matclass, material, lam):
-    """ Set thermal conductivity for materials in model w/o CFC
-        constructions(!).
+    """Set thermal conductivity for materials in model w/o CFC constructions(!).
 
-    Arguments:
-     1. configuration file name (with relative path)
-     2. material class
-     3. material
-     4. thermal conductivity (W/(m K)) """
+    Parameters
+    ----------
+    config : str | Path
+        Configuration file name (with relative path).
+    matclass : str
+        Material class in materials database.
+    material : str
+        Material selection letter in materials database.
+    lam : str
+        Thermal conductivity value in (W/(m K)) as string.
 
-#    import os
-    from subprocess import run
+    """
 
     print("\tSetting new thermal conductivity in materials database of " \
                                                           + config + ".")
@@ -227,14 +249,13 @@ def set_lam(config, matclass, material, lam):
 
     # Get number of .geo files that contain 'CFC2' constructions. This
     # corresponds to the number of CFC file changes to be rejected.
-#    cmd='grep -c -w "CFC2" *.geo \
-#             | cut -d ":" -f 2 \
-#             | awk \'{if($1!=0) c+=$1/$1} END{print c+0}\''
+    # cmd='grep -c -w "CFC2" *.geo \
+    #          | cut -d ":" -f 2 \
+    #          | awk \'{if($1!=0) c+=$1/$1} END{print c+0}\''
 
-#    wd=os.getcwd() # must be <modelpath>/cfg <<check?>>
-#
-#    nf = run(cmd, shell=True, cwd=wd, capture_output=True).stdout.strip()
-#    nf = nf.decode('utf-8')
+    # wd=os.getcwd() # must be <modelpath>/cfg <<check?>>
+    # nf = run(cmd, shell=True, cwd=wd, capture_output=True).stdout.strip()
+    # nf = nf.decode('utf-8')
 
     # Setting lam for mat
     args = [
@@ -243,7 +264,7 @@ def set_lam(config, matclass, material, lam):
             "-mode", "text",  # opens file in mode text
             ]
 
-#    cmd1 = bytes("b\n"  # database maintenance
+    # cmd1 = bytes("b\n"  # database maintenance
     cmd = bytes("b\n"  # database maintenance
                 "c\n"  # materials db
                 "a\n"  # browse / edit
@@ -263,23 +284,23 @@ def set_lam(config, matclass, material, lam):
                 "-\n", # quite module
                 encoding="utf-8")
 
-#    cmd2 = bytes("b\n",  # zone.cfc? => continue
-#                 encoding="utf-8")
-#
-#    s = ''
-#    for i in range(int(nf)):
-#        s += cmd2.decode('utf-8')
-#
-#    cmd2 = s.encode('utf-8')
+    # cmd2 = bytes("b\n",  # zone.cfc? => continue
+    #              encoding="utf-8")
+    #
+    # s = ''
+    # for i in range(int(nf)):
+    #     s += cmd2.decode('utf-8')
+    #
+    # cmd2 = s.encode('utf-8')
 
-#    cmd3 = bytes("-\n", # exit prj
-#                encoding="utf-8")
+    # cmd3 = bytes("-\n", # exit prj
+    #             encoding="utf-8")
 
-#    cmd = cmd1.decode('utf-8')   \
-#          + cmd2.decode('utf-8') \
-#          + cmd3.decode('utf-8') \
-#
-#    cmd = cmd.encode('utf-8')
+    # cmd = cmd1.decode('utf-8')   \
+    #       + cmd2.decode('utf-8') \
+    #       + cmd3.decode('utf-8') \
+    #
+    # cmd = cmd.encode('utf-8')
 
     # Create scratch file.
     f = open(config + "_set_" + matclass + "_" + material + "_" \
@@ -290,16 +311,20 @@ def set_lam(config, matclass, material, lam):
 
 
 def set_abs_o(config, matclass, material, abs):
-    """ Set outside solar absorption for materials in model w/o CFC
-        constructions(!).
+    """Set outside solar absorption for materials in model w/o CFC constructions(!).
 
-    Arguments:
-     1. configuration file name (with relative path)
-     2. material class
-     3. material
-     4. solar absorption outside (-) """
+    Parameters
+    ----------
+    config : str | Path
+        Configuration file name (with relative path).
+    matclass : str
+        Material class key in materials database.
+    material : str
+        Material key in materials database.
+    abs : str
+        Solar absorption outside value (-) as string.
 
-    from subprocess import run
+    """
 
     print("\tSetting new outside solar absorption in materials database of " \
                                                           + config + ".")

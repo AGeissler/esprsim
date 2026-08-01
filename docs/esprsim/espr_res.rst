@@ -3,7 +3,8 @@
 Res
 ===
 
-This module contains ...
+This module contains functions for simulation results extraction and
+evaluation.
 
 .. currentmodule:: esprsim
 

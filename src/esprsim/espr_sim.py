@@ -25,6 +25,10 @@
 #            Switch a construction ...
 # 609: def set_ctl_temp_setpt()
 #            Set setpoint temperature for building domain control.
+import os
+import shutil
+import glob
+from subprocess import run
 
 """
 Module contains functions for ESP-r scripts and auxiliary functions for
@@ -32,13 +36,16 @@ batch running of simulations.
 """
 
 def qa_report(config, variant):
-    """Create QA report.
+    r"""Create QA report.
 
-    arguments:
-    [1] configuration file name without extension
-    [2] variant name (ctl, con, mat)"""
+    Parameters
+    ----------
+    config : str | Path
+        Configuration file name without extension.
+    variant : str
+        Variant name (ctl, con, mat)
 
-    from subprocess import run
+    """
 
     print("\tQA report         : " + variant + ".contents")
 
@@ -73,9 +80,21 @@ def qa_report(config, variant):
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
 
-""" ============================================
-    Auxiliary functions for simulation domain management """
 def list_dms(dms, variant):
+    r"""List results file names of model domains for console reporting.
+
+    Parameters
+    ----------
+    dms : int
+        Mode key for domains in model.
+    variant : str
+        Simulation variant to be reported on.
+
+    Returns
+    -------
+    String containing results file names for simulation model domains.
+
+    """
     switcher = {
         1: "\tbuilding results  : " + variant + ".res",
         2: "\tbuilding results  : " + variant + ".res\n" +
@@ -89,6 +108,20 @@ def list_dms(dms, variant):
     return switcher.get(dms, "Error in dms")
 
 def rf_dms(dms, variant):
+    r"""Return results file names for simulation domains.
+
+    Parameters
+    ----------
+    dms : int
+        Mode key for domains in model.
+    variant: str
+        Simulation variant for which results file names are returned.
+
+    Returns
+    -------
+    Byte-encoded string with results file names for simulation model domains.
+
+    """
     switcher = {
     1: bytes("" + variant + ".res\n",  # zone results library name
              encoding= 'utf-8' ),
@@ -105,7 +138,20 @@ def rf_dms(dms, variant):
     }
     return switcher.get(dms, "Error in dms - rf")
 
+
 def ts_dms(dms, BTSTEP, PTSTEP):
+    r"""Return time step values for simulation domains.
+
+    Parameters
+    ----------
+    dms : int
+        Mode key for domains in model.
+    BTSTEP : int
+        Number of time-steps per hour for building domain.
+    PTSTEP : int
+        Number of time-steps per building time-step for plant domain.
+
+    """
     switcher = {
     1: bytes("" + str(BTSTEP) + "\n",  # building time-steps (per hour)
              encoding= 'utf-8' ),
@@ -119,33 +165,36 @@ def ts_dms(dms, BTSTEP, PTSTEP):
              encoding= 'utf-8' ),
     }
     return switcher.get(dms, "Error in dms - ts")
-""" End auxiliary functions 
-    ============================================= """    
 
 
 def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
-    """Function runs simulation for model with dms domains involved.
+    r"""Function to run simulation for model with 'dms' domains involved based on
+    configuration file 'config'.
 
-    Required output files depending on simulation mode.
+    Parameters
+    ----------
+    dms : int
+        Mode key for domains in model.
+    config : str
+        Configuration file name without extension.
+    variant : str
+        Simulation variant name.
+    
+    [4]      number of days for start-up period duration
+    [5]      building simulation time steps per hour
+    [6]      plant time steps per building time step
+    [7 to 10] start- and end dates for simulation period via dict
+
+    Notes
+    -----
+    Required output files depend on simulation mode.
     1 building only, .res
     2 building and afn, .res, .mfr
     3 building and plant, .res, .plr
     4 building, afn and plant, .res, .plr, .mfr
     ... (eln, ??)
 
-    Arguments:
-    [1]      key for domains in model
-    [2]      configuration file name without extension
-    [3]      variant name (ctl, con, mat)
-    [4]      number of days for start-up period duration
-    [5]      building simulation time steps per hour
-    [6]      plant time steps per building time step
-    [7 to 10] start- and end dates for simulation period via dict
     """
-
-    from subprocess import run
-    import glob
-    import shutil
 
     print("\tRun bps with      : " + config + ".cfg")
     print(list_dms(dms,variant))
@@ -201,29 +250,33 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
     
     cmd = cmd.encode('utf-8')
 
-    f = open(variant + "_bps.scratch", "w")  # creates scratch file
+    f = open(variant + "_bps.scratch", "w")  # create scratch file
 
-    run(args, input=cmd, stdout=f)  # runs bps (args), executes commands (cmd), writes scratch file (f)
+    # run bps (args), execute commands (cmd), write scratch file (f)
+    run(args, input=cmd, stdout=f)
 
     # Postprocessing
     for line in open(variant + "_bps.scratch"):
         if "CPU time:" in line:
             print("\n\t" + line)
-#        if "XML postprocessor cpu runtime" in line:
-#            print(line)
+            # if "XML postprocessor cpu runtime" in line:
+            #     print(line)
 
     for file in glob.glob("../tmp/" + variant + ".*"):
         shutil.move(file, './')
 
 
 def set_ctl(config, ctl_file):
-    """Function sets control file in .cfg of model.
+    r"""Function to set control file in .cfg of model.
 
-    arguments:
-    [1] configuration file name without extension
-    [2] control file name without extension"""
+    Parameters
+    ----------
+    config : str
+        Configuration file name without extension.
+    ctl_file : str
+        Control file name without extension.
 
-    from subprocess import run
+    """
 
     print("\tSet control file  : " + ctl_file + ".ctl")
 
@@ -252,15 +305,17 @@ def set_ctl(config, ctl_file):
 
 
 def set_clm(config, clm_file):
-    """Function sets climate file
-    
-    Arguments:
-    [1] configuration file name without extension
-    [2] full climate file name """
-    
-    import os
-    from subprocess import run
-    
+    r"""Function to set climate file in .cfg of model.
+
+    Parameters
+    ----------
+    config : str
+        Configuration file name without extension.
+    clm_file : str
+        Climate file name *including* extension
+
+    """
+
     print("\tSet clm file      : " + clm_file)
     
     # Setting SPM-file
@@ -304,13 +359,18 @@ def set_clm(config, clm_file):
 
 
 def set_mgp(config, clm_file, gtp):
-    """Function sets ground temperatures according to climate file.
-    
-    Arguments:
-    [1] configuration file name without extension
-    [2] dict with the following structure (the string *may not*(!)
-        begin with whitespace!)
-    
+    r"""Function to set ground temperatures according to climate file.
+
+    Parameters
+    ----------
+    config : str
+        Configuration file name without extension.
+    clm_file : str
+        Name of climate file, must be available as key in gtp.
+    gtp : Nested dict
+        Nested dict of available ground temperature profiles for climate 'clm_file' with
+        the following structure (the string keys *may not*(!) begin with whitespace!).
+
     GTP = {'clm_file' : { 1 : {'JanJun' : "0.47  -1.09  -0.77   0.52   4.75   8.58",
                                'JulDez' : "11.64  13.28  12.93  10.78   7.29   3.59"},
                           2 : {'JanJun' : "3.12   1.53   1.18   1.66   4.06   6.64",
@@ -318,10 +378,12 @@ def set_mgp(config, clm_file, gtp):
            ... }
     }
 
-    Call:
-       set_mgp(var, clm, GTP[clm]) """
+    Notes
+    -----
+    Example usage.
+       set_mgp(var, clm, GTP[clm])
 
-    from subprocess import run
+    """
 
     print("\tSet ground temperature profiles to values corresponding to climate file "\
            + clm_file)
@@ -371,14 +433,18 @@ def set_mgp(config, clm_file, gtp):
 
 
 def set_spm(config, cnn_file, spm_file):
-    """Function sets special material
+    r"""Function to set special materials file.
 
-    Arguments:
-    [1] configuration file name without extension
-    [2] connections file name without extension
-    [3] special materials file name without extension"""
+    Parameters
+    ----------
+    config : str
+        Configuration file name without extension.
+    cnn_file : str
+        Connections file name without extension.
+    spm_file : str
+        Special materials file name without extension.
 
-    from subprocess import run
+    """
 
     print("\tSet spm file      : " + spm_file + ".spm")
 
@@ -409,13 +475,16 @@ def set_spm(config, cnn_file, spm_file):
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
 def set_afn(config, afn_file):
-    """Function sets air flow network file.
+    r"""Function to set air flow network file.
 
-    Arguments:
-    [1] configuration file name without extension
-    [2] air flow network file name without extension"""
+    Parameters
+    ----------
+    config : str
+        Configuration file name without extension.
+    afn_file : str
+        Air flow network file name without extension.
 
-    from subprocess import run
+    """
 
     print("\tSet afn file      : " + afn_file + ".afn")
 
@@ -447,15 +516,21 @@ def set_afn(config, afn_file):
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
 def set_plant(config, plant, plant_db):
-    """ Script changes plant network file in .cfg.
-    
-    Arguments:
-    1. configuration root file name
-    2. plant root file name
-    3. plant component database used (with path)"""
+    r""" Script to change plant network file in .cfg.
 
-#[ ! -f ../nets/${PLANT}.pln ] && echo " ** ERROR ** Plant file inexistant!"
-#[ ! -f ${PLANTDB} ] && echo " ** ERROR ** Plantdb inexistant!"
+    Parameters
+    ----------
+    config : str
+        Configuration file name w/o extension.
+    plant : str
+        Plant file name w/o extension.
+    plant_db : str | Path
+        Plant component database used (with path).
+
+    """
+
+    #[ ! -f ../nets/${PLANT}.pln ] && echo " ** ERROR ** Plant file inexistant!"
+    #[ ! -f ${PLANTDB} ] && echo " ** ERROR ** Plantdb inexistant!"
 
     print("   In " + config + ", setting plant file to: " + plant + "... ")
 
@@ -483,21 +558,29 @@ def set_plant(config, plant, plant_db):
 
     f = open(config + "_set_" + plant + ".scratch", "w")  # creates scratch file
 
-    run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
+    # run prj (args), execute commands (cmd), write scratch file (f)
+    run(args, input=cmd, stdout=f)
 
 
 def set_obs_dim(config, zone, obs, width, depth, height):
-    """ Set obstruction dimensions.
+    r"""Set obstruction dimensions.
 
-    Arguments:
-     1. configuration file name (with relative path)
-     2. zone
-     3. obstruction entry
-     4. width
-     5. depth
-     6. height """
+    Parameters
+    ----------
+    config : str
+        Configuration file name (with relative path)
+    zone : str (tbc)
+        Zone name.
+    obs : int (tbc)
+        Obstruction entry
+    width : str
+        Width of obstruction as string.
+    depth : str
+        Depth of obstruction as string.
+    height : str
+        Height of obstruction as string.
 
-    from subprocess import run
+    """
 
     print("\tSet obstruction dimension in zone " + zone + ".")
     print("\t\tObstruction" + obs + ", width, depth, height is " \
@@ -535,26 +618,33 @@ def set_obs_dim(config, zone, obs, width, depth, height):
 
 
 def set_con(config, cnn_file, old_con_str, old_class, old_con, new_class, new_con):
-    """Function changes construction globally for model zones.
+    r"""Function to change construction globally for all model zones.
 
-    Arguments:
-    [1] configuration file name without extension
-    [2] connections file name without extension
-    [3] old construction name (string)
-    [4] old construction category (letter)
-    [5] old construction entry (letter)
-    [6] new construction category (letter)
-    [7] new construction entry (letter) """
+    Parameters
+    ----------
+    config : str
+        Configuration file name without extension.
+    cnn_file : str
+        Connections file name without extension.
+    old_con_str : str
+        Old construction name.
+    old_class : str
+        Old construction category, single character.
+    old_con : str
+        Old construction entry, single character.
+    new_class : str
+        New construction category, single character.
+    new_con : str
+        New construction entry, single character.
 
-    import os
-    from subprocess import run
+    """
 
     print("\n\tChange construction \"" + old_con_str + "\" in model " + config + ".cfg globally,")
     print("\t\tsearch for " + old_class + " / " + old_con)
     print("\t\treplace by " + new_class + " / " + new_con + " ... ", end='')
 
-# Get number of .geo lines that contain construction "old_con_str"
-# which corresponds to the number of changes to be accepted.
+    # Get number of .geo lines that contain construction "old_con_str"
+    # which corresponds to the number of changes to be accepted.
     cmd='grep -c -w "' + old_con_str + '" ../zones/*.geo \
              | cut -d ":" -f 2 \
              | awk \'{c+=$1} END{print c+0}\''
@@ -615,18 +705,23 @@ def set_con(config, cnn_file, old_con_str, old_class, old_con, new_class, new_co
 
 
 def set_ctl_temp_setpt(config, ctl_file, loop, h_setpoint, c_setpoint='99'):
-    """Function changes the setpoint temperature for building control.
-    
-    Arguments:
-    [1] configuration file name without extension
-    [2] control file name w/o extension
-    [3] loop to be edited (?)
-    [4] heating setpoint (number)
-    [5] cooling setpoint (number)
-    
+    """Function to change the setpoint temperature for building control.
+
+    Parameters
+    ----------
+    config : str
+         Configuration file name without extension.
+    ctl_file : str
+        Control file name w/o extension.
+    loop : int
+        Loop number to be edited (?)
+    h_setpoint : str
+        Heating setpoint temperature value as string
+    c_setpoint : str (optional, default: '99')
+        Cooling setpoint temperature value as string
+
     """
-    from subprocess import run
-    
+
     print("\n\tSetting new temperature setpoints in " + config + ".cfg for")
     print("\t\theating to " + h_setpoint + " degC and for")
     print("\t\tcooling to " + c_setpoint + " degC")
@@ -670,43 +765,72 @@ def set_ctl_temp_setpt(config, ctl_file, loop, h_setpoint, c_setpoint='99'):
     run(args, input=cmd, stdout=f)
 
 
-##############################################
-### A u x i l i a r y    f u n c t i o n s.
-##############################################
+def list_of_files(path, ext):
+    r"""Create list of files in 'path' with extension 'ext'.
 
-def list_of_files(path,ext):
-    import os
-    
+    Parameters
+    ----------
+    path : str | Path
+        Path to search for files with 'ext'.
+    ext : str
+        Extension to search for
+
+    Returns
+    -------
+    List of files in 'path' with extension 'ext'.
+
+    """
+
     file_list=''
     for f in os.listdir(path):
         if os.path.isfile(os.path.join(path, f)) and f.endswith(ext):
             file_list = file_list + ' ' + path + '/' + f
     return (file_list)
 
-# Remove old results and contents files from the cfg-directory to
-# avoid conflicts with "espr_sim.qa-report" and espr_sim.simulate"
-# or to avoid disc space issues for runs with many variants ('RUNCLEAN').
-def remove_results(variant, mode):
-    import os
 
-    if os.path.exists("./" + variant + ".res"):
-                  os.remove("./" + variant + ".res")
-    if os.path.exists("./" + variant + ".mfr"):
-                  os.remove("./" + variant + ".mfr")
-    if os.path.exists("./" + variant + ".plr"):
-                  os.remove("./" + variant + ".plr")
+def remove_results(variant, run_clean=True):
+    r"""Remove old results and/or contents files from the cfg-directory to avoid
+    conflicts with "espr_sim.qa_report()" and "espr_sim.simulate()" or to avoid disc
+    space issues for runs with many variants.
 
-    if mode == 'RUNCLEAN' is False:
+    Parameters
+    ----------
+    variant : str
+        Simulation variant of interest
+    mode : str
+        Toggle for 'clean-up' mode, i.e. removal of 
+
+    """
+
+    if run_clean:
+        if os.path.exists("./" + variant + ".res"):
+                      os.remove("./" + variant + ".res")
+        if os.path.exists("./" + variant + ".mfr"):
+                      os.remove("./" + variant + ".mfr")
+        if os.path.exists("./" + variant + ".plr"):
+                      os.remove("./" + variant + ".plr")
+        if os.path.exists("./" + variant + ".contents"):
+            os.remove("./" + variant + ".contents")
+
+    if run_clean is False:
+        # No space issue, only avoid qa_report issues.
         if os.path.exists("./" + variant + ".contents"):
             os.remove("./" + variant + ".contents")
 
 
-# Rename H3K-output.csv to <variant>.csv, create subdirectories for
-# current simulation set and move all corresponding files there.
-# Also, do some cleanup.
 def move_files(mode, variant):
-    import os
-    import shutil
+    r"""Rename H3K-output.csv to <variant>.csv, create subdirectories for
+    current simulation set and move all corresponding files there.
+    Also, do some cleanup.
+
+    Parameters
+    ----------
+    mode : int
+        Mode toggle for which files are to be moved.
+    variant : str
+        Simulation variant to be addressed.
+
+    """
 
     if (mode == 1) is True:
         if os.path.isdir("./" + variant) is True:
@@ -751,12 +875,15 @@ def move_files(mode, variant):
 #    if os.path.exists("./out.dictionary"):
 #        shutil.move("./out.dictionary", "./" + variant)
 
-# Rename H3K-output.csv to <variant>.csv, create subdirectories for
-# current simulation set and move all corresponding files there.
-# Also, do some cleanup.
 def move_clm_files(clm):
-    import os
-    import shutil
+    r"""Move climate file to subdirectory named 'clm_eval'.
+
+    Parameters
+    ----------
+    clm : str | Path
+        Climate file to be moved.
+
+    """
 
     clmpath='./' + clm + '_eval'
 
