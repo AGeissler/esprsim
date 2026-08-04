@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <apply_style_sheet>false</apply_style_sheet>
+  <dump_all_data>false</dump_all_data>
+  <hierarchy>tree</hierarchy>
+  <link_style_sheet>false</link_style_sheet>
+  <output_dictionary>true</output_dictionary>
+  <report_startup_period_data>false</report_startup_period_data>
+  <use_resfilenameroot>true</use_resfilenameroot>
+  <use_zonenames>true</use_zonenames>
+  <use_surfacenames>true</use_surfacenames>
+  <output_geomdat>true</output_geomdat>
+  <save_to_disk>false</save_to_disk>
+  <time_step_averaging>false</time_step_averaging>
+  <!--Allow regexp-like wildcard matching for list of output variables-->
+  <enable_xml_wildcards>true</enable_xml_wildcards>
+  <!--List of data to appear in summary.xml-->
+  <summary_variable>building/*/*/area</summary_variable>
+  <summary_variable>building/*/*/*/density</summary_variable>
+  <summary_variable>building/*/*/*/thickness</summary_variable>
+  <!--List of data to appear in out.xml-->
+  <log_variable>electrical_net/grid/export</log_variable>
+  <log_variable>electrical_net/grid/import</log_variable>
+  <log_variable>electrical_net/grid/net_balance</log_variable>
+  <log_variable>total_fuel_use/electricity/all_end_uses/energy_content</log_variable>
+  <log_variable>total_fuel_use/electricity/all_end_uses/quantity</log_variable>
+  <log_variable>total_fuel_use/electricity/space_heating/quantity</log_variable>
+  <log_variable>total_fuel_use/electricity/uncatagorized/quantity</log_variable>
+  <log_variable>total_fuel_use/electricity/water_heating/quantity</log_variable>
+  <!--List of data to appear in out.csv-->
+  <!-- building -->
+  <step_variable>building/day_number/present</step_variable>
+  <step_variable>building/time/present</step_variable>
+  <step_variable>building/time_step</step_variable>
+  <step_variable>building/*/air_point/temperature</step_variable>
+  <step_variable>building/Z00_PVT_*/Top-5/ext_surf_temperature</step_variable>
+  <step_variable>building/Z00_PVT_*/Top-5/node_04/temperature</step_variable>
+  <step_variable>building/Z20_PVT_*/Top-5/ext_surf_temperature</step_variable>
+  <step_variable>building/Z20_PVT_*/Top-5/node_04/temperature</step_variable>
+  <step_variable>building/Z40_PVT_*/Top-5/ext_surf_temperature</step_variable>
+  <step_variable>building/Z40_PVT_*/Top-5/node_04/temperature</step_variable>  <!-- special materials -->
+  <step_variable>building/spmatl/Z00_W1/misc_data/total_incident_irradiance/unit_area</step_variable>
+  <step_variable>building/spmatl/Z00_W1/misc_data/total_incident_irradiance/total</step_variable>
+  <step_variable>building/spmatl/Z20_W1/misc_data/total_incident_irradiance/unit_area</step_variable>
+  <step_variable>building/spmatl/Z20_W1/misc_data/total_incident_irradiance/total</step_variable>
+  <step_variable>building/spmatl/Z40_W1/misc_data/total_incident_irradiance/unit_area</step_variable>
+  <step_variable>building/spmatl/Z40_W1/misc_data/total_incident_irradiance/total</step_variable>
+  <step_variable>building/spmatl/*/misc_data/pv_power</step_variable>
+  <step_variable>building/spmatl/*/misc_data/efficiency</step_variable>
+  <!-- mass flow -->
+  <step_variable>mfn/air/*/volflowrate</step_variable>
+  <step_variable>mfn/air/*->Ext_N_via_Zxx3_out/flow</step_variable>,
+  <step_variable>mfn/air/*->Ext_S_via_Zxx3_out/flow</step_variable>,
+  <step_variable>mfn/air/Z?0_PVT_?2->Z?0_PVT_?3_via*/Dp</step_variable>
+  <step_variable>mfn/air/Z?0_PVT_?2->Z?0_PVT_?3_via*/flow</step_variable>
+  <step_variable>mfn/air/Z?0_PVT_?2->Z?0_PVT_?3_via*/veloc</step_variable>
+  <!-- plant -->
+  <!-- electrical -->
+  <!-- climate -->
+  <step_variable>climate/cloud_cover</step_variable>
+  <step_variable>climate/dry_bulb_temperature</step_variable>
+  <step_variable>climate/relative_humidity</step_variable>
+  <step_variable>climate/sky_temperature</step_variable>
+  <step_variable>climate/sky_temperature_depression</step_variable>
+  <step_variable>climate/solar/diffuse_horizontal_radiation</step_variable>
+  <step_variable>climate/solar/direct_normal_radiation</step_variable>
+  <step_variable>climate/wind/direction</step_variable>
+  <step_variable>climate/wind/velocity</step_variable>
+</configuration>

@@ -1,0 +1,524 @@
+*CONSTRUCTIONS,1.0 # multilayer constructions
+*Text
+A V1 format constructions file imported from a legacy file and
+based on material.db4.a and CFClayers db CFClayers.db1.a
+Tags are:
+- *Category ... *End_category markers for category
+- *Category  short name, menu entry, documentation
+- *item ... *end_item  markers for construction start & end
+- *item  short name (32 char), menu entry (32 char)
+- *itemdoc documentation (248 char)
+- *incat category short name
+- *type ... OPAQ/TRAN, optical name, SYMMETRIC/NONSYMMETRIC/linked mlc name
+- *layer layer data... mat ref, thickness,mat name: mat description
+- *Text ... *End_text  markers for database documentation
+*End_text
+*date,Tue Mar  5 20:54:47 2019
+*Category,walls,opaque facade constructions,opaque facades representing different ages & performance
+*Category,partitions,internal partitions,partitions between zones (some have matching mirror versions)
+*Category,doors,inside and outside doors,doors of different ages types and performance characteristics
+*Category,glazing,glazing (transparent construc),transparent constructions (using TMC optical properties)
+*Category,frames,frames for doors & windows,frames of various types for use with windows and doors
+*Category,roofs,flat and sloped roofs,roof constructions various ages & performances & orientations
+*Category,ceil_floor,internal ceilings and floors,internal ceilings and floors (& matched mirror constructions)
+*Category,ground,ground floors & crawl-spaces,floors & earth - crawl spaces & ground contact floors & walls
+*Category,fittings,equipment cases furniture etc.,collection of cases for equipment and furnature or fittings
+*Category,legacy,legacy constructions & models,collection of legacy constructions for training & validation
+*Category,UK_code,constructions for UK compliance,collection of constructions taken from UK SBEM
+*Category,project,constructions unique for project,collection of constructions for this project
+#
+*item,extern_wall,extern_wall # tag name menu entry
+*itemdoc,extern_wall  is a ...
+*incat,walls
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,6,0.1000,Lt brown brick : Light brown brick
+*layer,211,0.0750,glasswool : Glasswool (generic)
+*layer,0,0.0500,gap  0.170 0.170 0.170
+*layer,2,0.1000,breeze block : Breeze block
+*end_item
+*item,insul_mtl_p,insul_mtl_p # tag name menu entry
+*itemdoc,insul_mtl_p  is a ...
+*incat,walls
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,46,0.0040,grey cotd alum : Grey coated aluminium
+*layer,281,0.0800,glass fibre quilt : Glass Fibre Quilt
+*layer,47,0.0040,wt cotd alum : White coated aluminium
+*end_item
+*item,intern_wall,intern_wall # tag name menu entry
+*itemdoc,intern_wall  is a ...
+*incat,partitions
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,103,0.0120,perlite plasterboard : Perlite plasterboard
+*layer,2,0.1500,breeze block : Breeze block
+*layer,103,0.0120,perlite plasterboard : Perlite plasterboard
+*end_item
+*item,partition,partition # tag name menu entry
+*itemdoc,partition    is a ...
+*incat,partitions
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,104,0.0130,gypsum plaster : Gypsum based plaster
+*layer,0,0.0500,gap  0.170 0.170 0.170
+*layer,28,0.1000,block inner : Block inner (3% mc)
+*layer,0,0.0500,gap  0.170 0.170 0.170
+*layer,104,0.0130,gypsum plaster : Gypsum based plaster
+*end_item
+*item,door,door # tag name menu entry
+*itemdoc,door         is a ...
+*incat,doors
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,69,0.0250,oak : Oak (radial cut)
+*end_item
+*item,int_doors,int_doors # tag name menu entry
+*itemdoc,int_doors    is a ...
+*incat,doors
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,69,0.0250,oak : Oak (radial cut)
+*end_item
+*item,mass_part,mass_part # tag name menu entry
+*itemdoc,mass_part    is a ...
+*incat,partitions
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,35,0.2400,block white ptd : block white painted inner (3% mc)
+*end_item
+*item,int_part,int_part # tag name menu entry
+*itemdoc,int_part     is a ...
+*incat,partitions
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,108,0.0120,white gypboard : White painted Gypboard
+*layer,0,0.0500,gap  0.170 0.170 0.170
+*layer,108,0.0120,white gypboard : White painted Gypboard
+*end_item
+*item,d_glz,d_glz # tag name menu entry
+*itemdoc,d_glz        is a ...
+*incat,glazing
+*type,TRAN,DCF7671_06nb,SYMMETRIC
+*layer,242,0.0060,plate glass : Plate glass with placeholder single layer optics
+*layer,0,0.0120,gap  0.170 0.170 0.170
+*layer,242,0.0060,plate glass : Plate glass with placeholder single layer optics
+*end_item
+*item,dbl_glz,dbl_glz # tag name menu entry
+*itemdoc,dbl_glz      is a ...
+*incat,glazing
+*type,TRAN,DCF7671_06nb,SYMMETRIC
+*layer,242,0.0060,plate glass : Plate glass with placeholder single layer optics
+*layer,0,0.0120,gap  0.170 0.170 0.170
+*layer,242,0.0060,plate glass : Plate glass with placeholder single layer optics
+*end_item
+*item,insul_frame,insul_frame # tag name menu entry
+*itemdoc,insul_frame  is a ...
+*incat,frames
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,46,0.0040,grey cotd alum : Grey coated aluminium
+*layer,281,0.0800,glass fibre quilt : Glass Fibre Quilt
+*layer,46,0.0040,grey cotd alum : Grey coated aluminium
+*end_item
+*item,roof_1,roof_1 # tag name menu entry
+*itemdoc,roof_1       is a ...
+*incat,roofs
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,162,0.0120,roofing felt : Roofing felt
+*layer,21,0.0500,light mix concrete : Light mix concrete
+*layer,0,0.0500,gap  0.170 0.170 0.170
+*layer,151,0.0080,ceiling (plaster) : Ceiling (plaster)
+*end_item
+*item,roof,roof # tag name menu entry
+*itemdoc,roof         is a ...
+*incat,roofs
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,43,0.0030,aluminium : Aluminium
+*layer,0,0.0250,gap  0.170 0.170 0.170
+*layer,281,0.0800,glass fibre quilt : Glass Fibre Quilt
+*layer,43,0.0030,aluminium : Aluminium
+*end_item
+*item,roof_2,roof_2 # tag name menu entry
+*itemdoc,roof_2       is a ...
+*incat,roofs
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,141,0.0150,clay tile : Clay tile
+*layer,162,0.0050,roofing felt : Roofing felt
+*layer,72,0.0120,plywood 700d : Plywood (700 density)
+*end_item
+*item,Douala_roof,Douala_roof # tag name menu entry
+*itemdoc,no documentation yet for Douala_roof
+*incat,roofs
+*type,OPAQ,OPAQUE,Douala_roof_inv
+*layer,211,0.1400,glasswool : Glasswool (generic) (non-hygroscopic)
+*layer,111,0.0095,Plasterboard (ceiling) : Plasterboard Gypsum ceiling (UK code)
+*end_item
+*item,Douala_roof_inv,Douala_roof_inv # tag name menu entry
+*itemdoc,no documentation yet for Douala_roof
+*incat,roofs
+*type,OPAQ,OPAQUE,Douala_roof
+*layer,111,0.0095,Plasterboard (ceiling) : Plasterboard Gypsum ceiling (UK code)
+*layer,211,0.1400,glasswool : Glasswool (generic) (non-hygroscopic)
+*end_item
+*item,grnd_floor,grnd_floor # tag name menu entry
+*itemdoc,grnd_floor   is a ...
+*incat,ceil_floor
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,263,0.2000,earth std : Common_earth
+*layer,263,0.2000,earth std : Common_earth
+*layer,263,0.2000,earth std : Common_earth
+*layer,262,0.1500,gravel based : Gravel based
+*layer,32,0.1500,heavy mix concrete : Heavy mix concrete
+*layer,0,0.0500,gap  0.170 0.170 0.170
+*layer,67,0.0190,chipboard : Chipboard
+*layer,221,0.0060,Wilton : Wilton weave wool carpet
+*end_item
+*item,floor_1,floor_1 # tag name menu entry
+*itemdoc,floor_1      is a ...
+*incat,ceil_floor
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,263,0.2000,earth std : Common_earth
+*layer,263,0.2000,earth std : Common_earth
+*layer,263,0.2000,earth std : Common_earth
+*layer,263,0.2000,earth std : Common_earth
+*layer,263,0.2000,earth std : Common_earth
+*layer,82,0.1000,red granite : Red granite
+*layer,32,0.0500,heavy mix concrete : Heavy mix concrete
+*layer,124,0.0500,cement screed : Cement screed
+*end_item
+*item,entry_floor,entry_floor # tag name menu entry
+*itemdoc,entry_floor  is a ...
+*incat,ceil_floor
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,263,0.2500,earth std : Common_earth
+*layer,262,0.1500,gravel based : Gravel based
+*layer,32,0.1500,heavy mix concrete : Heavy mix concrete
+*layer,83,0.0240,white marble : White marble
+*end_item
+*item,susp_ceil,susp_ceil # tag name menu entry
+*itemdoc,susp_ceil    is a ...
+*incat,ceil_floor
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,104,0.0130,gypsum plaster : Gypsum based plaster
+*end_item
+*item,susp_floor,susp_floor # tag name menu entry
+*itemdoc,susp_floor   is a ...
+*incat,ceil_floor
+*type,OPAQ,OPAQUE,susp_flr_re
+*layer,221,0.0060,Wilton : Wilton weave wool carpet
+*layer,67,0.0190,chipboard : Chipboard
+*layer,0,0.0500,gap  0.170 0.170 0.170
+*layer,32,0.1400,heavy mix concrete : Heavy mix concrete
+*layer,42,0.0040,steel : Steel
+*end_item
+*item,susp_flr_re,susp_flr_re # tag name menu entry
+*itemdoc,susp_flr_re  is a ...
+*incat,ceil_floor
+*type,OPAQ,OPAQUE,susp_floor
+*layer,42,0.0040,steel : Steel
+*layer,32,0.1400,heavy mix concrete : Heavy mix concrete
+*layer,0,0.0500,gap  0.170 0.170 0.170
+*layer,67,0.0190,chipboard : Chipboard
+*layer,221,0.0060,Wilton : Wilton weave wool carpet
+*end_item
+*item,ceiling,ceiling # tag name menu entry
+*itemdoc,ceiling      is a ...
+*incat,ceil_floor
+*type,OPAQ,OPAQUE,ceiling_rev
+*layer,211,0.1000,glasswool : Glasswool (generic)
+*layer,150,0.0100,ceiling mineral : Ceiling acoustic tile (mineral fibre based)
+*end_item
+*item,ceiling_rev,ceiling_rev # tag name menu entry
+*itemdoc,ceiling_rev  is a ...
+*incat,ceil_floor
+*type,OPAQ,OPAQUE,ceiling
+*layer,150,0.0100,ceiling mineral : Ceiling acoustic tile (mineral fibre based)
+*layer,211,0.1000,glasswool : Glasswool (generic)
+*end_item
+*item,gyp_blk_ptn,gyp_blk_ptn # tag name menu entry
+*itemdoc,gyp_blk_ptn  is a ...
+*incat,partitions
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,108,0.0130,white gypboard : White painted Gypboard
+*layer,0,0.0500,gap  0.170 0.170 0.170
+*layer,28,0.1000,block inner : Block inner (3% mc)
+*layer,0,0.0500,gap  0.170 0.170 0.170
+*layer,108,0.0130,white gypboard : White painted Gypboard
+*end_item
+*item,gyp_gyp_ptn,gyp_gyp_ptn # tag name menu entry
+*itemdoc,gyp_gyp_ptn  is a ...
+*incat,partitions
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,108,0.0120,white gypboard : White painted Gypboard
+*layer,0,0.0500,gap  0.170 0.170 0.170
+*layer,108,0.0120,white gypboard : White painted Gypboard
+*end_item
+*item,switched_gl,switched_gl # tag name menu entry
+*itemdoc,switched_gl  is a ...
+*incat,glazing
+*type,TRAN,DCF7671_6omb,SYMMETRIC
+*layer,243,0.0060,clear float : 4mm clear float glass with optics from UK national method
+*layer,0,0.0100,gap  0.170 0.170 0.170
+*layer,45,0.0030,white ptd steel : White painted steel
+*layer,0,0.0100,gap  0.170 0.170 0.170
+*layer,243,0.0060,clear float : 4mm clear float glass with optics from UK national method
+*end_item
+*item,fictitious,fictitious # tag name menu entry
+*itemdoc,fictitious   is a ...
+*incat,partitions
+*type,TRAN,SC_fictit,SYMMETRIC
+*layer,245,0.0040,fict : fictitious material (almost not there) with matching single laye
+*end_item
+*item,pa_fl_notion,pa_fl_notion # tag name menu entry
+*itemdoc,pa_fl_notion is a ...
+*incat,legacy
+*type,OPAQ,OPAQUE,inv_pa_fl_no
+*layer,155,0.0150,Ceiling tile : Ceiling tiles
+*layer,0,0.4000,gap  0.180 0.180 0.180
+*layer,38,0.1500,concrete 150mm : Concrete high density 150mm (UK code)
+*layer,129,0.0500,Screed 50mm : Flooring screed 50mm (UK code)
+*end_item
+*item,inv_pa_fl_no,inv_pa_fl_no # tag name menu entry
+*itemdoc,inv_pa_fl_no is a ...
+*incat,legacy
+*type,OPAQ,OPAQUE,pa_fl_notion
+*layer,129,0.0500,Screed 50mm : Flooring screed 50mm (UK code)
+*layer,38,0.1500,concrete 150mm : Concrete high density 150mm (UK code)
+*layer,0,0.4000,gap  0.180 0.180 0.180
+*layer,155,0.0150,Ceiling tile : Ceiling tiles
+*end_item
+*item,Sol_grnd_not,Sol_grnd_not # tag name menu entry
+*itemdoc,Sol_grnd_not is a ...
+*incat,legacy
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,268,0.1500,Clay underfloor 750 mm : Clay underfloor default 750 mm
+*layer,268,0.2000,Clay underfloor 750 mm : Clay underfloor default 750 mm
+*layer,268,0.2000,Clay underfloor 750 mm : Clay underfloor default 750 mm
+*layer,268,0.2000,Clay underfloor 750 mm : Clay underfloor default 750 mm
+*layer,9,0.0250,Brick slips 25 mm : Brick 25 mm (UK code)
+*layer,39,0.1000,Cast concrete 100 mm : Cast concrete 100 mm (UK code)
+*layer,289,0.1250,EPS 80mm : EPS 80mm
+*layer,129,0.0500,Screed 50mm : Flooring screed 50mm (UK code)
+*end_item
+*item,Fl_roof_noti,Fl_roof_noti # tag name menu entry
+*itemdoc,Fl_roof_noti is a ...
+*incat,legacy
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,323,0.0080,virtual_loft_space : for notional building loft space air 12mm)
+*layer,281,0.1500,glass fibre quilt : Glass Fibre Quilt
+*layer,156,0.0100,Tiles Concrete 10 mm : Tiles
+*layer,110,0.0095,Plasterboard (wallboard) : Internal finish (UK code)
+*end_item
+*item,SC_Pitch_roo,SC_Pitch_roo # tag name menu entry
+*itemdoc,SC_Pitch_roo is a ...
+*incat,roofs
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,156,0.0100,Tiles Concrete 10 mm : Tiles
+*layer,0,0.2000,gap  0.200 0.200 0.200
+*layer,291,0.2500,Min wool quilt 250 mm : Insulation (Min wool quilt default 250 mm)
+*layer,111,0.0095,Plasterboard (ceiling) : Plasterboard Gypsum (10 mm) (UK code)
+*end_item
+*item,party_wall_n,party_wall_n # tag name menu entry
+*itemdoc,party_wall_n is a ...
+*incat,partitions
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,112,0.0130,Plasterboard (UK code) : Plasterboard (UK code)
+*layer,293,0.0500,Min wool quilt 50mm tb : Studwork
+*layer,112,0.0130,Plasterboard (UK code) : Plasterboard (UK code)
+*end_item
+*item,Wall_NI_noti,Wall_NI_noti # tag name menu entry
+*itemdoc,Wall_NI_noti is a ...
+*incat,legacy
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,10,0.1020,Brick outer leaf : Brick (UK code)
+*layer,294,0.0900,Mineral wool batt 100mm : Insulation (Mineral wool batt default 100mm)
+*layer,40,0.1000,Concrete med density (1800) : Blockwork (UK code)
+*layer,0,0.0220,gap  0.180 0.180 0.180
+*layer,112,0.0130,Plasterboard (UK code) : Plasterboard (UK code)
+*end_item
+*item,Wall_EW_noti,Wall_EW_noti # tag name menu entry
+*itemdoc,Wall_EW_noti is a ...
+*incat,legacy
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,10,0.1020,Brick outer leaf : Brick (UK code)
+*layer,294,0.0900,Mineral wool batt 100mm : Insulation (Mineral wool batt default 100mm)
+*layer,40,0.1000,Concrete med density (1800) : Blockwork (UK code)
+*layer,0,0.0220,gap  0.180 0.180 0.180
+*layer,112,0.0130,Plasterboard (UK code) : Plasterboard (UK code)
+*end_item
+*item,Wall_Scot_no,Wall_Scot_no # tag name menu entry
+*itemdoc,Wall_Scot_no is a ...
+*incat,legacy
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,130,0.0200,Render External 20 mm : Render External 20 mm (UK code)
+*layer,10,0.1020,Brick outer leaf : Brick (UK code)
+*layer,0,0.0500,gap  0.180 0.180 0.180
+*layer,295,0.0500,Min wool quilt 60mm : Insulation (Min wool quilt default 60 mm)
+*layer,295,0.0500,Min wool quilt 60mm : Insulation (Min wool quilt default 60 mm)
+*layer,40,0.1000,Concrete med density (1800) : Blockwork (UK code)
+*layer,0,0.0250,gap  0.180 0.180 0.180
+*layer,112,0.0130,Plasterboard (UK code) : Plasterboard (UK code)
+*end_item
+*item,opDoorWind_n,opDoorWind_n # tag name menu entry
+*itemdoc,opDoorWind_n is a ...
+*incat,doors
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,78,0.0190,Plywood deck : Plywood/felt (UK code)
+*layer,290,0.1600,EPS 160 mm : EPS 160mm
+*layer,110,0.0130,Plasterboard (wallboard) : Internal finish (UK code)
+*end_item
+*item,Not_DisplayG,Not_DisplayG # tag name menu entry
+*itemdoc,Not_DisplayG is a ...
+*incat,legacy
+*type,TRAN,dispGlz_not,SYMMETRIC
+*layer,250,0.0060,dispGlz_not_modCond : 6 mm clear glass (copy of 6 mm clear glass)
+*end_item
+*item,window_Not_G,window_Not_G # tag name menu entry
+*itemdoc,window_Not_G is a ...
+*incat,UK_code
+*type,TRAN,Glaz_notiona,NONSYMMETRIC
+*layer,247,0.0040,REF A CLEAR LO 6MM : optics from UK national method datase Low-e coated
+*layer,0,0.0160,gap  0.277 0.277 0.277
+*layer,248,0.0040,REF A CLEAR MID 6MM : optics from UK national method datase Low-e coate
+*end_item
+*item,EW_notPitch_,EW_notPitch_ # tag name menu entry
+*itemdoc,EW_notPitch_ is a ...
+*incat,UK_code
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,156,0.0100,Tiles Concrete 10 mm : Tiles
+*layer,0,0.2000,gap  0.200 0.200 0.200
+*layer,292,0.1850,Min wool quilt 250 mm tb : Quilt (Min wool quilt default 250 mm)
+*layer,111,0.0095,Plasterboard (ceiling) : Plasterboard Gypsum (10 mm) (UK code)
+*end_item
+*item,Vehicle_door,Vehicle_door # tag name menu entry
+*itemdoc,Vehicle_door is a ...
+*incat,legacy
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,43,0.0015,aluminium : Aluminium
+*layer,0,0.0250,gap  0.500 0.500 0.500
+*layer,43,0.0015,aluminium : Aluminium
+*end_item
+*item,frame_notion,frame_notion # tag name menu entry
+*itemdoc,frame_notion is a ...
+*incat,UK_code
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,43,0.1000,aluminium : Aluminium
+*layer,0,0.0100,gap  0.285 0.285 0.285
+*layer,43,0.1000,aluminium : Aluminium
+*end_item
+*item,internal_glz,internal_glz # tag name menu entry
+*itemdoc,internal_glz is a ...
+*incat,glazing
+*type,TRAN,Glaz_notiona,SYMMETRIC
+*layer,247,0.0040,REF A CLEAR LO 6MM : optics from UK national method datase Low-e coated
+*layer,0,0.0160,gap  0.277 0.277 0.277
+*layer,247,0.0040,REF A CLEAR LO 6MM : optics from UK national method datase Low-e coated
+*end_item
+*item,v3_1_floor_n,v3_1_floor_n # tag name menu entry
+*itemdoc,v3_1_floor_n is a ...
+*incat,UK_code
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,268,0.1500,Clay underfloor 750 mm : Clay underfloor default 750 mm
+*layer,268,0.2000,Clay underfloor 750 mm : Clay underfloor default 750 mm
+*layer,268,0.2000,Clay underfloor 750 mm : Clay underfloor default 750 mm
+*layer,268,0.2000,Clay underfloor 750 mm : Clay underfloor default 750 mm
+*layer,9,0.0250,Brick slips 25 mm : Brick 25 mm (UK code)
+*layer,39,0.1500,Cast concrete 100 mm : Cast concrete 100 mm (UK code)
+*layer,296,0.1000,PUR : notional floor UK material
+*layer,129,0.0500,Screed 50mm : Flooring screed 50mm (UK code)
+*end_item
+*item,exWall_typic,exWall_typic # tag name menu entry
+*itemdoc,exWall_typic is a ...
+*incat,walls
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,10,0.1020,Brick outer leaf : Brick (UK code)
+*layer,294,0.0635,Mineral wool batt 100mm : Insulation (Mineral wool batt default 100mm)
+*layer,40,0.1000,Concrete med density (1800) : Blockwork (UK code)
+*layer,0,0.0250,gap  0.180 0.180 0.180
+*layer,112,0.0130,Plasterboard (UK code) : Plasterboard (UK code)
+*end_item
+*item,Fl_roof_typi,Fl_roof_typi # tag name menu entry
+*itemdoc,Fl_roof_typi is a ...
+*incat,roofs
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,10,0.1020,Brick outer leaf : Brick (UK code)
+*layer,0,0.0500,gap  0.780 0.780 0.780
+*layer,79,0.0090,OSB : OSB wood based on the SBEM database
+*layer,0,0.0500,gap  0.780 0.780 0.780
+*layer,110,0.0130,Plasterboard (wallboard) : Internal finish (UK code)
+*end_item
+*item,Sol_grnd_typ,Sol_grnd_typ # tag name menu entry
+*itemdoc,Sol_grnd_typ is a ...
+*incat,ground
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,289,0.0630,EPS 80mm : EPS 80mm
+*layer,39,0.1000,Cast concrete 100 mm : Cast concrete 100 mm (UK code)
+*layer,129,0.0500,Screed 50mm : Flooring screed 50mm (UK code)
+*end_item
+*item,window_Typ_G,window_Typ_G # tag name menu entry
+*itemdoc,window_Typ_G is a ...
+*incat,UK_code
+*type,TRAN,Glaz_typical,SYMMETRIC
+*layer,247,0.0040,REF A CLEAR LO 6MM : optics from UK national method datase Low-e coated
+*layer,0,0.0160,gap  0.125 0.125 0.125
+*layer,247,0.0040,REF A CLEAR LO 6MM : optics from UK national method datase Low-e coated
+*end_item
+*item,PV_constr,PV_constr # tag name menu entry
+*itemdoc,PV_constr    is a ...
+*incat,project
+*type,TRAN,PVmod_opt,NONSYMMETRIC
+*layer,251,0.0030,low-iron-glass : low iron glass for use in PV modules and solar collect
+*layer,252,0.0030,EVA layer : EVA layer for embedded PV cells (resin cell resin)
+*layer,251,0.0030,low-iron-glass : low iron glass for use in PV modules and solar collect
+*layer,0,0.0200,gap  0.170 0.170 0.170
+*layer,46,0.0040,grey cotd alum : Grey coated aluminium
+*layer,281,0.0800,glass fibre quilt : Glass Fibre Quilt
+*layer,46,0.0040,grey cotd alum : Grey coated aluminium
+*end_item
+*item,Betonboden,Betonboden # tag name menu entry
+*itemdoc,Betonboden   is a ...
+*incat,ceil_floor
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,23,0.2000,aerated concrete : Aerated concrete
+*end_item
+*item,Betonwand,Betonwand # tag name menu entry
+*itemdoc,Betonwand    is a ...
+*incat,partitions
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,23,0.2000,aerated concrete : Aerated concrete
+*end_item
+*item,PV_AUE,PV_AUE # tag name menu entry
+*itemdoc,PV_AUE       is a ...
+*incat,project
+*type,TRAN,PV_AUE_55,NONSYMMETRIC
+*layer,242,0.0050,Plate glass : Plate glass
+*layer,44,0.0020,SelectiveAbsorber : SelectiveAbsorber
+*layer,242,0.0050,Plate glass : Plate glass
+*layer,0,0.0900,gap  0.170 0.170 0.170
+*layer,103,0.0150,Perlite plasterboard : Perlite plasterboard
+*layer,216,0.2000,Mineral fibre : Mineral fibre
+*end_item
+*item,PV_AUE_old,PV_AUE_old # tag name menu entry
+*itemdoc,PV_AUE_old   is a ...
+*incat,project
+*type,TRAN,PVmod_opt,NONSYMMETRIC
+*layer,251,0.0050,low-iron-glass : low iron glass for use in PV modules and solar collect
+*layer,252,0.0010,EVA layer : EVA layer for embedded PV cells (resin cell resin)
+*layer,251,0.0050,low-iron-glass : low iron glass for use in PV modules and solar collect
+*layer,0,0.0600,gap  0.800 0.800 0.800
+*layer,182,0.0150,cement sheet : Cement sheet
+*layer,205,0.2000,Polyurethane foam bd : Polyurethane foam board
+*layer,182,0.0150,cement sheet : Cement sheet
+*layer,205,0.1000,Polyurethane foam bd : Polyurethane foam board
+*layer,0,0.1280,gap  0.170 0.170 0.170
+*layer,63,0.0200,Hardboard std : Hardboard (standard density)
+*layer,213,0.0300,felt sheathing : Felt sheathing
+*layer,68,0.0200,weatherboard : Weatherboard (source does not clarify what it is)
+*end_item
+*item,PVT_type1,PVT_type1 # tag name menu entry
+*itemdoc,no documentation yet for PVT_type1
+*incat,project
+*type,TRAN,PVT_opt,NONSYMMETRIC
+*layer,251,0.0030,low-iron-glass : low iron glass for use in PV modules and solar collect
+*layer,252,0.0030,EVA layer : EVA layer for embedded PV cells (resin cell resin)
+*layer,46,0.0040,grey cotd alum : Grey coated aluminium
+*end_item
+*item,PVT_sideplate,PVT_sideplate # tag name menu entry
+*itemdoc,no documentation yet for PVT_sideplate inproject
+*incat,project
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,43,0.0030,aluminium : Aluminium
+*end_item
+*db_end
