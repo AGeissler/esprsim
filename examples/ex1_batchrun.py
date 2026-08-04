@@ -73,7 +73,7 @@ variant_dict = {
     "per": {"abbrev": "_",
             "test": ['test'],
             "list": ['year'],
-            "maxlist": list(PM.keys)},
+            "maxlist": list(PM.keys())},
 }
 
 # %%

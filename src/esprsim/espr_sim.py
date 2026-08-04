@@ -361,11 +361,11 @@ def set_clm(config, clm_file):
     print("\tSet clm file      : " + clm_file)
     
     # Setting SPM-file
-#    args = [
-#            "prj",
-#            "-file", config + ".cfg",  # executable file
-#            "-mode", "text",  # opens file in mode text
-#            ]
+    # args = [
+    #         "prj",
+    #         "-file", config + ".cfg",  # executable file
+    #         "-mode", "text",  # opens file in mode text
+    #         ]
 
         # Change climate file via sed ((hack due to bug in prj text mode))
         
@@ -383,21 +383,20 @@ def set_clm(config, clm_file):
     run(cmd2, shell=True, cwd=wd)
     run(cmd3, shell=True, cwd=wd)
 
-#    cmd = bytes("b\n"  # db management
-#                "a\n"  # annual weather
-#                "b\n"  # select another
-#                "<\n"  # other weather file
-#                "../dbs/" + clm_file + "\n"
-#                "y\n"  # update model (lat/long)
-#                "y\n"  # update model clm year
-#                "-\n"  # exit menu
-#                "r\n"  # save model (!)
-#                "-\n",  # exit module
-#                encoding="utf-8")
-#
-#    f = open(config + "_set_" + clm_file + ".scratch", "w")  # creates scratch file
-    
-#    run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
+    # cmd = bytes("b\n"  # db management
+    #             "a\n"  # annual weather
+    #             "b\n"  # select another
+    #             "<\n"  # other weather file
+    #             "../dbs/" + clm_file + "\n"
+    #             "y\n"  # update model (lat/long)
+    #             "y\n"  # update model clm year
+    #             "-\n"  # exit menu
+    #             "r\n"  # save model (!)
+    #             "-\n",  # exit module
+    #             encoding="utf-8")
+    #
+    # f = open(config + "_set_" + clm_file + ".scratch", "w")  # creates scratch file
+    # run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
 
 def set_mgp(config, clm_file, gtp):
@@ -411,14 +410,13 @@ def set_mgp(config, clm_file, gtp):
         Name of climate file, must be available as key in gtp.
     gtp : Nested dict
         Nested dict of available ground temperature profiles for climate 'clm_file' with
-        the following structure (the string keys *may not*(!) begin with whitespace!).
+        the following structure (the string keys *may not*\ (!) begin with whitespace!).
 
-    GTP = {'clm_file' : { 1 : {'JanJun' : "0.47  -1.09  -0.77   0.52   4.75   8.58",
+    ``GTP = {'clm_file' : { 1 : {'JanJun' : "0.47  -1.09  -0.77   0.52   4.75   8.58",
                                'JulDez' : "11.64  13.28  12.93  10.78   7.29   3.59"},
                           2 : {'JanJun' : "3.12   1.53   1.18   1.66   4.06   6.64",
                                'JulDez' : "9.00  10.65  11.03  10.10   8.05   5.55"}},
-           ... }
-    }
+           ... }``
 
     Notes
     -----

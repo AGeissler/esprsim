@@ -11,6 +11,9 @@ This module contains functions to set up and run ESP-r simulations.
 
 .. autofunction:: esprsim.espr_sim.simulate
 
+.. autofunction:: esprsim.espr_sim.process_variants
+
+
 Functions for simulation domain management
 ------------------------------------------
 
@@ -19,6 +22,7 @@ Functions for simulation domain management
 .. autofunction:: esprsim.espr_sim.rf_dms
 
 .. autofunction:: esprsim.espr_sim.ts_dms
+
 
 Functions for setting simulation parameters
 -------------------------------------------
@@ -40,6 +44,7 @@ Functions for setting simulation parameters
 .. autofunction:: esprsim.espr_sim.set_con
 
 .. autofunction:: esprsim.espr_sim.set_ctl_temp_setpt
+
 
 Auxiliary functions
 -------------------
