@@ -70,6 +70,28 @@ def qa_report(config, variant):
 
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
+def get_domains_key(config):
+    r"""Establish domains key from configuration file contents.
+
+    Parameters
+    ----------
+    config : str | Path
+        Configuration file name without extension.
+
+    Returns
+    -------
+    dms : int
+        Key for model domains.
+
+    """
+    # Get domains key.
+    file = open(cfg_file_name + '.cfg', "r")
+    dms = [line.split() for line in file if line.startswith('*indx')][1]
+
+    mfr = [line.split() for line in file if line.startswith('*flow')]
+    if mfr[1] != 'none':
+        dms = int(dms) + 1
+    return dms
 
 def list_dms(dms, variant):
     r"""List results file names of model domains for console reporting.
@@ -188,7 +210,7 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
     """
 
     print("\tRun bps with      : " + config + ".cfg")
-    print(list_dms(dms,variant))
+    print(list_dms(dms, variant))
     print("\tSimulation period : " + FD + "." + FM + ". to "
           + TD + "." + TM + ". with startup " + PP + " days using")
     if ((dms == 1) | (dms == 2)) is True:
@@ -282,15 +304,9 @@ def process_variants(resdir, containerdir, sdf, dict_of_variants,
         args = {keys[i]: variant[i] for i in range(len(keys))}
 
         # BAS_2010_RCP00_DRY_25_1w_0.2_r0_st23_ht20.5_gp0.5_gs0.1_200
-        # Concatenate the string entries to generate a variant name. Handle
-        # 'room' and 'two-windows' specifically.
+        # Concatenate the string entries to generate a variant name.
         variant_name = "".join(strings[key] + (
-            'roof' + args[key].name.split(' ')[1][:2] + '-' \
-                + str(int(round(args[key].thermal_capacity(),0)))
-            if key == 'room' and args[key].roof_space
-            else str(int(round(args[key].thermal_capacity(),0))) if key == 'room'
-            else '_' + str(int(args[key])+1) + 'w' if key == 'two-windows'
-            else str(args[key])) for key in keys) + "_"
+                              str(args[key])) for key in keys) + "_"
 
         if base_idf != 'the_minimal.idf':
             variant_name += base_idf.split('.')[0].split('_')[2] + '_'

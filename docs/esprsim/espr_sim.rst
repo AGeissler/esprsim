@@ -17,6 +17,8 @@ This module contains functions to set up and run ESP-r simulations.
 Functions for simulation domain management
 ------------------------------------------
 
+.. autofunction:: esprsim.espr_sim.get_domains_key
+
 .. autofunction:: esprsim.espr_sim.list_dms
 
 .. autofunction:: esprsim.espr_sim.rf_dms

@@ -16,6 +16,7 @@ import shutil
 import sys
 import math
 import subprocess
+from pathlib import Path
 import humanfriendly
 from datetime import datetime
 from datetime import timedelta
@@ -48,6 +49,10 @@ variant_dict = {
             "test": ['PVT_Douala'],
             "list": ['PVT_Douala'],
             "maxlist": ['PVT_Douala']},
+    "cnn": {"abbrev": "",
+            "test": ['PVT_Douala'],
+            "list": ['PVT_Douala'],
+            "maxlist": ['PVT_Douala']},
     "afn": {"abbrev": "_", # Enter air flow network file names without extension.
             "test": ['no_flow_S'],
             "list": ['no_flow_S'],
@@ -62,7 +67,7 @@ variant_dict = {
             "test": ['PV_panels_1'],
             "list": ['PV_panels_1'],
             "maxlist": ['PV_panels_1']},
-    "exp": {"abbrev": "_",
+    "rot": {"abbrev": "_",
             "test": ['South'],
             "list": ['South'],
             "maxlist": ['South', 'North']},
@@ -83,7 +88,10 @@ BTSTEP = "10"
 PTSTEP = "6"
 
 # Enter connections file name without extension.
-cnn_file = "PreFreb"
+VARLIST = 'test'
+
+the_resdir = Path("espresults/")
+
 
 # %%
 # Define desired PMV base data.
@@ -94,117 +102,96 @@ PMV = { 'CLlo': {'clo' : "1.2", 'met' : "1.0", 'veloc' : "0.1"},
         'CLme': {'clo' : "1.3", 'met' : "1.0", 'veloc' : "0.1"},
         'CLhi': {'clo' : "1.4", 'met' : "1.0", 'veloc' : "0.1"}}
 
+
 # %%
 # Run simulations.
-for clm in clm_list:
 
-    # Loop through available afn options.
-    for afn in afn_list:
-        
-        # Loop through control options.
-        for ctl in ctl_list:
-            
-            # Loop through setpoint options.
-            for setp in setp_list:
-                
-                # Loop through simulation period options.
-                for per in period_list:
-                    
-                    for ewcon in ew_list:
+def simulate_variant(**kwargs):
+    r"""Simulate a single variant.
 
-                        for twcon in tw_list:
+    """
 
-                            for twabs in twabs_list:
+    config = kwargs['cfg']
+    cnn_file = kwargs['cnn']
 
-                                # File name for current simulation set
-                                variant = str(config + "_" + clm + "_" + afn + "_" + ctl + "_"
-                                                + setp + "_"
-                                                + per)
-        
-                                # Message about current simulation set
-                                print("\n")
-                                print("\t=========================================================================")
-                                if SIMU is True:
-                                    print("\tSimulating case " + str(cnt) + "/" + str(numvars) + ": " \
-                                                                + variant + ", " + now.strftime("%d/%m %H:%M:%S"))
-                                    print("\tThe remaining time is approximately " \
-                                                                + humanfriendly.format_timespan(round(remaining,rd)))
-                                else:
-                                    print("\tEvaluating case " + str(cnt) + "/" + str(numvars) + ": " + variant)
-                                    print("\tThe remaining time is approximately " \
-                                                                + humanfriendly.format_timespan(round(remaining,rd)))
-                                print("\t=========================================================================")
-                                print("\twith climate file          : " + clm)
-                                print("\twith air flow network file : " + afn + ".afn")
-                                print("\twith control file          : " + ctl + ".ctl")
-                                print("\twith heating setpoint      : " + setp + " for loop " + loop)
-                                print("\tusing external wall        : " + ewcon )
-                                print("\tusing trombe wall          : " + twcon )
-                                print("\twith solar absorption      : " + twabs )
-                                print("\tfor period                 : " + per + "\n")
-                                
-                                if SIMU is True:
-                                    # Set climate file from clm_list, set corresponding ground temperature profiles.
-                                    sim.set_clm(config, clm)
-                                    sim.set_mgp(config, clm, GTP[clm])
+    dms = sim.get_domains_key(config)
 
-                                    # Set air flow network file from afn_list.
-                                    sim.set_afn(config, afn)
+    variant = kwargs['variant']
 
-                                    # Set control file from ctl_list.
-                                    sim.set_ctl(config, ctl)
+    clm = kwargs['clm']
+    sim.set_clm(config, clm)
 
-                                    # Set setpoint from setp_list.
-                                    sim.set_ctl_temp_setpt(config, ctl, loop, setp)
+    if 'ctl' in kwargs.keys():
+        ctl = kwargs['ctl']
+        sim.set_ctl(config, ctl)
+    if 'afn' in kwargs.keys():
+        afn = kwargs['afn']
+        sim.set_afn(config, afn)
+    # if 'setp' in kwargs.keys():
+    #     setp = kwargs['setp']
+    #     sim.set_ctl_temp_setpt(config, ctl, loop, setp)
+    if 'spm' in kwargs.keys():
+        spm = kwargs['spm']
+        sim.set_spm(config, cnn_file, spm)
+    # if 'rot' in kwargs.keys():
+    #     rotval = kwargs['rot']
+    #     sim.set_rotation(config, rot)
+    if 'per' in kwargs.keys():
+        per = kwargs['per']
 
-                                    # Remove old results and contents files from the cfg-directory.
-                                    sim.remove_results(variant, 'STALE')
+    # Set ground temperature profiles for clm.
+    # if 'gtp' in kwargs.keys():
+    #     sim.set_mgp(config, clm, GTP[clm])
 
-                                    # Start current simulation set
-                                    sim.qa_report(config, variant)
-                                    sim.simulate(2, config, variant, BTSTEP, 0, **PM[per])
+    # File name for current simulation set
+    # variant = str(config + "_" + clm + "_" + afn + "_" + ctl + "_"
+    #                 + setp + "_"
+    #                 + per)
 
-                                    # Extract results via res.
-                                    # PMV for zone "e" (living).
-                                    for CL in CLlist:
-                                        sim.res_PMV(variant, 'e', **PMV[CL])
+    # Message about current simulation set
+    print("\n")
+    print("\t=========================================================================")
+    print("\tSimulating case " + "" + "/" + "" + ": " \
+                                + variant + ", " + "")
+    print("\t=========================================================================")
+    print("\twith climate file          : " + clm)
+    if 'ctl' in kwargs.keys():
+        print("\twith control file          : " + ctl + ".ctl")
+    if 'afn' in kwargs.keys():
+        print("\twith air flow network file : " + afn + ".afn")
+    # if 'setp' in kwargs.keys():
+    #     print("\twith heating setpoint      : " + setp + " for loop " + loop)
+    print("\tfor period                 : " + per + "\n")
 
-                                    # Remove results files if disc space is an issue.
-                                    if RUNCLEAN is True:
-                                        sim.remove_results(variant, 'RUNCLEAN')
 
-                                    # Rename H3K-output.csv to <variant>.csv, create
-                                    # subdirectories for current simulation set and
-                                    # move all corresponding files there.
-                                    sim.move_files(1, variant)
+    # Remove old results and contents files from the cfg-directory.
+    sim.remove_results(variant, 'STALE')
 
-                                #**** End SIMU=True block
+    # Start current simulation set
+    sim.qa_report(config, variant)
+    sim.simulate(dms, config, variant, BTSTEP, 0, **PM[per])
 
-                                # Evaluations via R.
-                                cmd='/usr/local/bin/Rscript ../../plot_mult_R_evaluations.r' \
-                                        + ' ' + variant + '/' + variant + '.csv' \
-                                        + ' ' + str(BTSTEP) + ' ' + now.strftime("%d.%m_%H:%M:%S") \
-                                        + ' ' + espr_sim.list_of_files(variant, 'dat')
-                                subprocess.call(cmd, shell=True)
+    # Extract results via res.
+    # PMV for zone "e" (living).
+    for CL in CLlist:
+        sim.res_PMV(variant, 'e', **PMV[CL])
 
-                             # twabs-loop closed
+    # Remove results files if disc space is an issue.
+    if RUNCLEAN is True:
+        sim.remove_results(variant, 'RUNCLEAN')
 
-                        # twcon-loop closed
+    # Rename H3K-output.csv to <variant>.csv, create subdirectories for current
+    # simulation set and move all corresponding files there.
+    sim.move_files(1, variant)
 
-                    # wcon-loop closed
-
-                # period-loop closed
-
-            # setp-loop closed
-
-        # ctl-loop closed
-
-    # afn-loop closed
-    
     # Optional: set ?? back to default.
-    if SIMU is True:
+    # if SIMU is True:
 
-        # Final cleanup.
-        sim.move_files(0, variant)
+    # Final cleanup.
+    sim.move_files(0, variant)
 
-# clm-loop closed
+
+# %%
+# Simulate all variants in list 'VARLIST'.
+sim.process_variants(the_resdir, variant_dict, simulate_variant, the_list=VARLIST)
+
