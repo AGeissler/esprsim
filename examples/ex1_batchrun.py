@@ -1,14 +1,16 @@
-#!/usr/bin/env python3
+r"""
+PV yield comparison
+-------------------
 
-# Last changed: 14/09/2020
-# Status: development.
-#
-# Script runs a set of simulations for the PreFREB model.
-#
-# The script as well as the corresponding function labraries are expected 
-# to be located in the model folder. The working directory is changed
-# to <modelpath>/cfg from there.
-#
+.. topic:: Use 'esprsim' to run and evaluate model variants
+
+   * set up desired variants
+
+   * run simulation model and postprocess results
+
+PV yield ...
+"""
+
 import os
 import shutil
 import sys
@@ -43,8 +45,9 @@ config_list = ['PreFreb']
 # Enter connections file name without extension.
 cnn_file = "PreFreb"
 
-## Enter air flow network file names without extension. Use "BD" versions
-## with control 9999nov, only (all openings closed)!
+# %%
+# Enter air flow network file names without extension. Use "BD" versions
+# with control 9999nov, only (all openings closed)!
 #afn_list = ['n06BD', 'n50BD','n15BD']
 #afn_list = ['n06', 'n15,'n50']
 afn_list = ['n15']
