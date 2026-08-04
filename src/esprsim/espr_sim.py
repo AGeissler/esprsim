@@ -1,30 +1,21 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""
+This file is part of esprsim.
 
-# Last changed: 22/09/2020
-# Status: Should work ...
-# Module contains following functions for ESP-r:
-#
-# 27:  def qa_report(config, variant):
-#            Create QA report.
-# 118: def simulate(mode, config, variant, start_day, start_month,
-#                         end_day, end_month, pre_days, time_steps):
-#            Simulate a model, building domain, only.
-# 202: def set_ctl(config, ctl_file):
-#            Set the control file to "ctl_file".
-# 232: def set_clm(config, spm_file):
-#            Set climate file to "clm_file".
-# 271: def set_spm(config, cnn_file, spm_file):
-#            Set special materials file to "spm_file".
-# 441: def set_plant(config, plant, plant_db):
-#            Set plant network file in .cfg.
-# 481: def set_obs_dim(config, zone, obs, width, depth, height):
-#            Set obstruction dimensions.
-# 522: def set_con(config, cnn_file, old_roomclass, old_roomcon,
-#                                    new_roomclass, new_roomcon):
-#            Switch a construction ...
-# 609: def set_ctl_temp_setpt()
-#            Set setpoint temperature for building domain control.
+esprsim is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+esprsim is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with esprsim.  If not, see <http://www.gnu.org/licenses/>.
+"""
+
 import os
 import shutil
 import glob
@@ -264,6 +255,57 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
 
     for file in glob.glob("../tmp/" + variant + ".*"):
         shutil.move(file, './')
+
+def process_variants(resdir, containerdir, sdf, dict_of_variants,
+                     sim_one_var_fun, the_list='list'):
+    r"""Process variants based on dynamic nested for-loops using the dict-of-dicts
+    parameter 'dict_of_variants'.
+    
+    Parameters
+    ----------
+    resdir : str | Path
+        Path to location where results are written.
+    containerdir
+    sdf
+    dict_of_variants : dict
+        Dict of variables which are dicts containing variant values.
+    sim_one_var_fun : function
+        Function which simulates one variant.
+    the_list
+
+    """
+    keys = list(dict_of_variants.keys())
+    lists = [d[the_list] for d in dict_of_variants.values()]
+    strings = {key: d['abbrev'] for key, d in dict_of_variants.items()}
+
+    for variant in itertools.product(*lists):
+        args = {keys[i]: variant[i] for i in range(len(keys))}
+
+        # BAS_2010_RCP00_DRY_25_1w_0.2_r0_st23_ht20.5_gp0.5_gs0.1_200
+        # Concatenate the string entries to generate a variant name. Handle
+        # 'room' and 'two-windows' specifically.
+        variant_name = "".join(strings[key] + (
+            'roof' + args[key].name.split(' ')[1][:2] + '-' \
+                + str(int(round(args[key].thermal_capacity(),0)))
+            if key == 'room' and args[key].roof_space
+            else str(int(round(args[key].thermal_capacity(),0))) if key == 'room'
+            else '_' + str(int(args[key])+1) + 'w' if key == 'two-windows'
+            else str(args[key])) for key in keys) + "_"
+
+        if base_idf != 'the_minimal.idf':
+            variant_name += base_idf.split('.')[0].split('_')[2] + '_'
+        # Add current variant name to the arguments.
+        args['variant'] = variant_name[:-1]
+        args['sdf'] = sdf
+        args['resdir'] = resdir
+        args['data_container'] = containerdir
+        args['convection_algorithm'] = conv_alg
+        args['conduction_algorithm'] = cond_alg
+        args['base_idf'] = base_idf
+
+        h_above = sim_one_var_fun(**args)
+        
+    return h_above  # for more than one variant return last value for now
 
 
 def set_ctl(config, ctl_file):
