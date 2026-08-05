@@ -291,6 +291,7 @@ def simulate_variant(**kwargs):
     # building time step 'PTSTEP'.
     BTSTEP = kwargs['btstep']
     PTSTEP = kwargs['ptstep']
+    PM = kwargs['PM']
 
     config = kwargs['cfg']
     cnn_file = kwargs['cnn']
@@ -373,7 +374,7 @@ def simulate_variant(**kwargs):
     move_files(0, variant)
 
 
-def process_variants(dict_of_variants, the_list='list', btstep=10, ptstep=0,
+def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=0,
                      run_clean=False):
     r"""Process variants based on dynamic nested for-loops using the dict-of-dicts
     parameter 'dict_of_variants'.
@@ -408,6 +409,7 @@ def process_variants(dict_of_variants, the_list='list', btstep=10, ptstep=0,
         # args['resdir'] = resdir
         args['btstep'] = btstep
         args['ptstep'] = ptstep
+        args['PM'] = pm
         args['run_clean'] = run_clean
 
         simulate_variant(**args)
@@ -480,7 +482,7 @@ def set_clm(config, clm_file):
 
     new_clm='*clm ../dbs/' + clm_file
 
-    cmd2='sed \'s%\*clm ../dbs/.*%' + new_clm + '%\' temp.cfg > ' + config + '.cfg'
+    cmd2=r'sed \'s%\*clm ../dbs/.*%' + new_clm + r'%\' temp.cfg > ' + config + '.cfg'
 
     cmd3='rm temp.cfg'
 
