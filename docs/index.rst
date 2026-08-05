@@ -40,7 +40,7 @@ and run
    :maxdepth: 1
    :caption: Contents:
    
-   examples/index
+   auto_examples/index
    howto
    esprsim
 

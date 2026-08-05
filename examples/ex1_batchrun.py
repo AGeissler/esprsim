@@ -9,15 +9,42 @@ PV yield comparison
    * run simulation model and postprocess results
 
 PV yield ...
+
+#!/usr/bin/env python3
+
 """
 import os
+import pathlib
 
 import esprsim as sim
 
-# Make sure to be in 'cfg' subfolder of model.
-os.chdir(os.path.join(os.path.dirname(__file__),'cfg'))
-print('\tNow in working directory ' + os.getcwd() + '.')
+def _find_repo_root(start=None):
+        p = pathlib.Path(start or os.getcwd()).resolve()
+        for d in [p] + list(p.parents):
+                if (d / 'pyproject.toml').exists() or (d / '.git').exists() or (d / 'setup.py').exists():
+                        return d
+        return pathlib.Path(os.getcwd()).resolve()
 
+print('\tNow in working directory ' + os.getcwd() + '.\n')
+
+def _find_repo_root_from_module(mod):
+        try:
+                p = pathlib.Path(getattr(mod, '__file__', '')).resolve()
+        except Exception:
+                return None
+        for d in [p] + list(p.parents):
+                if (d / 'pyproject.toml').exists() or (d / '.git').exists() or (d / 'setup.py').exists():
+                        return d
+        return None
+
+repo_root = _find_repo_root_from_module(sim) or _find_repo_root()
+cfg_path = (repo_root / 'examples' / 'ex1' / 'cfg') if repo_root is not None else None
+
+if cfg_path and cfg_path.exists():
+        os.chdir(str(cfg_path))
+        print('\tNow in working directory ' + os.getcwd() + '.')
+else:
+        print('\tCould not locate cfg subfolder; staying in ' + os.getcwd() + '.')
 
 # %%
 # Define a simulation period master list. This must be present and include at least one
@@ -95,4 +122,8 @@ PMV = { 'CLlo': {'clo' : "1.2", 'met' : "1.0", 'veloc' : "0.1"},
 # Run simulation for all variants in list 'VARLIST'.
 VARLIST = 'test'
 
-sim.process_variants(variant_dict, the_list=VARLIST, ptstep=6)
+config_name = variant_dict['cfg']['test'][0]
+config_arg = str((cfg_path / config_name)) if 'cfg_path' in globals() and cfg_path is not None else config_name
+sim.get_domains_key(config_arg)
+
+# sim.process_variants(variant_dict, the_list=VARLIST, ptstep=6)

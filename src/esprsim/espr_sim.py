@@ -87,10 +87,12 @@ def get_domains_key(config):
     """
     # Get domains key.
     file = open(config + '.cfg', "r")
-    dms = [line.split() for line in file if line.startswith('*indx')][1]
+    dms = [line.split() for line in file.readlines() if line.startswith('*indx')][0][1]
 
-    mfr = [line.split() for line in file if line.startswith('*flow')]
-    if mfr[1] != 'none':
+    file.seek(0, 0)
+
+    mfr = [line.split() for line in file.readlines() if line.startswith('../nets')]
+    if mfr:
         dms = int(dms) + 1
     return dms
 
@@ -193,7 +195,7 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
         Configuration file name without extension.
     variant : str
         Simulation variant name.
-    
+
     [4]      number of days for start-up period duration
     [5]      building simulation time steps per hour
     [6]      plant time steps per building time step
@@ -216,7 +218,7 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
           + TD + "." + TM + ". with startup " + PP + " days using")
     if ((dms == 1) | (dms == 2)) is True:
         print("\t                    " + str(BTSTEP) + " building ts per hour.")
-        
+
     if ((dms == 3) | (dms == 4)) is True:
         print("\t                    " + str(BTSTEP) + " building ts per hour and "
               + str(PTSTEP*BTSTEP) + " plant ts per hour.")
@@ -234,9 +236,9 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
     cmd1 = bytes("\n"  # skip "model configuration file?"
                  "c\n",  # initiate simulation
                  encoding="utf-8")
-    
+
     cmd2 = rf_dms(dms, variant)
-    
+
     cmd3 = bytes("" + FD + " " + FM + "\n"  # start day & month (DD MM)
                  "" + TD + " " + TM + "\n"  # end day & month (DD MM)
                  "" + PP + "\n",  # start-up period duration (days)
@@ -261,7 +263,7 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
           + cmd3.decode('utf-8') \
           + cmd4.decode('utf-8') \
           + cmd5.decode('utf-8')
-    
+
     cmd = cmd.encode('utf-8')
 
     f = open(variant + "_bps.scratch", "w")  # create scratch file
@@ -375,7 +377,7 @@ def process_variants(dict_of_variants, the_list='list', btstep=10, ptstep=0,
                      run_clean=False):
     r"""Process variants based on dynamic nested for-loops using the dict-of-dicts
     parameter 'dict_of_variants'.
-    
+
     Parameters
     ----------
     dict_of_variants : dict
@@ -544,12 +546,12 @@ def set_mgp(config, clm_file, gtp):
     cmd1 = bytes("m\n"  # browse / edit / simulate
                  "b\n", # context
                  encoding="utf-8")
-    
+
     cmd_ = bytes("m\n"  # ground temperature profiles
                  "b\n", # edit
                  encoding="utf-8")
     s = ''
-    
+
     for n in range(nprof):
         s += cmd_.decode('utf-8')          \
              + str(n+1) + "\n"             \
@@ -557,11 +559,11 @@ def set_mgp(config, clm_file, gtp):
              + gtp[(n+1)]['JulDez'] + "\n"
 
     cmd2 = s.encode('utf-8')
-    
+
     cmd3 = bytes("-\n"  # exit menu
                  "!\n"  # save model
-                 "\n"   # accept current .cfg
-                 "\n"   # accept current .cnn
+                 "\n"   # accept current .cfg
+                 "\n"   # accept current .cnn
                  "-\n"  # exit menu
                  "-\n", # quit module
                  encoding="utf-8")
@@ -609,7 +611,7 @@ def set_spm(config, cnn_file, spm_file):
                 "-\n"  # exit this menu
                 "!\n"  # save model
                 + config + ".cfg\n"  # update system configuration file?
-                + cnn_file + ".cnn\n"  # surface connections file name? 
+                + cnn_file + ".cnn\n"  # surface connections file name?
                 + cnn_file + ".cnn\n"  # surface connections file name?
                 "-\n"  # exit this menu
                 "-\n",  # exit Project Manager
@@ -684,7 +686,7 @@ def set_plant(config, plant, plant_db):
             "-file", config + ".cfg",  # executable file
             "-mode", "text",  # opens file in mode text
             ]
-    
+
     cmd = bytes("m\n"  # browse/edit/simulate
                 "d\n"  # plant & systems
                 "b\n"  # plant model? (b explicit)
@@ -795,10 +797,10 @@ def set_con(config, cnn_file, old_con_str, old_class, old_con, new_class, new_co
              | awk \'{c+=$1} END{print c+0}\''
 
     wd=os.getcwd() # must be <modelpath>/cfg <<check?>>
-    
+
     nc = run(cmd, shell=True, cwd=wd, capture_output=True).stdout.strip()
     nc = nc.decode('utf-8')
-    
+
     # Changing construction
     args = [
             "prj",
@@ -825,7 +827,7 @@ def set_con(config, cnn_file, old_con_str, old_class, old_con, new_class, new_co
     s = ''
     for i in range(int(nc)):
         s += cmd2.decode('utf-8')
-    
+
     cmd2 = s.encode('utf-8')
 
     cmd3 = bytes("-\n"  # exit menu
@@ -871,15 +873,15 @@ def set_ctl_temp_setpt(config, ctl_file, loop, h_setpoint, c_setpoint='99'):
     print("\t\theating to " + h_setpoint + " degC and for")
     print("\t\tcooling to " + c_setpoint + " degC")
     print("\t\tin control file " + ctl_file + ".ctl.")
-    
+
     # Set arguments w/ config file.
     args = [
             "prj",
             "-file", config + ".cfg",  # executable file
             "-mode", "text",  # opens file in mode text
             ]
-    
-    # Build command string.
+
+    # Build command string.
     cmd = bytes("m\n"  # browse/ edit/ simulate
                 "j\n"  # zones control
                 "../ctl/" + ctl_file + ".ctl\n"  # control file?
@@ -902,10 +904,10 @@ def set_ctl_temp_setpt(config, ctl_file, loop, h_setpoint, c_setpoint='99'):
                 "-\n"  # exit browse / edit / simulate
                 "-\n", # quite module (prj)
                 encoding="utf-8")
-    
+
     # Create and open scratch file.
     f = open(config + "_set_hc_setp" + ".scratch", "w")
-    
+
     # Run prj (args), executes commands (cmd), writes scratch file (f).
     run(args, input=cmd, stdout=f)
 
@@ -943,7 +945,7 @@ def remove_results(variant, run_clean=True):
     variant : str
         Simulation variant of interest
     mode : str
-        Toggle for 'clean-up' mode, i.e. removal of 
+        Toggle for 'clean-up' mode, i.e. removal of
 
     """
 
@@ -983,7 +985,7 @@ def move_files(mode, variant):
             os.mkdir("./" + variant)
         else:
             os.mkdir("./" + variant)
-    
+
         if os.path.isdir("./" + variant + "_scratchfiles") is True:
             shutil.rmtree("./" + variant + "_scratchfiles")
             os.mkdir("./" + variant + "_scratchfiles")
