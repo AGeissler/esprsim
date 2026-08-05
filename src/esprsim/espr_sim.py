@@ -19,6 +19,7 @@ along with esprsim.  If not, see <http://www.gnu.org/licenses/>.
 import os
 import shutil
 import glob
+import itertools
 from subprocess import run
 
 """
@@ -85,7 +86,7 @@ def get_domains_key(config):
 
     """
     # Get domains key.
-    file = open(cfg_file_name + '.cfg', "r")
+    file = open(config + '.cfg', "r")
     dms = [line.split() for line in file if line.startswith('*indx')][1]
 
     mfr = [line.split() for line in file if line.startswith('*flow')]
@@ -399,13 +400,10 @@ def process_variants(dict_of_variants, the_list='list', btstep=10, ptstep=0,
         variant_name = "".join(strings[key] + (
                               str(args[key])) for key in keys) + "_"
 
-        if base_idf != 'the_minimal.idf':
-            variant_name += base_idf.split('.')[0].split('_')[2] + '_'
-
         # Add addtional parameters to the arguments for passing to single simulation
         # function.
         args['variant'] = variant_name[:-1]
-        args['resdir'] = resdir
+        # args['resdir'] = resdir
         args['btstep'] = btstep
         args['ptstep'] = ptstep
         args['run_clean'] = run_clean
