@@ -214,11 +214,11 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
     print("\tSimulation period : " + FD + "." + FM + ". to "
           + TD + "." + TM + ". with startup " + PP + " days using")
     if ((dms == 1) | (dms == 2)) is True:
-        print("\t                    " + BTSTEP + " building ts per hour.")
+        print("\t                    " + str(BTSTEP) + " building ts per hour.")
         
     if ((dms == 3) | (dms == 4)) is True:
-        print("\t                    " + BTSTEP + " building ts per hour and "
-              + PTSTEP*BTSTEP + " plant ts per hour.")
+        print("\t                    " + str(BTSTEP) + " building ts per hour and "
+              + str(PTSTEP*BTSTEP) + " plant ts per hour.")
 
     # Running Simulation
     args = [
@@ -278,22 +278,113 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
     for file in glob.glob("../tmp/" + variant + ".*"):
         shutil.move(file, './')
 
-def process_variants(resdir, containerdir, sdf, dict_of_variants,
-                     sim_one_var_fun, the_list='list'):
+def simulate_variant(**kwargs):
+    r"""Wrapper for esprsim.simulate() to simulate a single variant.
+
+    """
+    run_clean = kwargs['run_clean']
+
+    # Set building timesteps per hour 'BTSTEP' and plant time steps per
+    # building time step 'PTSTEP'.
+    BTSTEP = kwargs['btstep']
+    PTSTEP = kwargs['ptstep']
+
+    config = kwargs['cfg']
+    cnn_file = kwargs['cnn']
+
+    dms = get_domains_key(config)
+
+    variant = kwargs['variant']
+
+    clm = kwargs['clm']
+    set_clm(config, clm)
+
+    per = kwargs['per']
+
+    if 'ctl' in kwargs:
+        ctl = kwargs['ctl']
+        set_ctl(config, ctl)
+    if 'afn' in kwargs:
+        afn = kwargs['afn']
+        set_afn(config, afn)
+    if 'setp' in kwargs:
+        setp = kwargs['setp'][0][0]
+        loop = kwargs['setp'][0][1]
+        set_ctl_temp_setpt(config, ctl, loop, setp)
+    if 'spm' in kwargs:
+        spm = kwargs['spm']
+        set_spm(config, cnn_file, spm)
+    # if 'rot' in kwargs.keys():
+    #     rotval = kwargs['rot']
+    #     sim.set_rotation(config, rot)
+
+    # Set ground temperature profiles for clm.
+    # if 'gtp' in kwargs.keys():
+    #     sim.set_mgp(config, clm, GTP[clm])
+
+    # File name for current simulation set
+    # variant = str(config + "_" + clm + "_" + afn + "_" + ctl + "_"
+    #                 + setp + "_"
+    #                 + per)
+
+    # Message about current simulation set
+    print("\n")
+    print("\t=========================================================================")
+    print("\tSimulating case " + "" + "/" + "" + ": " \
+                                + variant + ", " + "")
+    print("\t=========================================================================")
+    print("\twith climate file          : " + clm)
+    if 'ctl' in kwargs:
+        print("\twith control file          : " + ctl + ".ctl")
+    if 'afn' in kwargs:
+        print("\twith air flow network file : " + afn + ".afn")
+    if 'setp' in kwargs:
+        print("\twith heating setpoint      : " + setp + " for loop " + loop)
+    print("\tfor period                 : " + per + "\n")
+
+
+    # Remove old results and contents files from the cfg-directory.
+    remove_results(variant, 'STALE')
+
+    # Start current simulation set
+    qa_report(config, variant)
+    simulate(dms, config, variant, BTSTEP, PTSTEP, **PM[per])
+
+    # Extract results via res.
+    # PMV for zone "e" (living).
+    for CL in CLlist:
+        res_PMV(variant, 'e', **PMV[CL])
+
+    # Remove results files if disc space is an issue.
+    if run_clean is True:
+        remove_results(variant, 'RUNCLEAN')
+
+    # Rename H3K-output.csv to <variant>.csv, create subdirectories for current
+    # simulation set and move all corresponding files there.
+    move_files(1, variant)
+
+    # Optional: set ?? back to default.
+    # if SIMU is True:
+
+    # Final cleanup.
+    move_files(0, variant)
+
+
+def process_variants(dict_of_variants, the_list='list', btstep=10, ptstep=0,
+                     run_clean=False):
     r"""Process variants based on dynamic nested for-loops using the dict-of-dicts
     parameter 'dict_of_variants'.
     
     Parameters
     ----------
-    resdir : str | Path
-        Path to location where results are written.
-    containerdir
-    sdf
     dict_of_variants : dict
         Dict of variables which are dicts containing variant values.
-    sim_one_var_fun : function
-        Function which simulates one variant.
-    the_list
+    the_list : str
+        Name of list to take from 'dict_of_variants'.
+    btstep : int (optional, default: 10)
+        Building time-steps per hour.
+    ptstep : int (optional, default: 0)
+        Plant time-steps per building time-step.
 
     """
     keys = list(dict_of_variants.keys())
@@ -310,18 +401,16 @@ def process_variants(resdir, containerdir, sdf, dict_of_variants,
 
         if base_idf != 'the_minimal.idf':
             variant_name += base_idf.split('.')[0].split('_')[2] + '_'
-        # Add current variant name to the arguments.
-        args['variant'] = variant_name[:-1]
-        args['sdf'] = sdf
-        args['resdir'] = resdir
-        args['data_container'] = containerdir
-        args['convection_algorithm'] = conv_alg
-        args['conduction_algorithm'] = cond_alg
-        args['base_idf'] = base_idf
 
-        h_above = sim_one_var_fun(**args)
-        
-    return h_above  # for more than one variant return last value for now
+        # Add addtional parameters to the arguments for passing to single simulation
+        # function.
+        args['variant'] = variant_name[:-1]
+        args['resdir'] = resdir
+        args['btstep'] = btstep
+        args['ptstep'] = ptstep
+        args['run_clean'] = run_clean
+
+        simulate_variant(**args)
 
 
 def set_ctl(config, ctl_file):
@@ -375,24 +464,24 @@ def set_clm(config, clm_file):
     """
 
     print("\tSet clm file      : " + clm_file)
-    
-    # Setting SPM-file
+
+    # Setting CLM-file
     # args = [
     #         "prj",
     #         "-file", config + ".cfg",  # executable file
     #         "-mode", "text",  # opens file in mode text
     #         ]
 
-        # Change climate file via sed ((hack due to bug in prj text mode))
-        
+    # Change climate file via sed ((hack due to bug in prj text mode))
+
     wd=os.getcwd() # must be <modelpath>/cfg <<check?>>
-    
+
     cmd1='cp ' + config + '.cfg temp.cfg'
 
     new_clm='*clm ../dbs/' + clm_file
-    
+
     cmd2='sed \'s%\*clm ../dbs/.*%' + new_clm + '%\' temp.cfg > ' + config + '.cfg'
-        
+
     cmd3='rm temp.cfg'
 
     run(cmd1, shell=True, cwd=wd)
@@ -416,7 +505,7 @@ def set_clm(config, clm_file):
 
 
 def set_mgp(config, clm_file, gtp):
-    r"""Function to set ground temperatures according to climate file.
+    r"""Function to set monthly ground temperatures according to the climate file.
 
     Parameters
     ----------
@@ -426,16 +515,18 @@ def set_mgp(config, clm_file, gtp):
         Name of climate file, must be available as key in gtp.
     gtp : Nested dict
         Nested dict of available ground temperature profiles for climate 'clm_file' with
-        the following structure (the string keys *may not*\ (!) begin with whitespace!).
-
-    ``GTP = {'clm_file' : { 1 : {'JanJun' : "0.47  -1.09  -0.77   0.52   4.75   8.58",
-                               'JulDez' : "11.64  13.28  12.93  10.78   7.29   3.59"},
-                          2 : {'JanJun' : "3.12   1.53   1.18   1.66   4.06   6.64",
-                               'JulDez' : "9.00  10.65  11.03  10.10   8.05   5.55"}},
-           ... }``
+        the structure given below (the string keys *may not*\ (!) begin with whitespace!).
 
     Notes
     -----
+    .. code:: python
+
+        GTP = {'clm_file1': {1: {'JanJun': "0.47  -1.09  -0.77  0.52  4.75  8.58",
+                                 'JulDez': "11.64  13.28  12.93  10.78  7.29  3.59"},
+                             2: {'JanJun': "3.12  1.53  1.18  1.66  4.06  6.64",
+                                 'JulDez': "9.00  10.65  11.03  10.10  8.05  5.55"}},
+               ... }
+
     Example usage.
        set_mgp(var, clm, GTP[clm])
 
