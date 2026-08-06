@@ -71,6 +71,26 @@ def qa_report(config, variant):
 
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
+def get_cnn_filename(config):
+    r"""Read name of connections file from configuration file contents.
+
+    Parameters
+    ----------
+    config : str | Path
+        Configuration file name without extension.
+
+    Returns
+    -------
+    cnn_file : str
+        Name of connections file in model without extension.
+
+    """
+    # Get domains key.
+    file = open(config + '.cfg', "r")
+    cnn_file = [line.split() for line in file.readlines() if line.startswith('*cnn')][0][1]
+
+    return cnn_file[:-4]
+
 def get_domains_key(config):
     r"""Establish domains key from configuration file contents.
 
@@ -284,6 +304,23 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
 def simulate_variant(**kwargs):
     r"""Wrapper for esprsim.simulate() to simulate a single variant.
 
+    Parameters
+    ----------
+    kwargs : dict
+        Dict of parameters for variant.
+
+    Notes
+    -----
+    The dict of parameters contains at least 'cfg' (the configuration file name w/o
+    extension) and 'per' (selected simulation period from 'PM') which are defined in
+    a user script via 'variant_dict'.
+
+    The parameters 'btstep', 'ptstep' and 'PM' are set in esprsim.process_variants() via
+    method parameters at call in the user script.
+
+    The parameter 'variant' is used as results file name root and variant subdirectory.
+    The value is constructed from the variant parameters.
+
     """
     run_clean = kwargs['run_clean']
 
@@ -294,17 +331,21 @@ def simulate_variant(**kwargs):
     PM = kwargs['PM']
 
     config = kwargs['cfg']
-    cnn_file = kwargs['cnn']
+    per = kwargs['per']
 
     dms = get_domains_key(config)
 
     variant = kwargs['variant']
 
-    clm = kwargs['clm']
-    set_clm(config, clm)
+    if 'cnn' in kwargs:
+        cnn_file = kwargs['cnn']
+    else:
+        cnn_file = get_cnn_filename(config)
 
-    per = kwargs['per']
-
+    # Optionally set various parameters.
+    if 'clm' in kwargs:
+        clm = kwargs['clm']
+        set_clm(config, clm)
     if 'ctl' in kwargs:
         ctl = kwargs['ctl']
         set_ctl(config, ctl)
@@ -322,7 +363,7 @@ def simulate_variant(**kwargs):
     #     rotval = kwargs['rot']
     #     sim.set_rotation(config, rot)
 
-    # Set ground temperature profiles for clm.
+    # Optionally Set ground temperature profiles for clm.
     # if 'gtp' in kwargs.keys():
     #     sim.set_mgp(config, clm, GTP[clm])
 
@@ -356,8 +397,8 @@ def simulate_variant(**kwargs):
 
     # Extract results via res.
     # PMV for zone "e" (living).
-    for CL in CLlist:
-        res_PMV(variant, 'e', **PMV[CL])
+    # for CL in CLlist:
+    #     res_PMV(variant, 'e', **PMV[CL])
 
     # Remove results files if disc space is an issue.
     if run_clean is True:
