@@ -17,17 +17,18 @@ import pathlib
 
 import esprsim as sim
 
-def _find_repo_root(start=None):
-        p = pathlib.Path(start or os.getcwd()).resolve()
-        for d in [p] + list(p.parents):
-                if (d / 'pyproject.toml').exists() or (d / '.git').exists() or (d / 'setup.py').exists():
-                        return d
-        return pathlib.Path(os.getcwd()).resolve()
+# def _find_repo_root(start=None):
+#         p = pathlib.Path(start or os.getcwd()).resolve()
+#         for d in [p] + list(p.parents):
+#                 if (d / 'pyproject.toml').exists() or (d / '.git').exists() or (d / 'setup.py').exists():
+#                         return d
+#         return pathlib.Path(os.getcwd()).resolve()
 
 print('\tNow in working directory ' + os.getcwd() + '.\n')
 
-repo_root = _find_repo_root()
-cfg_path = (repo_root / 'examples' / 'ex1' / 'cfg') if repo_root is not None else None
+# repo_root = _find_repo_root()
+# cfg_path = (pathlib.Path.cwd() / 'examples' / 'model' / 'cfg')
+cfg_path = (pathlib.Path.cwd() / 'model' / 'cfg')
 
 if cfg_path and cfg_path.exists():
         os.chdir(str(cfg_path))
@@ -71,9 +72,11 @@ variant_dict = {
 # Run simulation for all variants in list 'VARLIST' of dict 'variant_dict'.
 VARLIST = 'test'
 
-# config_name = variant_dict['cfg'][VARLIST][0]
-# config_arg = str((cfg_path / config_name)) if 'cfg_path' in globals() \
-#                                            and cfg_path is not None else config_name
-# sim.get_domains_key(config_arg)
+config_name = variant_dict['cfg'][VARLIST][0]
+config_arg = str((cfg_path / config_name)) if 'cfg_path' in globals() \
+                                           and cfg_path is not None else config_name
+dms = sim.get_domains_key(config_arg)
 
-sim.process_variants(variant_dict, PM, the_list=VARLIST, ptstep=6)
+print(f"dms = {dms}")
+
+# sim.process_variants(variant_dict, PM, the_list=VARLIST, ptstep=6)

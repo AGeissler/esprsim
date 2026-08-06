@@ -568,7 +568,7 @@ def set_mgp(config, clm_file, gtp):
                                  'JulDez': "11.64  13.28  12.93  10.78  7.29  3.59"},
                              2: {'JanJun': "3.12  1.53  1.18  1.66  4.06  6.64",
                                  'JulDez': "9.00  10.65  11.03  10.10  8.05  5.55"}},
-               ... }
+               'clm_file2': ... }
 
     Example usage.
        set_mgp(var, clm, GTP[clm])

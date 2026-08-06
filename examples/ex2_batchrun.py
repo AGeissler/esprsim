@@ -116,4 +116,4 @@ VARLIST = 'test'
 #                                            and cfg_path is not None else config_name
 # sim.get_domains_key(config_arg)
 
-sim.process_variants(variant_dict, PM, the_list=VARLIST, ptstep=6)
+# sim.process_variants(variant_dict, PM, the_list=VARLIST, ptstep=6)

@@ -11,6 +11,8 @@ This module contains functions to set up and run ESP-r simulations.
 
 .. autofunction:: esprsim.espr_sim.simulate
 
+.. autofunction:: esprsim.espr_sim.simulate_variant
+
 .. autofunction:: esprsim.espr_sim.process_variants
 
 
@@ -50,6 +52,8 @@ Functions for setting simulation parameters
 
 Auxiliary functions
 -------------------
+
+.. autofunction:: esprsim.espr_sim.get_cnn_filename
 
 .. autofunction:: esprsim.espr_sim.list_of_files
 

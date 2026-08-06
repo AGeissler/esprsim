@@ -37,10 +37,10 @@ and run
 
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: Contents:
    
-   auto_examples/index
+   examples/index
    howto
    esprsim
 

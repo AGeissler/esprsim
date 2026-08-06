@@ -40,7 +40,7 @@ except Exception:
 
 project = "esprsim"
 year = datetime.date.today().year
-copyright = f"2022-{year}, Achim Geissler'
+copyright = f"2022-{year}, Achim Geissler"
 author = "Achim Geissler"
 
 # -- General configuration ---------------------------------------------------
@@ -99,12 +99,12 @@ html_css_files = ["custom.css"]
 
 html_theme_options = {
     "icon_links": [
-        {
-            "name": "Discussions",
-            "url": "https://github.com/AGeissler/esprsim/discussions",
-            "icon": "fa-solid fa-comment",
-            "type": "fontawesome",
-        },
+        # {
+        #     "name": "Discussions",
+        #     "url": "https://github.com/AGeissler/esprsim/discussions",
+        #     "icon": "fa-solid fa-comment",
+        #     "type": "fontawesome",
+        # },
         {
             "name": "GitHub",
             "url": "https://github.com/AGeissler/esprsim",
@@ -113,7 +113,8 @@ html_theme_options = {
         },
         {
             "name": "Read the Docs",
-            "url": "https://readthedocs.org/projects/esprsim",
+            # "url": "https://readthedocs.org/projects/esprsim",
+            "url": "https://esprsim.readthedocs.io/en/latest",
             "icon": "fa-solid fa-book",
             "type": "fontawesome",
         },
