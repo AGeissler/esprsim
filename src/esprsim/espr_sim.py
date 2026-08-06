@@ -330,7 +330,7 @@ def simulate_variant(**kwargs):
     PTSTEP = kwargs['ptstep']
     PM = kwargs['PM']
 
-    config = kwargs['cfg']
+    config = str(kwargs['cfg_path'] / kwargs['cfg'])
     per = kwargs['per']
 
     dms = get_domains_key(config)
@@ -378,7 +378,8 @@ def simulate_variant(**kwargs):
     print("\tSimulating case " + "" + "/" + "" + ": " \
                                 + variant + ", " + "")
     print("\t=========================================================================")
-    print("\twith climate file          : " + clm)
+    if 'clm' in kwargs:
+        print("\twith climate file          : " + clm)
     if 'ctl' in kwargs:
         print("\twith control file          : " + ctl + ".ctl")
     if 'afn' in kwargs:
@@ -387,7 +388,7 @@ def simulate_variant(**kwargs):
         print("\twith heating setpoint      : " + setp + " for loop " + loop)
     print("\tfor period                 : " + per + "\n")
 
-
+    return 99
     # Remove old results and contents files from the cfg-directory.
     remove_results(variant, 'STALE')
 
@@ -447,6 +448,7 @@ def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=0,
         # Add addtional parameters to the arguments for passing to single simulation
         # function.
         args['variant'] = variant_name[:-1]
+        args['cfg_path'] = dict_of_variants['cfg']['cfg_path']
         # args['resdir'] = resdir
         args['btstep'] = btstep
         args['ptstep'] = ptstep

@@ -24,7 +24,7 @@ import esprsim as sim
 #                         return d
 #         return pathlib.Path(os.getcwd()).resolve()
 
-print('\tNow in working directory ' + os.getcwd() + '.\n')
+# print('\tNow in working directory ' + os.getcwd() + '.\n')
 
 # repo_root = _find_repo_root()
 # cfg_path = (pathlib.Path.cwd() / 'examples' / 'model' / 'cfg')
@@ -32,7 +32,7 @@ cfg_path = (pathlib.Path.cwd() / 'model' / 'cfg')
 
 if cfg_path and cfg_path.exists():
         os.chdir(str(cfg_path))
-        print('\tCurrent working directory ' + os.getcwd() + '.')
+        # print('\tCurrent working directory ' + os.getcwd() + '.')
 else:
         print('\tCould not locate cfg subfolder; staying in ' + os.getcwd() + '.')
 
@@ -75,8 +75,8 @@ VARLIST = 'test'
 config_name = variant_dict['cfg'][VARLIST][0]
 config_arg = str((cfg_path / config_name)) if 'cfg_path' in globals() \
                                            and cfg_path is not None else config_name
-dms = sim.get_domains_key(config_arg)
+variant_dict['cfg']['cfg_path'] = cfg_path
+# dms = sim.get_domains_key(config_arg)
+# print(f"dms = {dms}")
 
-print(f"dms = {dms}")
-
-# sim.process_variants(variant_dict, PM, the_list=VARLIST, ptstep=6)
+sim.process_variants(variant_dict, PM, the_list=VARLIST, ptstep=6)
