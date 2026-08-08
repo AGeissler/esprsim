@@ -12,6 +12,8 @@ Minimal working example
 The example model ...
 
 """
+
+# sphinx_gallery_thumbnail_number = -1
 import os
 import pathlib
 
