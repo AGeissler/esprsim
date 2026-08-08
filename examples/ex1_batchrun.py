@@ -11,6 +11,9 @@ Minimal working example
 
 The example model ...
 
+.. image:: ../../examples/model/images/scene1.png
+   :scale: 30%
+
 """
 
 # sphinx_gallery_thumbnail_number = -1
