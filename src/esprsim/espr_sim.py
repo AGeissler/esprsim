@@ -388,12 +388,14 @@ def simulate_variant(**kwargs):
         print("\twith heating setpoint      : " + setp + " for loop " + loop)
     print("\tfor period                 : " + per + "\n")
 
-    return 99
     # Remove old results and contents files from the cfg-directory.
-    remove_results(variant, 'STALE')
+    remove_results(variant)
 
     # Start current simulation set
     qa_report(config, variant)
+    print(f"QA report from {config} should be saved ...")
+    return 99
+
     simulate(dms, config, variant, BTSTEP, PTSTEP, **PM[per])
 
     # Extract results via res.
