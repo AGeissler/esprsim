@@ -71,6 +71,26 @@ def qa_report(config, variant):
 
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
+def get_clm_filename(config):
+    r"""Read name of climate file from configuration file contents.
+
+    Parameters
+    ----------
+    config : str | Path
+        Configuration file name without extension.
+
+    Returns
+    -------
+    clm_file : str
+        Name of climate file in model without extension.
+
+    """
+    # Get domains key.
+    file = open(config + '.cfg', "r")
+    clm_file = [line.split() for line in file.readlines() if line.startswith('*clm')][0][1]
+
+    return str(Path(clm_file).name)  # .stem for name w/o extension if present
+
 def get_cnn_filename(config):
     r"""Read name of connections file from configuration file contents.
 
@@ -342,10 +362,13 @@ def simulate_variant(**kwargs):
     else:
         cnn_file = get_cnn_filename(config)
 
-    # Optionally set various parameters.
     if 'clm' in kwargs:
         clm = kwargs['clm']
         set_clm(config, clm)
+    else:
+        clm = get_clm_filename(config)
+
+    # Optionally set various parameters.
     if 'ctl' in kwargs:
         ctl = kwargs['ctl']
         set_ctl(config, ctl)
@@ -378,8 +401,7 @@ def simulate_variant(**kwargs):
     print("\tSimulating case " + "" + "/" + "" + ": " \
                                 + variant + ", " + "")
     print("\t=========================================================================")
-    if 'clm' in kwargs:
-        print("\twith climate file          : " + clm)
+    print("\twith climate file          : " + clm)
     if 'ctl' in kwargs:
         print("\twith control file          : " + ctl + ".ctl")
     if 'afn' in kwargs:
