@@ -38,6 +38,11 @@ def qa_report(config, variant):
     variant : str
         Variant name (ctl, con, mat)
 
+    Notes
+    -----
+    The script as-is expects .cfg files in (at least) v 4.2 format (current as of
+    ESP-r V13.3.17).
+
     """
 
     print("\tQA report         : " + variant + ".contents")
@@ -45,8 +50,8 @@ def qa_report(config, variant):
     # Creating QA report
     args = [
             "prj",
-            "-file", config + ".cfg",  # executable file
             "-mode", "text",  # opens file in mode text
+            "-file", config + ".cfg",  # executable file
             ]
 
     cmd = bytes("m\n"  # browse/ edit/ simulate
@@ -61,7 +66,6 @@ def qa_report(config, variant):
                 "m\n"  # file names (toggle)
                 ">\n"  # QA report to
                 + variant + ".contents\n"  # model contents file
-                + config + ".cnn\n"        # cnn file
                 "!\n"  # generate QA report
                 "-\n"  # exit menu
                 "-\n"  # exit this menu
