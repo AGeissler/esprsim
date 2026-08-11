@@ -47,6 +47,8 @@ Functions for setting simulation parameters
 
 .. autofunction:: esprsim.espr_sim.set_con
 
+.. autofunction:: esprsim.espr_sim.set_new_rotangle
+
 .. autofunction:: esprsim.espr_sim.set_ctl_temp_setpt
 
 

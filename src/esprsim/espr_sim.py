@@ -29,7 +29,8 @@ batch running of simulations.
 """
 
 def qa_report(config, variant):
-    r"""Create QA report.
+    r"""Method which creates a QA report of the model defined in 'config' for the
+    variant 'variant' using 'prj'.
 
     Parameters
     ----------
@@ -42,6 +43,8 @@ def qa_report(config, variant):
     -----
     The script as-is expects .cfg files in (at least) v 4.2 format (current as of
     ESP-r V13.3.17).
+
+    As of ESP-r V13.3.17 there possibly exists a short-cut to generate the QA-report.
 
     """
 
@@ -229,8 +232,8 @@ def ts_dms(dms, BTSTEP, PTSTEP):
 
 
 def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
-    r"""Function to run simulation for model with 'dms' domains involved based on
-    configuration file 'config'.
+    r"""Method which runs a single simulation for a model with 'dms' domains involved
+    based on configuration file 'config' using 'bps'.
 
     Parameters
     ----------
@@ -240,11 +243,13 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
         Configuration file name without extension.
     variant : str
         Simulation variant name.
-
-    [4]      number of days for start-up period duration
-    [5]      building simulation time steps per hour
-    [6]      plant time steps per building time step
-    [7 to 10] start- and end dates for simulation period via dict
+    BTSTEP : int
+        Building simulation time steps per hour.
+    PTSTEP : int
+        Plant time steps per building time step, not used for models w/o plant.
+    FD, FM, TD, TM, PP : int
+        Start- and end dates for simulation period and number of days for start-up
+        period duration. Typically passed via dict reference (**PM[key]).
 
     Notes
     -----
@@ -268,11 +273,11 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
         print("\t                    " + str(BTSTEP) + " building ts per hour and "
               + str(PTSTEP*BTSTEP) + " plant ts per hour.")
 
-    # Running Simulation
+    # Set up command line arguments to run simulation.
     args = [
         "bps",
-        "-mode", "text",  # opens file in mode text
-        "-file", config + ".cfg",  # executable file (should be passed as variable from run_all)
+        "-mode", "text",  # open file in mode text
+        "-file", config + ".cfg",  # model configuration file to run.
     ]
 
     """
@@ -313,7 +318,7 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
 
     f = open(variant + "_bps.scratch", "w")  # create scratch file
 
-    # run bps (args), execute commands (cmd), write scratch file (f)
+    # Run bps (args[0]), execute commands (cmd), write scratch file (f).
     run(args, input=cmd, stdout=f)
 
     # Postprocessing
@@ -323,8 +328,10 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
             # if "XML postprocessor cpu runtime" in line:
             #     print(line)
 
-    for file in glob.glob("../tmp/" + variant + ".*"):
-        shutil.move(file, './')
+    # for file in glob.glob("../tmp/" + variant + ".*"):
+    #     shutil.move(file, './')
+
+
 
 def simulate_variant(**kwargs):
     r"""Wrapper for esprsim.simulate() to simulate a single variant.
@@ -348,6 +355,7 @@ def simulate_variant(**kwargs):
 
     """
     run_clean = kwargs['run_clean']
+    results = str(kwargs['cfg_path'] / kwargs['tmp'])  # path to results files
 
     # Set building timesteps per hour 'BTSTEP' and plant time steps per
     # building time step 'PTSTEP'.
@@ -418,7 +426,7 @@ def simulate_variant(**kwargs):
     # Remove old results and contents files from the cfg-directory.
     remove_results(variant)
 
-    # Start current simulation set
+    # Start current simulation set.
     qa_report(config, variant)
 
     simulate(dms, config, variant, BTSTEP, PTSTEP, **PM[per])
@@ -430,14 +438,11 @@ def simulate_variant(**kwargs):
 
     # Remove results files if disc space is an issue.
     if run_clean is True:
-        remove_results(variant, 'RUNCLEAN')
+        remove_results(variant, run_clean)
 
     # Rename H3K-output.csv to <variant>.csv, create subdirectories for current
     # simulation set and move all corresponding files there.
-    move_files(1, variant)
-
-    # Optional: set ?? back to default.
-    # if SIMU is True:
+    move_files(1, variant, kwargs['cfg_path'])
 
     # Final cleanup.
     move_files(0, variant)
@@ -445,8 +450,8 @@ def simulate_variant(**kwargs):
 
 def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=0,
                      run_clean=False):
-    r"""Process variants based on dynamic nested for-loops using the dict-of-dicts
-    parameter 'dict_of_variants'.
+    r"""Method which processes variants based on dynamic nested for-loops using the
+    dict-of-dicts parameter 'dict_of_variants'.
 
     Parameters
     ----------
@@ -488,7 +493,7 @@ def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=0,
 
 
 def set_ctl(config, ctl_file):
-    r"""Function to set control file in .cfg of model.
+    r"""Method which sets the control file in .cfg of model using 'prj'.
 
     Parameters
     ----------
@@ -526,7 +531,7 @@ def set_ctl(config, ctl_file):
 
 
 def set_clm(config, clm_file):
-    r"""Function to set climate file in .cfg of model.
+    r"""Method which sets the climate file in .cfg of model using 'sed'(!).
 
     Parameters
     ----------
@@ -579,7 +584,8 @@ def set_clm(config, clm_file):
 
 
 def set_mgp(config, clm_file, gtp):
-    r"""Function to set monthly ground temperatures according to the climate file.
+    r"""Method which sets monthly ground temperatures according to the climate file in
+    .cfg using 'prj'.
 
     Parameters
     ----------
@@ -654,7 +660,7 @@ def set_mgp(config, clm_file, gtp):
 
 
 def set_spm(config, cnn_file, spm_file):
-    r"""Function to set special materials file.
+    r"""Method which sets special materials file in .cfg using 'prj'.
 
     Parameters
     ----------
@@ -696,7 +702,7 @@ def set_spm(config, cnn_file, spm_file):
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
 def set_afn(config, afn_file):
-    r"""Function to set air flow network file.
+    r"""Method which sets air flow network file in .cfg using 'prj'.
 
     Parameters
     ----------
@@ -712,8 +718,8 @@ def set_afn(config, afn_file):
     # Setting AFN-file
     args = [
             "prj",
-            "-file", config + ".cfg",  # executable file
             "-mode", "text",  # opens file in mode text
+            "-file", config + ".cfg",  # executable file
             ]
 
     cmd = bytes("m\n"  # browse/ edit/ simulate
@@ -737,7 +743,7 @@ def set_afn(config, afn_file):
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
 def set_plant(config, plant, plant_db):
-    r""" Script to change plant network file in .cfg.
+    r"""Method which changes plant network file in .cfg using 'prj'.
 
     Parameters
     ----------
@@ -784,7 +790,7 @@ def set_plant(config, plant, plant_db):
 
 
 def set_obs_dim(config, zone, obs, width, depth, height):
-    r"""Set obstruction dimensions.
+    r"""Method which sets (existing) obstruction dimensions in zone 'zone' using 'prj'.
 
     Parameters
     ----------
@@ -839,7 +845,7 @@ def set_obs_dim(config, zone, obs, width, depth, height):
 
 
 def set_con(config, cnn_file, old_con_str, old_class, old_con, new_class, new_con):
-    r"""Function to change construction globally for all model zones.
+    r"""Method which changes a construction globally for all model zones using 'prj'.
 
     Parameters
     ----------
@@ -925,8 +931,54 @@ def set_con(config, cnn_file, old_con_str, old_class, old_con, new_class, new_co
     print("done.")
 
 
+def set_new_rotangle(config, rotangle, x0, y0):
+    """Method which rotates the whole model around point (x0,y0) by 'rotangle' degrees
+    using 'prj'. The rotation is counterclockwise.
+
+    Parameters
+    ----------
+       1. configuration file name root
+       2. rotation angle (degrees counterclockwise)
+       3. X0 in m
+       4. Y0 in m
+
+    """
+
+    print(f"\n\tRotating model {Path(config).stem}.cfg by {rotangle} degrees ...")
+
+    args = [
+            "prj",
+            "-mode", "text",
+            "-file", config + ".cfg"
+            ]
+
+    cmd = bytes("m\n"  # browse / edit / simulate
+                "c\n"  # composition
+                "*\n"  # global tasks
+                "b\n"  # rotate
+                + rotangle + "\n"
+                "b\n"  # user specified x & y
+                + x0 + "\n"
+                + y0 + "\n"
+                "*\n"  # all items
+                "-\n"  # exit menu
+                "-\n"  # exit menu
+                "!\n"  # save model
+                "y\n"  # update config file
+                "-\n"
+                "-\n",  # quite module
+                encoding="utf-8")
+
+    f = open(config + "_rotate_" + rotangle + ".scratch", "w")  # create scratch file
+
+    run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
+
+    print("done.")
+
+
 def set_ctl_temp_setpt(config, ctl_file, loop, h_setpoint, c_setpoint='99'):
-    """Function to change the setpoint temperature for building control.
+    """Method which changes the setpoint temperature for building control in ctl_file
+    using 'prj'.
 
     Parameters
     ----------
@@ -987,7 +1039,7 @@ def set_ctl_temp_setpt(config, ctl_file, loop, h_setpoint, c_setpoint='99'):
 
 
 def list_of_files(path, ext):
-    r"""Create list of files in 'path' with extension 'ext'.
+    r"""Method which creates a list of files in 'path' that have extension 'ext'.
 
     Parameters
     ----------
@@ -1009,7 +1061,7 @@ def list_of_files(path, ext):
     return (file_list)
 
 
-def remove_results(variant, run_clean=True):
+def remove_results(variant, run_clean=False):
     r"""Remove old results and/or contents files from the cfg-directory to avoid
     conflicts with "espr_sim.qa_report()" and "espr_sim.simulate()" or to avoid disc
     space issues for runs with many variants.
@@ -1017,9 +1069,9 @@ def remove_results(variant, run_clean=True):
     Parameters
     ----------
     variant : str
-        Simulation variant of interest
-    mode : str
-        Toggle for 'clean-up' mode, i.e. removal of
+        Simulation variant of interest.
+    run_clean : bool (optional, default : False)
+        Toggle for 'clean-up' mode, i.e. removal of results files.
 
     """
 
