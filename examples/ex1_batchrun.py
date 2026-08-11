@@ -17,29 +17,10 @@ The example model ...
 """
 
 # sphinx_gallery_thumbnail_number = -1
-import os
 import pathlib
 
 import esprsim as sim
 
-# def _find_repo_root(start=None):
-#         p = pathlib.Path(start or os.getcwd()).resolve()
-#         for d in [p] + list(p.parents):
-#                 if (d / 'pyproject.toml').exists() or (d / '.git').exists() or (d / 'setup.py').exists():
-#                         return d
-#         return pathlib.Path(os.getcwd()).resolve()
-
-# print('\tNow in working directory ' + os.getcwd() + '.\n')
-
-# repo_root = _find_repo_root()
-# cfg_path = (pathlib.Path.cwd() / 'examples' / 'model' / 'cfg')
-cfg_path = (pathlib.Path.cwd() / 'model' / 'cfg')
-
-if cfg_path and cfg_path.exists():
-        os.chdir(str(cfg_path))
-        # print('\tCurrent working directory ' + os.getcwd() + '.')
-else:
-        print('\tCould not locate cfg subfolder; staying in ' + os.getcwd() + '.')
 
 # %%
 # Define a simulation period master list. This must be present and include at least one
@@ -63,25 +44,27 @@ variant_dict = {
             "maxlist": list(PM.keys())},
 }
 
+# %%
+# Set the model configuration path and set 'variant_dict['cfg']['cfg_path']' to this
+# path value.
+cfg_path = (pathlib.Path.cwd() / 'model' / 'cfg')
+variant_dict['cfg']['cfg_path'] = cfg_path
+
 
 # %%
 # Set up parameters for desired post-processing. As this is very model specific,
-# 'esprsim' has only a few extraction methods for specific metrics. However, the full
-# value set according to the model 'input.xml' is available for third-party
-# post-processing.
+# 'esprsim' has only a few extraction methods for specific metrics (feel free to extend
+# the available methods and add them to the project). However, the full value set
+# according to the list of desired output parameters in model 'input.xml' is available
+# as .csv file for third-party post-processing.
 #
 # Here we define ...
 
 
 # %%
-# Run simulation for all variants in list 'VARLIST' of dict 'variant_dict'.
+# Set desired variant selection list from 'test'|'list'(|'maxlist') and then run
+# simulation for all variants found in this list in dict 'variant_dict' using the method
+# 'process_variants'. Beware the total number of simulations that result.
 VARLIST = 'test'
-
-config_name = variant_dict['cfg'][VARLIST][0]
-config_arg = str((cfg_path / config_name)) if 'cfg_path' in globals() \
-                                           and cfg_path is not None else config_name
-variant_dict['cfg']['cfg_path'] = cfg_path
-# dms = sim.get_domains_key(config_arg)
-# print(f"dms = {dms}")
 
 sim.process_variants(variant_dict, PM, the_list=VARLIST, ptstep=6)
