@@ -395,9 +395,9 @@ def simulate_variant(**kwargs):
     if 'spm' in kwargs:
         spm = kwargs['spm']
         set_spm(config, cnn_file, spm)
-    # if 'rot' in kwargs.keys():
-    #     rotval = kwargs['rot']
-    #     sim.set_rotation(config, rot)
+    if 'rot' in kwargs.keys():
+        rotdat = kwargs['rot']
+        set_new_rotangle(config, rotdat[0], rotdat[1], rotdat[2])
 
     # Optionally Set ground temperature profiles for clm.
     # if 'gtp' in kwargs.keys():
@@ -937,10 +937,14 @@ def set_new_rotangle(config, rotangle, x0, y0):
 
     Parameters
     ----------
-       1. configuration file name root
-       2. rotation angle (degrees counterclockwise)
-       3. X0 in m
-       4. Y0 in m
+    config : str | Path
+        Configuration file name or path+name without extension
+    rotangle : float
+        Desired rotation angle (degrees counterclockwise).
+    x0 : float
+        X-coordinate of rotation centre in m
+    y0 : float
+        Y-coordinate of rotation centre in m
 
     """
 
