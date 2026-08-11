@@ -214,15 +214,15 @@ def ts_dms(dms, BTSTEP, PTSTEP):
 
     """
     switcher = {
-    1: bytes("" + str(BTSTEP) + "\n",  # building time-steps (per hour)
+    1: bytes("" + str(BTSTEP) + "\n",
              encoding= 'utf-8' ),
-    2: bytes("" + str(BTSTEP) + "\n",  # building time-steps (per hour)
+    2: bytes("" + str(BTSTEP) + "\n",
              encoding= 'utf-8' ),
-    3: bytes("" + str(BTSTEP) + "\n"   # building time-steps (per hour)
-             "" + str(PTSTEP) + "\n",  # plant time-steps (per hour)
+    3: bytes("" + str(BTSTEP) + "\n"
+             "" + str(PTSTEP) + "\n",
              encoding= 'utf-8' ),
-    4: bytes("" + str(BTSTEP) + "\n"   # building time-steps (per hour)
-             "" + str(PTSTEP) + "\n",  # plant time-steps (per hour)
+    4: bytes("" + str(BTSTEP) + "\n"
+             "" + str(PTSTEP) + "\n",
              encoding= 'utf-8' ),
     }
     return switcher.get(dms, "Error in dms - ts")
@@ -271,8 +271,8 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
     # Running Simulation
     args = [
         "bps",
-        "-file", config + ".cfg",  # executable file (should be passed as variable from run_all)
         "-mode", "text",  # opens file in mode text
+        "-file", config + ".cfg",  # executable file (should be passed as variable from run_all)
     ]
 
     """
@@ -420,8 +420,6 @@ def simulate_variant(**kwargs):
 
     # Start current simulation set
     qa_report(config, variant)
-    print(f"QA report from {config} should be saved ...")
-    return 99
 
     simulate(dms, config, variant, BTSTEP, PTSTEP, **PM[per])
 
@@ -454,6 +452,8 @@ def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=0,
     ----------
     dict_of_variants : dict
         Dict of variables which are dicts containing variant values.
+    pm : dict
+        Simulation period master list.
     the_list : str
         Name of list to take from 'dict_of_variants'.
     btstep : int (optional, default: 10)
