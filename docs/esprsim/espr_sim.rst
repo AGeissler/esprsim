@@ -35,7 +35,7 @@ Functions for setting simulation parameters
 
 .. autofunction:: esprsim.espr_sim.set_clm
 
-.. autofunction:: esprsim.espr_sim.set_mgp
+.. autofunction:: esprsim.espr_sim.set_gtp
 
 .. autofunction:: esprsim.espr_sim.set_spm
 

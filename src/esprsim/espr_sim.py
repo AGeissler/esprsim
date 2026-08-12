@@ -398,15 +398,15 @@ def simulate_variant(**kwargs):
     if 'rot' in kwargs.keys():
         rotdat = kwargs['rot']
         set_new_rotangle(config, rotdat[0], rotdat[1], rotdat[2])
+    if 'gtp' in kwargs.keys():
+        GTP=kwargs['gtp_main']
+        set_gtp(config, clm, GTP[clm])
 
-    # Optionally Set ground temperature profiles for clm.
-    # if 'gtp' in kwargs.keys():
-    #     sim.set_mgp(config, clm, GTP[clm])
-
-    # File name for current simulation set
-    # variant = str(config + "_" + clm + "_" + afn + "_" + ctl + "_"
-    #                 + setp + "_"
-    #                 + per)
+    # Optionally Set moisture file for zone. ((see project 'Keller'))
+    # if 'mst' in kwargs.keys():
+    #     mst_file = kwargs['mst'][0]
+    #     zone = kwargs['mst'][1]
+    #     set_mst(config, mst_file, zone)
 
     # Message about current simulation set
     print("\n")
@@ -487,6 +487,8 @@ def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=0,
         args['btstep'] = btstep
         args['ptstep'] = ptstep
         args['PM'] = pm
+        if 'gtp' in dict_of_variants:
+            args['gtp_main'] = dict_of_variants['gtp']['gtp_main']
         args['run_clean'] = run_clean
 
         simulate_variant(**args)
@@ -583,7 +585,7 @@ def set_clm(config, clm_file):
     # run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
 
-def set_mgp(config, clm_file, gtp):
+def set_gtp(config, clm_file, gtp):
     r"""Method which sets monthly ground temperatures according to the climate file in
     .cfg using 'prj'.
 
@@ -608,7 +610,7 @@ def set_mgp(config, clm_file, gtp):
                'clm_file2': ... }
 
     Example usage.
-       set_mgp(var, clm, GTP[clm])
+       set_gtp(var, clm, GTP[clm])
 
     """
 

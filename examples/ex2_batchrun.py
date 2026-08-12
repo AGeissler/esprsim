@@ -53,6 +53,18 @@ PM = { 'sum'     : {'FD' : "16", 'FM' : "04", 'TD' : "15", 'TM' : "10", 'PP' : "
        'weekwin' : {'FD' : "10", 'FM' : "01", 'TD' : "17", 'TM' : "01", 'PP' :  "2" },
        'measwin' : {'FD' : "01", 'FM' : "01", 'TD' : "31", 'TM' : "03", 'PP' :  "20" }}
 
+# %%
+# Define ground temperature profile master dict.
+GTP = {'Douala' : { 1 : {'JanJun' : "-2.07  1.81  4.62   6.07   9.44  12.19",
+                         'JulDez' : "14.25  13.77  11.22  10.03   3.56   -1.17"},
+                    2 : {'JanJun' : "-2.07  1.81  4.62   6.07   9.44  12.19",
+                         'JulDez' : "14.25  13.77  11.22  10.03   3.56   -1.17"}},
+       'Leh_TMY' : { 1 : {'JanJun' : "-12.72 -12.21  -9.48  -4.45  -1.36  2.14",
+                          'JulDez' : "6.17   6.71  3.43   -1.76  -7.45  -12.13"},
+                     2 : {'JanJun' : "-12.72 -12.21  -9.48  -4.45  -1.36  2.14",
+                          'JulDez' : "6.17   6.71  3.43   -1.76  -7.45  -12.13"}}
+}
+
 
 # %%
 # Set up model specific dict of dicts. The main keys correspond to model parameter names
@@ -92,6 +104,11 @@ variant_dict = {
             "test": ['Douala'],
             "list": ['Douala'],
             "maxlist": ['Douala']},
+    "gtp": {"abbrev": "_",
+            "test": ['test'],
+            "list": ['year'],
+            "maxlist": list(GTP.keys()),
+            "gtp_main": GTP},
     "per": {"abbrev": "_",
             "test": ['test'],
             "list": ['year'],
