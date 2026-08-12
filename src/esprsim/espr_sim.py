@@ -355,7 +355,6 @@ def simulate_variant(**kwargs):
 
     """
     run_clean = kwargs['run_clean']
-    results = str(kwargs['cfg_path'] / kwargs['tmp'])  # path to results files
 
     # Set building timesteps per hour 'BTSTEP' and plant time steps per
     # building time step 'PTSTEP'.
@@ -363,7 +362,9 @@ def simulate_variant(**kwargs):
     PTSTEP = kwargs['ptstep']
     PM = kwargs['PM']
 
+    # Set configuration file name with (optional) path but w/o extension.
     config = str(kwargs['cfg_path'] / kwargs['cfg'])
+
     per = kwargs['per']
 
     dms = get_domains_key(config)
@@ -424,7 +425,7 @@ def simulate_variant(**kwargs):
     print("\tfor period                 : " + per + "\n")
 
     # Remove old results and contents files from the cfg-directory.
-    remove_results(variant)
+    remove_results(variant, kwargs['cfg_path'])
 
     # Start current simulation set.
     qa_report(config, variant)
@@ -438,14 +439,14 @@ def simulate_variant(**kwargs):
 
     # Remove results files if disc space is an issue.
     if run_clean is True:
-        remove_results(variant, run_clean)
+        remove_results(variant, kwargs['cfg_path'], run_clean)
 
     # Rename H3K-output.csv to <variant>.csv, create subdirectories for current
     # simulation set and move all corresponding files there.
     move_files(1, variant, kwargs['cfg_path'])
 
     # Final cleanup.
-    move_files(0, variant)
+    move_files(0, variant, kwargs['cfg_path'])
 
 
 def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=0,
@@ -1067,38 +1068,45 @@ def list_of_files(path, ext):
     return (file_list)
 
 
-def remove_results(variant, run_clean=False):
-    r"""Remove old results and/or contents files from the cfg-directory to avoid
-    conflicts with "espr_sim.qa_report()" and "espr_sim.simulate()" or to avoid disc
-    space issues for runs with many variants.
+def remove_results(variant, cfg_dir, run_clean=False):
+    r"""Remove old binary results files from the tmp-directory and contents files from
+    the cfg-directory to avoid conflicts with "espr_sim.qa_report()" and
+    "espr_sim.simulate()" or to avoid disc space issues for runs with many variants.
 
     Parameters
     ----------
     variant : str
         Simulation variant of interest.
+    cfg_dir : Path
+        Path to model cfg directory.
     run_clean : bool (optional, default : False)
         Toggle for 'clean-up' mode, i.e. removal of results files.
 
     """
+    res_dir = Path('/' + '/'.join(cfg_dir.parts[1:-1]) + '/tmp')
+
+    extension_list = ['.res', '.mfr', '.plr', '.contents']
 
     if run_clean:
-        if os.path.exists("./" + variant + ".res"):
-                      os.remove("./" + variant + ".res")
-        if os.path.exists("./" + variant + ".mfr"):
-                      os.remove("./" + variant + ".mfr")
-        if os.path.exists("./" + variant + ".plr"):
-                      os.remove("./" + variant + ".plr")
-        if os.path.exists("./" + variant + ".contents"):
-            os.remove("./" + variant + ".contents")
+        for ext in extension_list:
+            # Go through tmp directory.
+            if Path(str(res_dir) + '/' + variant + ext).exists():
+                # delete!
+                Path(str(res_dir) + '/' + variant + ext).unlink(missing_ok=True)
+            # Go through cfg directory.
+            if Path(str(cfg_dir) + '/' + variant + ext).exists():
+                # delete!
+                Path(str(cfg_dir) + '/' + variant + ext).unlink(missing_ok=True)
 
     if run_clean is False:
         # No space issue, only avoid qa_report issues.
-        if os.path.exists("./" + variant + ".contents"):
-            os.remove("./" + variant + ".contents")
+        if Path(str(cfg_dir) + '/' + variant + '.contents').exists():
+            # delete!
+            Path(str(cfg_dir) + '/' + variant + '.contents').unlink(missing_ok=True)
 
 
-def move_files(mode, variant):
-    r"""Rename H3K-output.csv to <variant>.csv, create subdirectories for
+def move_files(mode, variant, cfg_dir):
+    r"""Rename <config>.csv to <variant>.csv, create subdirectories for
     current simulation set and move all corresponding files there.
     Also, do some cleanup.
 
@@ -1108,6 +1116,8 @@ def move_files(mode, variant):
         Mode toggle for which files are to be moved.
     variant : str
         Simulation variant to be addressed.
+    cfg_dir : Path
+        Path to model cfg directory.
 
     """
 

@@ -17,7 +17,7 @@ The example model ...
 """
 
 # sphinx_gallery_thumbnail_number = -1
-import pathlib
+from pathlib import Path
 
 import esprsim as sim
 
@@ -47,7 +47,7 @@ variant_dict = {
 # %%
 # Set the model configuration path and set 'variant_dict['cfg']['cfg_path']' to this
 # path value.
-cfg_path = (pathlib.Path.cwd() / 'model' / 'cfg')
+cfg_path = (Path.cwd() / 'model' / 'cfg')
 variant_dict['cfg']['cfg_path'] = cfg_path
 
 
