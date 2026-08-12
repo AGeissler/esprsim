@@ -6,3 +6,5 @@ build
 /docs/examples
 /docs/auto_examples
 *sg_execution_times*
+out.*
+fort.*
