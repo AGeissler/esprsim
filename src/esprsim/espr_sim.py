@@ -28,14 +28,26 @@ Module contains functions for ESP-r scripts and auxiliary functions for
 batch running of simulations.
 """
 
+def tmp_dir(config):
+    """Method to build path to 'tmp' directory of simulation model.
+
+    Parameters
+    ----------
+    config : Path
+        Path object of configuration file. Full path but w/o file extension '.cfg'.
+
+    """
+    return Path('/' + '/'.join(config.parts[1:-1]) + '/tmp')
+
+
 def qa_report(config, variant):
     r"""Method which creates a QA report of the model defined in 'config' for the
     variant 'variant' using 'prj'.
 
     Parameters
     ----------
-    config : str | Path
-        Configuration file name without extension.
+    config : Path
+        Path object of configuration file. Full path but w/o file extension '.cfg'.
     variant : str
         Variant name (ctl, con, mat)
 
@@ -54,7 +66,7 @@ def qa_report(config, variant):
     args = [
             "prj",
             "-mode", "text",  # opens file in mode text
-            "-file", config + ".cfg",  # executable file
+            "-file", str(config) + ".cfg",  # executable file
             ]
 
     cmd = bytes("m\n"  # browse/ edit/ simulate
@@ -75,7 +87,7 @@ def qa_report(config, variant):
                 "-\n",  # exit Project Manager
                 encoding="utf-8")
 
-    f = open(variant + "_qa.scratch", "w")  # creates scratch file
+    f = open(str(tmp_dir(config)) + variant + "_qa.scratch", "w")  # creates scratch file
 
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
@@ -84,8 +96,8 @@ def get_clm_filename(config):
 
     Parameters
     ----------
-    config : str | Path
-        Configuration file name without extension.
+    config : Path
+        Path object of configuration file. Full path but w/o file extension '.cfg'.
 
     Returns
     -------
@@ -94,7 +106,7 @@ def get_clm_filename(config):
 
     """
     # Get domains key.
-    file = open(config + '.cfg', "r")
+    file = open(str(config) + '.cfg', "r")
     clm_file = [line.split() for line in file.readlines() if line.startswith('*clm')][0][1]
 
     return str(Path(clm_file).name)  # .stem for name w/o extension if present
@@ -104,8 +116,8 @@ def get_cnn_filename(config):
 
     Parameters
     ----------
-    config : str | Path
-        Configuration file name without extension.
+    config : Path
+        Path object of configuration file. Full path but w/o file extension '.cfg'.
 
     Returns
     -------
@@ -114,7 +126,7 @@ def get_cnn_filename(config):
 
     """
     # Get domains key.
-    file = open(config + '.cfg', "r")
+    file = open(str(config) + '.cfg', "r")
     cnn_file = [line.split() for line in file.readlines() if line.startswith('*cnn')][0][1]
 
     return cnn_file[:-4]
@@ -124,8 +136,8 @@ def get_domains_key(config):
 
     Parameters
     ----------
-    config : str | Path
-        Configuration file name without extension.
+    config : Path
+        Path object of configuration file. Full path but w/o file extension '.cfg'.
 
     Returns
     -------
@@ -134,7 +146,7 @@ def get_domains_key(config):
 
     """
     # Get domains key.
-    file = open(config + '.cfg', "r")
+    file = open(str(config) + '.cfg', "r")
     dms = [line.split() for line in file.readlines() if line.startswith('*indx')][0][1]
 
     file.seek(0, 0)
@@ -239,8 +251,8 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
     ----------
     dms : int
         Mode key for domains in model.
-    config : str
-        Configuration file name without extension.
+    config : Path
+        Path object of configuration file. Full path but w/o file extension '.cfg'.
     variant : str
         Simulation variant name.
     BTSTEP : int
@@ -262,7 +274,7 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
 
     """
 
-    print("\tRun bps with      : " + config + ".cfg")
+    print("\tRun bps with      : " + str(config) + ".cfg")
     print(list_dms(dms, variant))
     print("\tSimulation period : " + FD + "." + FM + ". to "
           + TD + "." + TM + ". with startup " + PP + " days using")
@@ -277,7 +289,7 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
     args = [
         "bps",
         "-mode", "text",  # open file in mode text
-        "-file", config + ".cfg",  # model configuration file to run.
+        "-file", str(config) + ".cfg",  # model configuration file to run.
     ]
 
     """
@@ -316,13 +328,13 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
 
     cmd = cmd.encode('utf-8')
 
-    f = open(variant + "_bps.scratch", "w")  # create scratch file
+    f = open(str(tmp_dir(config)) + variant + "_bps.scratch", "w")  # create scratch file
 
     # Run bps (args[0]), execute commands (cmd), write scratch file (f).
     run(args, input=cmd, stdout=f)
 
     # Postprocessing
-    for line in open(variant + "_bps.scratch"):
+    for line in open(str(tmp_dir(config)) + variant + "_bps.scratch"):
         if "CPU time:" in line:
             print("\n\t" + line)
             # if "XML postprocessor cpu runtime" in line:
@@ -363,7 +375,7 @@ def simulate_variant(**kwargs):
     PM = kwargs['PM']
 
     # Set configuration file name with (optional) path but w/o extension.
-    config = str(kwargs['cfg_path'] / kwargs['cfg'])
+    config = kwargs['cfg_path'] / kwargs['cfg']
 
     per = kwargs['per']
 
@@ -500,8 +512,8 @@ def set_ctl(config, ctl_file):
 
     Parameters
     ----------
-    config : str
-        Configuration file name without extension.
+    config : Path
+        Path object of configuration file. Full path but w/o file extension '.cfg'.
     ctl_file : str
         Control file name without extension.
 
@@ -512,7 +524,7 @@ def set_ctl(config, ctl_file):
     # Setting control file
     args = [
             "prj",
-            "-file", config + ".cfg",  # executable file
+            "-file", str(config) + ".cfg",  # executable file
             "-mode", "text",  # opens file in mode text
             ]
 
@@ -523,12 +535,12 @@ def set_ctl(config, ctl_file):
                 "Y\n"  # ctl-functions have not yet been associated w/ zones. exit anyway? [Y/N]
                 "Y\n"  # save changes to control file? [Y/N]
                 "Y\n"  # overwrite this file? [Y/N]
-                + config + ".cnn\n"  # cnn file
+                + config.name + ".cnn\n"  # cnn file
                 "-\n"  # exit this menu
                 "-\n", # exit Project Manager
                 encoding="utf-8")
 
-    f = open(config + "_set_" + ctl_file + ".scratch", "w")  # creates scratch file
+    f = open(str(tmp_dir(config)) + config.name + "_set_" + ctl_file + ".scratch", "w")  # creates scratch file
 
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
@@ -538,8 +550,8 @@ def set_clm(config, clm_file):
 
     Parameters
     ----------
-    config : str
-        Configuration file name without extension.
+    config : Path
+        Path object of configuration file. Full path but w/o file extension '.cfg'.
     clm_file : str
         Climate file name *including* extension
 
@@ -582,7 +594,7 @@ def set_clm(config, clm_file):
     #             "-\n",  # exit module
     #             encoding="utf-8")
     #
-    # f = open(config + "_set_" + clm_file + ".scratch", "w")  # creates scratch file
+    # f = open(str(tmp_dir(config)) + config + "_set_" + clm_file + ".scratch", "w")  # creates scratch file
     # run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
 
@@ -592,8 +604,8 @@ def set_gtp(config, clm_file, gtp):
 
     Parameters
     ----------
-    config : str
-        Configuration file name without extension.
+    config : Path
+        Path object of configuration file. Full path but w/o file extension '.cfg'.
     clm_file : str
         Name of climate file, must be available as key in gtp.
     gtp : Nested dict
@@ -622,7 +634,7 @@ def set_gtp(config, clm_file, gtp):
 
     args = [
             "prj",
-            "-file", config + ".cfg",  # executable file
+            "-file", str(config) + ".cfg",  # executable file
             "-mode", "text",  # opens file in mode text
             ]
 
@@ -657,7 +669,7 @@ def set_gtp(config, clm_file, gtp):
 
     cmd = cmd.encode('utf-8')
 
-    f = open(config + "_set_mgp.scratch", "w")  # creates scratch file
+    f = open(str(tmp_dir(config)) + config.name + "_set_mgp.scratch", "w")  # creates scratch file
 
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
@@ -667,8 +679,8 @@ def set_spm(config, cnn_file, spm_file):
 
     Parameters
     ----------
-    config : str
-        Configuration file name without extension.
+    config : Path
+        Path object of configuration file. Full path but w/o file extension '.cfg'.
     cnn_file : str
         Connections file name without extension.
     spm_file : str
@@ -681,8 +693,8 @@ def set_spm(config, cnn_file, spm_file):
     # Setting SPM-file
     args = [
             "prj",
-            "-file", config + ".cfg",  # executable file
             "-mode", "text",  # opens file in mode text
+            "-file", str(config) + ".cfg",  # executable file
             ]
 
     cmd = bytes("m\n"  # browse/ edit/ simulate
@@ -693,14 +705,14 @@ def set_spm(config, cnn_file, spm_file):
                 "-\n"  # exit
                 "-\n"  # exit this menu
                 "!\n"  # save model
-                + config + ".cfg\n"  # update system configuration file?
+                + config.name + ".cfg\n"  # update system configuration file?
                 + cnn_file + ".cnn\n"  # surface connections file name?
                 + cnn_file + ".cnn\n"  # surface connections file name?
                 "-\n"  # exit this menu
                 "-\n",  # exit Project Manager
                 encoding="utf-8")
 
-    f = open(config + "_set_" + spm_file + ".scratch", "w")  # creates scratch file
+    f = open(str(tmp_dir(config)) + config.name + "_set_" + spm_file + ".scratch", "w")  # creates scratch file
 
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
@@ -709,8 +721,8 @@ def set_afn(config, afn_file):
 
     Parameters
     ----------
-    config : str
-        Configuration file name without extension.
+    config : Path
+        Path object of configuration file. Full path but w/o file extension '.cfg'.
     afn_file : str
         Air flow network file name without extension.
 
@@ -722,7 +734,7 @@ def set_afn(config, afn_file):
     args = [
             "prj",
             "-mode", "text",  # opens file in mode text
-            "-file", config + ".cfg",  # executable file
+            "-file", str(config) + ".cfg",  # executable file
             ]
 
     cmd = bytes("m\n"  # browse/ edit/ simulate
@@ -741,7 +753,7 @@ def set_afn(config, afn_file):
                 "-\n", # quit module
                 encoding="utf-8")
 
-    f = open(config + "_set_" + afn_file + ".scratch", "w")  # creates scratch file
+    f = open(str(tmp_dir(config)) + config.name + "_set_" + afn_file + ".scratch", "w")  # creates scratch file
 
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
@@ -750,8 +762,8 @@ def set_plant(config, plant, plant_db):
 
     Parameters
     ----------
-    config : str
-        Configuration file name w/o extension.
+    config : Path
+        Path object of configuration file. Full path but w/o file extension '.cfg'.
     plant : str
         Plant file name w/o extension.
     plant_db : str | Path
@@ -762,11 +774,11 @@ def set_plant(config, plant, plant_db):
     #[ ! -f ../nets/${PLANT}.pln ] && echo " ** ERROR ** Plant file inexistant!"
     #[ ! -f ${PLANTDB} ] && echo " ** ERROR ** Plantdb inexistant!"
 
-    print("   In " + config + ", setting plant file to: " + plant + "... ")
+    print("   In " + config.name + ", setting plant file to: " + plant + "... ")
 
     args = [
             "prj",
-            "-file", config + ".cfg",  # executable file
+            "-file", str(config) + ".cfg",  # executable file
             "-mode", "text",  # opens file in mode text
             ]
 
@@ -786,7 +798,7 @@ def set_plant(config, plant, plant_db):
                 "-\n",  # exit Project Manager
                 encoding="utf-8")
 
-    f = open(config + "_set_" + plant + ".scratch", "w")  # creates scratch file
+    f = open(str(tmp_dir(config)) + config.name + "_set_" + plant + ".scratch", "w")  # creates scratch file
 
     # run prj (args), execute commands (cmd), write scratch file (f)
     run(args, input=cmd, stdout=f)
@@ -797,8 +809,8 @@ def set_obs_dim(config, zone, obs, width, depth, height):
 
     Parameters
     ----------
-    config : str
-        Configuration file name (with relative path)
+    config : Path
+        Path object of configuration file. Full path but w/o file extension '.cfg'.
     zone : str (tbc)
         Zone name.
     obs : int (tbc)
@@ -819,8 +831,8 @@ def set_obs_dim(config, zone, obs, width, depth, height):
     # Setting lam for mat
     args = [
             "prj",
-            "-file", config + ".cfg",  # executable file
             "-mode", "text",  # opens file in mode text
+            "-file", str(config) + ".cfg",  # executable file
             ]
 
     cmd = bytes("m\n"  # browse/edit/simulate
@@ -842,7 +854,7 @@ def set_obs_dim(config, zone, obs, width, depth, height):
                 "-\n", # quite module
                 encoding="utf-8")
 
-    f = open(config + "_set_" + zone + "_" + obs + "_obs.scratch", "w")  # creates scratch file
+    f = open(str(tmp_dir(config)) + config.name + "_set_" + zone + "_" + obs + "_obs.scratch", "w")  # creates scratch file
 
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
@@ -852,8 +864,8 @@ def set_con(config, cnn_file, old_con_str, old_class, old_con, new_class, new_co
 
     Parameters
     ----------
-    config : str
-        Configuration file name without extension.
+    config : Path
+        Path object of configuration file. Full path but w/o file extension '.cfg'.
     cnn_file : str
         Connections file name without extension.
     old_con_str : str
@@ -869,7 +881,7 @@ def set_con(config, cnn_file, old_con_str, old_class, old_con, new_class, new_co
 
     """
 
-    print("\n\tChange construction \"" + old_con_str + "\" in model " + config + ".cfg globally,")
+    print("\n\tChange construction \"" + old_con_str + "\" in model " + config.name + ".cfg globally,")
     print("\t\tsearch for " + old_class + " / " + old_con)
     print("\t\treplace by " + new_class + " / " + new_con + " ... ", end='')
 
@@ -887,7 +899,7 @@ def set_con(config, cnn_file, old_con_str, old_class, old_con, new_class, new_co
     # Changing construction
     args = [
             "prj",
-            "-file", config + ".cfg",  # executable file
+            "-file", str(config) + ".cfg",  # executable file
             "-mode", "text",  # opens file in mode text
             ]
 
@@ -927,7 +939,7 @@ def set_con(config, cnn_file, old_con_str, old_class, old_con, new_class, new_co
 
     cmd = cmd.encode('utf-8')
 
-    f = open(config + "_set_roomcon_" + new_con + ".scratch", "w")  # creates scratch file
+    f = open(str(tmp_dir(config)) + config.name + "_set_roomcon_" + new_con + ".scratch", "w")  # creates scratch file
 
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
@@ -940,8 +952,8 @@ def set_new_rotangle(config, rotangle, x0, y0):
 
     Parameters
     ----------
-    config : str | Path
-        Configuration file name or path+name without extension
+    config : Path
+        Path object of configuration file. Full path but w/o file extension '.cfg'.
     rotangle : float
         Desired rotation angle (degrees counterclockwise).
     x0 : float
@@ -956,7 +968,7 @@ def set_new_rotangle(config, rotangle, x0, y0):
     args = [
             "prj",
             "-mode", "text",
-            "-file", config + ".cfg"
+            "-file", str(config) + ".cfg"
             ]
 
     cmd = bytes("m\n"  # browse / edit / simulate
@@ -976,7 +988,7 @@ def set_new_rotangle(config, rotangle, x0, y0):
                 "-\n",  # quite module
                 encoding="utf-8")
 
-    f = open(config + "_rotate_" + rotangle + ".scratch", "w")  # create scratch file
+    f = open(str(tmp_dir(config)) + config.name + "_rotate_" + rotangle + ".scratch", "w")  # create scratch file
 
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
@@ -989,8 +1001,8 @@ def set_ctl_temp_setpt(config, ctl_file, loop, h_setpoint, c_setpoint='99'):
 
     Parameters
     ----------
-    config : str
-         Configuration file name without extension.
+    config : Path
+        Path object of configuration file. Full path but w/o file extension '.cfg'.
     ctl_file : str
         Control file name w/o extension.
     loop : int
@@ -1002,7 +1014,7 @@ def set_ctl_temp_setpt(config, ctl_file, loop, h_setpoint, c_setpoint='99'):
 
     """
 
-    print("\n\tSetting new temperature setpoints in " + config + ".cfg for")
+    print("\n\tSetting new temperature setpoints in " + config.name + ".cfg for")
     print("\t\theating to " + h_setpoint + " degC and for")
     print("\t\tcooling to " + c_setpoint + " degC")
     print("\t\tin control file " + ctl_file + ".ctl.")
@@ -1010,8 +1022,8 @@ def set_ctl_temp_setpt(config, ctl_file, loop, h_setpoint, c_setpoint='99'):
     # Set arguments w/ config file.
     args = [
             "prj",
-            "-file", config + ".cfg",  # executable file
             "-mode", "text",  # opens file in mode text
+            "-file", str(config) + ".cfg",  # executable file
             ]
 
     # Build command string.
@@ -1039,7 +1051,7 @@ def set_ctl_temp_setpt(config, ctl_file, loop, h_setpoint, c_setpoint='99'):
                 encoding="utf-8")
 
     # Create and open scratch file.
-    f = open(config + "_set_hc_setp" + ".scratch", "w")
+    f = open(str(tmp_dir(config)) + config.name + "_set_hc_setp" + ".scratch", "w")
 
     # Run prj (args), executes commands (cmd), writes scratch file (f).
     run(args, input=cmd, stdout=f)
