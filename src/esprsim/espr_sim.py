@@ -457,8 +457,10 @@ def simulate_variant(**kwargs):
     # simulation set and move all corresponding files there.
     move_files(variant, kwargs['cfg_path'], mode='clean')
 
-    # Final cleanup.
-    move_files(variant, kwargs['cfg_path'])
+    # Final cleanup (move any not-yet-addressed files).
+    # << not necessary without 'rollback' calls to model-changing methods that create
+    #    a _scratch file! >>
+    # move_files(variant, kwargs['cfg_path'])
 
 
 def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=0,
@@ -1097,20 +1099,18 @@ def remove_results(variant, cfg_dir, run_clean=False):
     """
     res_dir = Path('/' + '/'.join(cfg_dir.parts[1:-1]) + '/tmp')
 
+    dir_list = [cfg_dir, res_dir]
+
     extension_list = ['.res', '.mfr', '.plr', '.contents']
 
     if run_clean:
-        for ext in extension_list:
-            # Go through tmp directory.
-            if Path(str(res_dir) + '/' + variant + ext).exists():
-                # delete!
-                Path(str(res_dir) + '/' + variant + ext).unlink(missing_ok=True)
-            # Go through cfg directory.
-            if Path(str(cfg_dir) + '/' + variant + ext).exists():
-                # delete!
-                Path(str(cfg_dir) + '/' + variant + ext).unlink(missing_ok=True)
-
-    if run_clean is False:
+        for _dir in dir_list:
+            for ext in extension_list:
+                # Go through cfg directory.
+                if Path(str(_dir) + '/' + variant + ext).exists():
+                    # delete!
+                    Path(str(_dir) + '/' + variant + ext).unlink(missing_ok=True)
+    else:
         # No space issue, only avoid qa_report issues.
         if Path(str(cfg_dir) + '/' + variant + '.contents').exists():
             # delete!
@@ -1178,14 +1178,14 @@ def move_files(variant, cfg_dir, mode='move'):
 
     for f in filtered_paths:
         if f.name.startswith(variant + "."):
-            shutil.move(f, str(res_dir_variant))
+            shutil.move(f, res_dir_variant)
         if f.name.startswith("out."):
             shutil.move(f, Path(str(res_dir_variant) + '/' + variant + f.suffix))
         elif f.name.endswith(".csv"):
             os.rename(f, variant + ".csv")
-            shutil.move(variant + ".csv", str(res_dir_variant))
+            shutil.move(variant + ".csv", res_dir_variant)
         elif f.name.endswith(".dat"):
-            shutil.move(f, str(res_dir_variant))
+            shutil.move(f, res_dir_variant)
         elif f.name.endswith(".scratch"):
             if mode == 'clean':
                 shutil.move(f, res_dir_scratch)
