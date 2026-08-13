@@ -55,6 +55,8 @@ Functions for setting simulation parameters
 Auxiliary functions
 -------------------
 
+.. autofunction:: esprsim.espr_sim.tmp_dir
+
 .. autofunction:: esprsim.espr_sim.get_clm_filename
 
 .. autofunction:: esprsim.espr_sim.get_cnn_filename

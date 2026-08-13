@@ -37,7 +37,7 @@ def tmp_dir(config):
         Path object of configuration file. Full path but w/o file extension '.cfg'.
 
     """
-    return Path('/' + '/'.join(config.parts[1:-1]) + '/tmp')
+    return Path('/' + '/'.join(config.parts[1:-2]) + '/tmp')
 
 
 def qa_report(config, variant):
@@ -87,7 +87,7 @@ def qa_report(config, variant):
                 "-\n",  # exit Project Manager
                 encoding="utf-8")
 
-    f = open(str(tmp_dir(config)) + variant + "_qa.scratch", "w")  # creates scratch file
+    f = open(str(tmp_dir(config)) + '/' + variant + "_qa.scratch", "w")  # creates scratch file
 
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
@@ -328,13 +328,13 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
 
     cmd = cmd.encode('utf-8')
 
-    f = open(str(tmp_dir(config)) + variant + "_bps.scratch", "w")  # create scratch file
+    f = open(str(tmp_dir(config)) + '/' + variant + "_bps.scratch", "w")  # create scratch file
 
     # Run bps (args[0]), execute commands (cmd), write scratch file (f).
     run(args, input=cmd, stdout=f)
 
     # Postprocessing
-    for line in open(str(tmp_dir(config)) + variant + "_bps.scratch"):
+    for line in open(str(tmp_dir(config)) + '/' + variant + "_bps.scratch"):
         if "CPU time:" in line:
             print("\n\t" + line)
             # if "XML postprocessor cpu runtime" in line:
@@ -455,10 +455,10 @@ def simulate_variant(**kwargs):
 
     # Rename H3K-output.csv to <variant>.csv, create subdirectories for current
     # simulation set and move all corresponding files there.
-    move_files(1, variant, kwargs['cfg_path'])
+    move_files(variant, kwargs['cfg_path'], mode='clean')
 
     # Final cleanup.
-    move_files(0, variant, kwargs['cfg_path'])
+    move_files(variant, kwargs['cfg_path'])
 
 
 def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=0,
@@ -540,7 +540,7 @@ def set_ctl(config, ctl_file):
                 "-\n", # exit Project Manager
                 encoding="utf-8")
 
-    f = open(str(tmp_dir(config)) + config.name + "_set_" + ctl_file + ".scratch", "w")  # creates scratch file
+    f = open(str(tmp_dir(config)) + '/' + config.name + "_set_" + ctl_file + ".scratch", "w")  # creates scratch file
 
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
@@ -594,7 +594,7 @@ def set_clm(config, clm_file):
     #             "-\n",  # exit module
     #             encoding="utf-8")
     #
-    # f = open(str(tmp_dir(config)) + config + "_set_" + clm_file + ".scratch", "w")  # creates scratch file
+    # f = open(str(tmp_dir(config)) + '/' + config + "_set_" + clm_file + ".scratch", "w")  # creates scratch file
     # run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
 
@@ -669,7 +669,7 @@ def set_gtp(config, clm_file, gtp):
 
     cmd = cmd.encode('utf-8')
 
-    f = open(str(tmp_dir(config)) + config.name + "_set_mgp.scratch", "w")  # creates scratch file
+    f = open(str(tmp_dir(config)) + '/' + config.name + "_set_mgp.scratch", "w")  # creates scratch file
 
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
@@ -712,7 +712,7 @@ def set_spm(config, cnn_file, spm_file):
                 "-\n",  # exit Project Manager
                 encoding="utf-8")
 
-    f = open(str(tmp_dir(config)) + config.name + "_set_" + spm_file + ".scratch", "w")  # creates scratch file
+    f = open(str(tmp_dir(config)) + '/' + config.name + "_set_" + spm_file + ".scratch", "w")  # creates scratch file
 
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
@@ -753,7 +753,7 @@ def set_afn(config, afn_file):
                 "-\n", # quit module
                 encoding="utf-8")
 
-    f = open(str(tmp_dir(config)) + config.name + "_set_" + afn_file + ".scratch", "w")  # creates scratch file
+    f = open(str(tmp_dir(config)) + '/' + config.name + "_set_" + afn_file + ".scratch", "w")  # creates scratch file
 
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
@@ -798,7 +798,7 @@ def set_plant(config, plant, plant_db):
                 "-\n",  # exit Project Manager
                 encoding="utf-8")
 
-    f = open(str(tmp_dir(config)) + config.name + "_set_" + plant + ".scratch", "w")  # creates scratch file
+    f = open(str(tmp_dir(config)) + '/' + config.name + "_set_" + plant + ".scratch", "w")  # creates scratch file
 
     # run prj (args), execute commands (cmd), write scratch file (f)
     run(args, input=cmd, stdout=f)
@@ -854,7 +854,7 @@ def set_obs_dim(config, zone, obs, width, depth, height):
                 "-\n", # quite module
                 encoding="utf-8")
 
-    f = open(str(tmp_dir(config)) + config.name + "_set_" + zone + "_" + obs + "_obs.scratch", "w")  # creates scratch file
+    f = open(str(tmp_dir(config)) + '/' + config.name + "_set_" + zone + "_" + obs + "_obs.scratch", "w")  # creates scratch file
 
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
@@ -939,7 +939,7 @@ def set_con(config, cnn_file, old_con_str, old_class, old_con, new_class, new_co
 
     cmd = cmd.encode('utf-8')
 
-    f = open(str(tmp_dir(config)) + config.name + "_set_roomcon_" + new_con + ".scratch", "w")  # creates scratch file
+    f = open(str(tmp_dir(config)) + '/' + config.name + "_set_roomcon_" + new_con + ".scratch", "w")  # creates scratch file
 
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
@@ -988,7 +988,7 @@ def set_new_rotangle(config, rotangle, x0, y0):
                 "-\n",  # quite module
                 encoding="utf-8")
 
-    f = open(str(tmp_dir(config)) + config.name + "_rotate_" + rotangle + ".scratch", "w")  # create scratch file
+    f = open(str(tmp_dir(config)) + '/' + config.name + "_rotate_" + rotangle + ".scratch", "w")  # create scratch file
 
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
@@ -1051,7 +1051,7 @@ def set_ctl_temp_setpt(config, ctl_file, loop, h_setpoint, c_setpoint='99'):
                 encoding="utf-8")
 
     # Create and open scratch file.
-    f = open(str(tmp_dir(config)) + config.name + "_set_hc_setp" + ".scratch", "w")
+    f = open(str(tmp_dir(config)) + '/' + config.name + "_set_hc_setp" + ".scratch", "w")
 
     # Run prj (args), executes commands (cmd), writes scratch file (f).
     run(args, input=cmd, stdout=f)
@@ -1130,12 +1130,12 @@ def move_files(variant, cfg_dir, mode='move'):
 
     Parameters
     ----------
-    mode : str (optional, default : 'move')
-        Mode toggle for only moving files ('move') or prior cleanup ('clean').
     variant : str
         Simulation variant to be addressed.
     cfg_dir : Path
         Path to model cfg directory.
+    mode : str (optional, default : 'move')
+        Mode toggle for only moving files ('move') or prior cleanup ('clean').
 
     """
     res_dir = Path('/' + '/'.join(cfg_dir.parts[1:-1]) + '/tmp')
