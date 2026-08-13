@@ -1105,64 +1105,88 @@ def remove_results(variant, cfg_dir, run_clean=False):
             Path(str(cfg_dir) + '/' + variant + '.contents').unlink(missing_ok=True)
 
 
-def move_files(mode, variant, cfg_dir):
-    r"""Rename <config>.csv to <variant>.csv, create subdirectories for
-    current simulation set and move all corresponding files there.
-    Also, do some cleanup.
+def move_files(variant, cfg_dir, mode='move'):
+    r"""Method for clean-up after a simulation run.
+
+    In mode 'move' (the default), any files with the name pattern 'variant.' are moved
+    to the corresponding subdirectory 'variant'. The file <config>.csv is renamed
+    <variant>.csv and then moved.
+
+    In mode 'clean', existing subdirectories 'variant' and 'variant_scratchfiles' are
+    deleted prior to steps for mode 'move', i.e. old results are removed / replaced with
+    current results.
 
     Parameters
     ----------
-    mode : int
-        Mode toggle for which files are to be moved.
+    mode : str (optional, default : 'move')
+        Mode toggle for only moving files ('move') or prior cleanup ('clean').
     variant : str
         Simulation variant to be addressed.
     cfg_dir : Path
         Path to model cfg directory.
 
     """
+    res_dir = Path('/' + '/'.join(cfg_dir.parts[1:-1]) + '/tmp')
+    base_dir = Path.cwd()  # can, but needn't be /cfg!
 
-    if (mode == 1) is True:
-        if os.path.isdir("./" + variant) is True:
-            shutil.rmtree("./" + variant)
-            os.mkdir("./" + variant)
+    # Source directories to be searched for files.
+    dir_list = [cfg_dir, res_dir, base_dir]
+
+    # Target direcories.
+    res_dir_variant = Path(res_dir / variant)
+    res_dir_scratch = Path(res_dir / variant / "_scratchfiles")
+
+    ignore = ['', '.txt', '.rst', '.py', '.cfg', '.cnn', '.awk']
+
+    if mode == 'clean':
+        # Remove existing results directories for 'variant' and then make new.
+        if res_dir_variant.exists():
+            shutil.rmtree(res_dir_variant)
+            os.mkdir(res_dir_variant)
         else:
-            os.mkdir("./" + variant)
+            os.mkdir(res_dir_variant)
 
-        if os.path.isdir("./" + variant + "_scratchfiles") is True:
-            shutil.rmtree("./" + variant + "_scratchfiles")
-            os.mkdir("./" + variant + "_scratchfiles")
+        if Path(res_dir_scratch).exists():
+            shutil.rmtree(res_dir_scratch)
+            os.mkdir(res_dir_scratch)
         else:
-            os.mkdir("./" + variant + "_scratchfiles")
+            os.mkdir(res_dir_scratch)
 
-    files = os.listdir(os.getcwd())
+    # Create list of files both in res_dir and base_dir which are to be moved.
+    all_paths = []
+    for _dir in dir_list:
+        for child in _dir.iterdir():
+            all_paths.append(child)
 
-    for f in files:
-        if f.startswith(variant + "."):
-            shutil.move(f, "./" + variant)
-        elif f.endswith(".csv"):
+    filtered_paths = []
+    for _path in all_paths:
+        if Path(_path).is_file():
+            if Path(_path).suffix not in ignore:
+                filtered_paths.append(_path)
+
+    for f in filtered_paths:
+        if f.name.startswith(variant + "."):
+            shutil.move(f, str(res_dir_variant))
+        if f.name.startswith("out."):
+            shutil.move(f, Path(str(res_dir_variant) + '/' + variant + f.suffix))
+        elif f.name.endswith(".csv"):
             os.rename(f, variant + ".csv")
-            shutil.move(variant + ".csv", "./" + variant)
-        elif f.endswith(".dat"):
-            shutil.move(f, "./" + variant)
-        elif f.endswith(".scratch"):
-            if (mode == 1) is True:
-                shutil.move(f, "./" + variant + "_scratchfiles")
+            shutil.move(variant + ".csv", str(res_dir_variant))
+        elif f.name.endswith(".dat"):
+            shutil.move(f, str(res_dir_variant))
+        elif f.name.endswith(".scratch"):
+            if mode == 'clean':
+                shutil.move(f, res_dir_scratch)
             else:
-                shutil.move(f, "./" + variant + "_scratchfiles" + "/" + f + "2")
+                shutil.move(f, Path(str(res_dir_scratch) + '/' + f.name + '2'))
         # Cleanup.
-        elif f.startswith("fort."):
+        elif f.name.startswith("fort."):
             os.remove(f)
-        elif f.startswith("graphic."):
+        elif f.name.startswith("graphic."):
             os.remove(f)
 
-#    if os.path.exists("./out.xml"):
-#        shutil.move("./out.xml", "./" + variant)
-#    if os.path.exists(config + ".summary"):
-#        os.remove("./" + config + ".summary")
-#    if os.path.exists("./out.summary"):
-#        os.rename("./out.summary", config + ".summary")
-#    if os.path.exists("./out.dictionary"):
-#        shutil.move("./out.dictionary", "./" + variant)
+    # if os.path.exists(config + ".summary"):
+    #     os.remove("./" + config + ".summary")
 
 def move_clm_files(clm):
     r"""Move climate file to subdirectory named 'clm_eval'.
