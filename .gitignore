@@ -4,7 +4,7 @@ build
 *__pycache__
 /docs/_build
 /docs/examples
-/docs/auto_examples
+tmp
 *sg_execution_times*
 out.*
 fort.*
