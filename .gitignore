@@ -1,3 +1,10 @@
+.vscode
+build
+*egg-info
+*__pycache__
 /docs/_build
-/docs/auto_examples
+/docs/examples
+tmp
 *sg_execution_times*
+out.*
+fort.*

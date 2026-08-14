@@ -1,0 +1,165 @@
+# ESP-r special materials file used in
+# configuration file PVT_Douala.cfg
+  18  # Number of special material nodes.
+# Node No:   1
+Z00_W1     # label
+# Zone Surf Node Type Opq/Trn
+   2   5   4   5   1
+# Number of data items.
+  16
+# Data:
+   69.58    8.55    54.89    8.03    1000    298.15    0.0049    -0.004    -0.121    110 
+    1     1     0     0     3     0.086 
+# Node No:   2
+Z00_W2     # label
+# Zone Surf Node Type Opq/Trn
+   3   5   4   5   1
+# Number of data items.
+  16
+# Data:
+   69.58    8.55    54.89    8.03    1000    298.15    0.0049    -0.004    -0.121    110 
+    1     1     0     0     3     0.086 
+# Node No:   3
+Z00_W3     # label
+# Zone Surf Node Type Opq/Trn
+   4   5   4   5   1
+# Number of data items.
+  16
+# Data:
+   69.58    8.55    54.89    8.03    1000    298.15    0.0049    -0.004    -0.121    110 
+    1     1     0     0     3     0.086 
+# Node No:   4
+Z00_E1     # label
+# Zone Surf Node Type Opq/Trn
+   5   5   4   5   1
+# Number of data items.
+  16
+# Data:
+   69.58    8.55    54.89    8.03    1000    298.15    0.0049    -0.004    -0.121    110 
+    1     1     0     0     3     0.086 
+# Node No:   5
+Z00_E2     # label
+# Zone Surf Node Type Opq/Trn
+   6   5   4   5   1
+# Number of data items.
+  16
+# Data:
+   69.58    8.55    54.89    8.03    1000    298.15    0.0049    -0.004    -0.121    110 
+    1     1     0     0     3     0.086 
+# Node No:   6
+Z00_E3     # label
+# Zone Surf Node Type Opq/Trn
+   7   5   4   5   1
+# Number of data items.
+  16
+# Data:
+   69.58    8.55    54.89    8.03    1000    298.15    0.0049    -0.004    -0.121    110 
+    1     1     0     0     3     0.086 
+# Node No:   7
+Z20_W1     # label
+# Zone Surf Node Type Opq/Trn
+   9   5   4   5   1
+# Number of data items.
+  16
+# Data:
+   69.58    8.55    54.89    8.03    1000    298.15    0.0049    -0.004    -0.121    110 
+    1     1     0     0     3     0.086 
+# Node No:   8
+Z20_W2     # label
+# Zone Surf Node Type Opq/Trn
+  10   5   4   5   1
+# Number of data items.
+  16
+# Data:
+   69.58    8.55    54.89    8.03    1000    298.15    0.0049    -0.004    -0.121    110 
+    1     1     0     0     3     0.086 
+# Node No:   9
+Z20_W3     # label
+# Zone Surf Node Type Opq/Trn
+  11   5   4   5   1
+# Number of data items.
+  16
+# Data:
+   69.58    8.55    54.89    8.03    1000    298.15    0.0049    -0.004    -0.121    110 
+    1     1     0     0     3     0.086 
+# Node No:  10
+Z20_E1     # label
+# Zone Surf Node Type Opq/Trn
+  12   5   4   5   1
+# Number of data items.
+  16
+# Data:
+   69.58    8.55    54.89    8.03    1000    298.15    0.0049    -0.004    -0.121    110 
+    1     1     0     0     3     0.086 
+# Node No:  11
+Z20_E2     # label
+# Zone Surf Node Type Opq/Trn
+  13   5   4   5   1
+# Number of data items.
+  16
+# Data:
+   69.58    8.55    54.89    8.03    1000    298.15    0.0049    -0.004    -0.121    110 
+    1     1     0     0     3     0.086 
+# Node No:  12
+Z20_E3     # label
+# Zone Surf Node Type Opq/Trn
+  14   5   4   5   1
+# Number of data items.
+  16
+# Data:
+   69.58    8.55    54.89    8.03    1000    298.15    0.0049    -0.004    -0.121    110 
+    1     1     0     0     3     0.086 
+# Node No:  13
+Z40_W1     # label
+# Zone Surf Node Type Opq/Trn
+  16   5   4   5   1
+# Number of data items.
+  16
+# Data:
+   69.58    8.55    54.89    8.03    1000    298.15    0.0049    -0.004    -0.121    110 
+    1     1     0     0     3     0.086 
+# Node No:  14
+Z40_W2     # label
+# Zone Surf Node Type Opq/Trn
+  17   5   4   5   1
+# Number of data items.
+  16
+# Data:
+   69.58    8.55    54.89    8.03    1000    298.15    0.0049    -0.004    -0.121    110 
+    1     1     0     0     3     0.086 
+# Node No:  15
+Z40_W3     # label
+# Zone Surf Node Type Opq/Trn
+  18   5   4   5   1
+# Number of data items.
+  16
+# Data:
+   69.58    8.55    54.89    8.03    1000    298.15    0.0049    -0.004    -0.121    110 
+    1     1     0     0     3     0.086 
+# Node No:  16
+Z40_E1     # label
+# Zone Surf Node Type Opq/Trn
+  19   5   4   5   1
+# Number of data items.
+  16
+# Data:
+   69.58    8.55    54.89    8.03    1000    298.15    0.0049    -0.004    -0.121    110 
+    1     1     0     0     3     0.086 
+# Node No:  17
+Z40_E2     # label
+# Zone Surf Node Type Opq/Trn
+  20   5   4   5   1
+# Number of data items.
+  16
+# Data:
+   69.58    8.55    54.89    8.03    1000    298.15    0.0049    -0.004    -0.121    110 
+    1     1     0     0     3     0.086 
+# Node No:  18
+Z40_E3     # label
+# Zone Surf Node Type Opq/Trn
+  21   5   4   5   1
+# Number of data items.
+  16
+# Data:
+   69.58    8.55    54.89    8.03    1000    298.15    0.0049    -0.004    -0.121    110 
+    1     1     0     0     3     0.086 

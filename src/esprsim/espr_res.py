@@ -73,7 +73,7 @@ def res_PMV(resfile, zone, clo, met, veloc):
 
     Notes
     -----
-    Optionally call with dict: res_PMV(res, z, **PMV[<var>]),
+    Optionally call with dict: res_PMV(res, z, \**PMV[<var>]),
     where <var> is the list variable of the loop going through a list
     of desired key strings var_list = ('key1', 'keyN').
 

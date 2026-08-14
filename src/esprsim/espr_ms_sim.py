@@ -18,7 +18,7 @@
 # 261: def set_abs_o(config, matclass, material, abs):
 #            Set outside solar absorption for materials in model w/o CFC
 #            constructions(!).
-    from subprocess import run
+from subprocess import run
 
 """
 Module contains model specific functions using ESP-r project manager
