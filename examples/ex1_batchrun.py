@@ -5,11 +5,12 @@ Minimal working example
 
 .. topic:: Use 'esprsim' to run and evaluate a model
 
-   * learn of necessary components of 'esprsim'
+   * get learn of necessary components of 'esprsim'
 
    * run simulation model and postprocess results
 
-The example model ...
+The example model is a simple set of buildings with different roof tilt angles. The
+roofs feature a PV installation.
 
 .. image:: ../../examples/model/images/scene1.png
    :scale: 30%
