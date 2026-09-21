@@ -1,7 +1,11 @@
 esprsim documentation
 =====================
 
-'esprsim' is an open, Python-based package providing methods for ...
+'esprsim' is an open, Python-based package providing methods for script-based running of
+`ESP-r <https://www.strath.ac.uk/research/energysystemsresearchunit/applications/esp-r/>`_
+simulations for variants of a base model. The package also offers some basic
+post-processing tools. The methods for manipulating ESP-r use the '-mode text'
+command-line option for 'prj' and 'res'. The methods are tested with ESP-r V13.3.17.
 
 .. grid::
 

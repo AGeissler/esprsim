@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 r"""
-PV yield comparison
--------------------
+Extended PV yield comparison
+----------------------------
 
 .. topic:: Use 'esprsim' to run and evaluate model variants
 
@@ -22,8 +22,8 @@ import esprsim as sim
 def _find_repo_root(start=None):
         p = pathlib.Path(start or os.getcwd()).resolve()
         for d in [p] + list(p.parents):
-                if (d / 'pyproject.toml').exists()
-                or (d / '.git').exists()
+                if (d / 'pyproject.toml').exists()\
+                or (d / '.git').exists()\
                 or (d / 'setup.py').exists():
                         return d
         return pathlib.Path(os.getcwd()).resolve()

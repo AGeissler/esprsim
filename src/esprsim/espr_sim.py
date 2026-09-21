@@ -261,7 +261,7 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
         Plant time steps per building time step, not used for models w/o plant.
     FD, FM, TD, TM, PP : int
         Start- and end dates for simulation period and number of days for start-up
-        period duration. Typically passed via dict reference (**PM[key]).
+        period duration. Typically passed via dict reference (\*\*PM[key]).
 
     Notes
     -----
@@ -292,9 +292,7 @@ def simulate(dms, config, variant, BTSTEP, PTSTEP, FD, FM, TD, TM, PP):
         "-file", str(config) + ".cfg",  # model configuration file to run.
     ]
 
-    """
-    Build command for text mode.
-    """
+    # Build command for text mode.
     cmd1 = bytes("\n"  # skip "model configuration file?"
                  "c\n",  # initiate simulation
                  encoding="utf-8")
@@ -480,6 +478,9 @@ def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=0,
         Building time-steps per hour.
     ptstep : int (optional, default: 0)
         Plant time-steps per building time-step.
+    run_clean : bool, default: False
+        Toggle for 'cleaning' of results files after simulation, e.g. to avoid disk
+        space issues in cases with many variants.
 
     """
     keys = list(dict_of_variants.keys())
@@ -949,7 +950,7 @@ def set_con(config, cnn_file, old_con_str, old_class, old_con, new_class, new_co
 
 
 def set_new_rotangle(config, rotangle, x0, y0):
-    """Method which rotates the whole model around point (x0,y0) by 'rotangle' degrees
+    r"""Method which rotates the whole model around point (x0,y0) by 'rotangle' degrees
     using 'prj'. The rotation is counterclockwise.
 
     Parameters
@@ -998,7 +999,7 @@ def set_new_rotangle(config, rotangle, x0, y0):
 
 
 def set_ctl_temp_setpt(config, ctl_file, loop, h_setpoint, c_setpoint='99'):
-    """Method which changes the setpoint temperature for building control in ctl_file
+    r"""Method which changes the setpoint temperature for building control in ctl_file
     using 'prj'.
 
     Parameters
