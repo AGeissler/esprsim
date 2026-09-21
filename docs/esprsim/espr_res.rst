@@ -1,6 +1,6 @@
 .. _esprsim-api-espr_res:
 
-Res
+res
 ===
 
 This module contains functions for simulation results extraction and
@@ -8,6 +8,6 @@ evaluation.
 
 .. currentmodule:: esprsim
 
-.. autofunction:: esprsim.espr_res.res_supplied_energy
-
-.. autofunction:: esprsim.espr_res.res_PMV
+.. automodule:: esprsim.espr_res
+   :members:
+   :private-members:

@@ -1,11 +1,14 @@
 .. _esprsim-api-espr_sim:
 
-Sim
+sim
 ===
 
 This module contains functions to set up and run ESP-r simulations.
 
 .. currentmodule:: esprsim
+
+Functions for variant processing
+--------------------------------
 
 .. autofunction:: esprsim.espr_sim.qa_report
 
