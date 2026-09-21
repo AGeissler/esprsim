@@ -1,24 +1,21 @@
 # esprsim
 
 ## Introduction
-The 'esprsim' package provides an interface for running ESP-r using
-Python scripts. There is an example how such an automation script can
-be set up in the example folder.
+The 'esprsim' package provides an interface for running ESP-r using Python scripts.
+There are examples of how such an automation script can be set up in the examples folder.
 
 ## Installing esprsim
 ### Step One
 Clone this repository to your usual git repository directory.
 
 ### Step Two
-If your ESP-r project already has a Python virtual environment(or if you
-use a central Python installation and wish to add this package to it), 
-jump to step three. Otherwise:
+If your ESP-r project already has a Python virtual environment(or if you use a central
+Python installation and wish to add this package to it), jump to step three. Otherwise:
 
-Set up a virtual Python environment for your ESP-r project, ideally
-in '<project path>', which is either the ESP-r project path if this is 
-'stand alone' or the path of the project of which ESP-r files are in 
-a subdirectory. The following assumes you are working in a console
-window.
+Set up a virtual Python environment for your ESP-r project, ideally in '<project path>',
+which is either the ESP-r project path if this is 'stand alone' or the path of the
+project of which ESP-r files are in a subdirectory. The following assumes you are working
+in a console window.
 
     1. Create virtual environment by 
         <project path>$ python3 -m venv env (evironment name is name arbitrary)
@@ -34,26 +31,26 @@ window.
         pip install wheel
         pip install setuptools
 
-Note: to avoid clutter in git "changed files" tracking, add the
-environment subdirectory to .gitignore of the project.
+Note: to avoid clutter in git "changed files" tracking, add the environment subdirectory
+to .gitignore of the project.
 
 ### Step three
-In the console with active environment from step two, change to the 
-source directory of esprsim and issue the command
+In the console with active environment from step two, change to the source directory of
+esprsim and issue the command
 
     $ pip install .
 
-That's it. Now, esprsim should be available in your project-specific 
-virtual environment every time you activate it.
+That's it. Now, esprsim should be available in your project-specific virtual environment
+every time you activate it.
 
 ## Usage example
-The subdirectory 'example' contains a 'real world' example using the
-functionality of the esprsim package. 
+The subdirectory 'examples' contains a simple example model and examples of increasing
+complexity using the functionality of the 'esprsim' package.
 
-The example requires an ESP-r installation @ version 13.3.15.
+The examples and the package are tested for an ESP-r installation @ version 13.3.17. If
+earlier or later version work depends on possible differences in prj|res '-mode text'.
 
 
 ## Contribution
-If any functionality you desire is missing, feel free to extend the code.
-Please contact the maintainer to get developer access to the repository.
-
+If any functionality you desire is missing, feel free to extend the code via a fork of
+the repository and pull requests to the maintainer.
