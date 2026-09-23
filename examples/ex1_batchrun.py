@@ -58,7 +58,7 @@ variant_dict['cfg']['cfg_path'] = cfg_path
 # 'process_variants'. Beware the total number of simulations that result.
 VARLIST = 'test'
 
-sim.process_variants(variant_dict, PM, the_list=VARLIST, ptstep=6)
+results = sim.process_variants(variant_dict, PM, the_list=VARLIST, ptstep=6)
 
 
 # %%
@@ -69,3 +69,4 @@ sim.process_variants(variant_dict, PM, the_list=VARLIST, ptstep=6)
 #    ESP-r must be compiled with 'xml support' for the example to run correctly.
 #    The file 'input.xml' defines which variables are written to a .csv output file
 #    after the simulation run is finished.
+results[list(results.keys())[0]].head()

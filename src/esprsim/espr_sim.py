@@ -20,6 +20,7 @@ import os
 import shutil
 import glob
 import itertools
+import pandas as pd
 from pathlib import Path
 from subprocess import run
 
@@ -442,6 +443,9 @@ def simulate_variant(**kwargs):
 
     simulate(dms, config, variant, BTSTEP, PTSTEP, **PM[per])
 
+    # Get results as df.
+    res = read_variant_csv(variant, kwargs['cfg_path'])
+
     # Extract results via res.
     # PMV for zone "e" (living).
     # for CL in CLlist:
@@ -459,7 +463,7 @@ def simulate_variant(**kwargs):
     # << not necessary without 'rollback' calls to model-changing methods that create
     #    a _scratch file! >>
     # move_files(variant, kwargs['cfg_path'])
-
+    return res
 
 def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=0,
                      run_clean=False):
@@ -487,6 +491,8 @@ def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=0,
     lists = [d[the_list] for d in dict_of_variants.values()]
     strings = {key: d['abbrev'] for key, d in dict_of_variants.items()}
 
+    results={}
+
     for variant in itertools.product(*lists):
         args = {keys[i]: variant[i] for i in range(len(keys))}
 
@@ -507,8 +513,9 @@ def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=0,
             args['gtp_main'] = dict_of_variants['gtp']['gtp_main']
         args['run_clean'] = run_clean
 
-        simulate_variant(**args)
+        results[variant] = simulate_variant(**args)
 
+    return results
 
 def set_ctl(config, ctl_file):
     r"""Method which sets the control file in .cfg of model using 'prj'.
@@ -1166,16 +1173,7 @@ def move_files(variant, cfg_dir, mode='move'):
             os.mkdir(res_dir_scratch)
 
     # Create list of files both in res_dir and base_dir which are to be moved.
-    all_paths = []
-    for _dir in dir_list:
-        for child in _dir.iterdir():
-            all_paths.append(child)
-
-    filtered_paths = []
-    for _path in all_paths:
-        if Path(_path).is_file():
-            if Path(_path).suffix not in ignore:
-                filtered_paths.append(_path)
+    filtered_paths = filtered_path_list(dir_list, ignore)
 
     for f in filtered_paths:
         if f.name.startswith(variant + "."):
@@ -1200,6 +1198,64 @@ def move_files(variant, cfg_dir, mode='move'):
 
     # if os.path.exists(config + ".summary"):
     #     os.remove("./" + config + ".summary")
+
+
+def filtered_path_list(_dirlist, _ignore):
+    r"""Build list of files contained in directories ``_dirlist`` while ignoring any
+    files with extensions found in ``_ignore``.
+
+    Parameters
+    ----------
+    _dirlist : list
+        List of directories to be searched.
+    _ignore : list
+        List of file endings to be ignored.
+
+    """
+    all_paths = []
+    for _dir in _dirlist:
+        for child in _dir.iterdir():
+            all_paths.append(child)
+
+    _filtered_paths = []
+    for _path in all_paths:
+        if Path(_path).is_file():
+            if Path(_path).suffix not in _ignore:
+                _filtered_paths.append(_path)
+
+    return _filtered_paths
+
+def read_variant_csv(variant, cfg_dir):
+    r"""Method for reading .csv to dataframe after a simulation run.
+
+    Parameters
+    ----------
+    variant : str
+        Simulation variant to be addressed.
+    cfg_dir : Path
+        Path to model cfg directory.
+
+    """
+    res_dir = Path('/' + '/'.join(cfg_dir.parts[1:-1]) + '/tmp')
+    base_dir = Path.cwd()  # can, but needn't be /cfg!
+
+    # Source directories to be searched for files.
+    dir_list = [cfg_dir, res_dir, base_dir]
+
+    ignore = ['', '.txt', '.rst', '.py', '.cfg', '.cnn', '.awk']
+
+    # Create list of files both in res_dir and base_dir which are to be searched.
+    filtered_paths = filtered_path_list(dir_list, ignore)
+
+    res_df = None
+
+    # Only one .csv should be found.
+    for f in filtered_paths:
+        if f.name.endswith(".csv"):
+            res_df = pd.read_csv(f)
+
+    return res_df
+
 
 def move_clm_files(clm):
     r"""Move climate file to subdirectory named 'clm_eval'.
