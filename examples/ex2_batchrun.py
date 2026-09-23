@@ -11,6 +11,9 @@ PV yield comparison
 
 PV yield ...
 
+.. image:: ../../examples/model/images/wireframe.png
+   :scale: 25%
+
 """
 
 # sphinx_gallery_thumbnail_number = -2
