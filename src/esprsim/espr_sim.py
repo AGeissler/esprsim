@@ -126,7 +126,6 @@ def get_cnn_filename(config):
         Name of connections file in model without extension.
 
     """
-    # Get domains key.
     file = open(str(config) + '.cfg', "r")
     cnn_file = [line.split() for line in file.readlines() if line.startswith('*cnn')][0][1]
 
@@ -146,14 +145,15 @@ def get_domains_key(config):
         Key for model domains.
 
     """
-    # Get domains key.
     file = open(str(config) + '.cfg', "r")
+    # Get (base) domains key.
     dms = [line.split() for line in file.readlines() if line.startswith('*indx')][0][1]
 
     file.seek(0, 0)
 
     mfr = [line.split() for line in file.readlines() if line.startswith('../nets')]
     if mfr:
+        # Set new domains key value.
         dms = int(dms) + 1
     return dms
 
@@ -513,7 +513,7 @@ def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=0,
             args['gtp_main'] = dict_of_variants['gtp']['gtp_main']
         args['run_clean'] = run_clean
 
-        results[variant] = simulate_variant(**args)
+        results[args['variant']] = simulate_variant(**args)
 
     return results
 
@@ -1187,7 +1187,7 @@ def move_files(variant, cfg_dir, mode='move'):
             shutil.move(f, res_dir_variant)
         elif f.name.endswith(".scratch"):
             if mode == 'clean':
-                shutil.move(f, res_dir_scratch)
+                shutil.move(f, Path(str(res_dir_scratch) + '/' + f.name))
             else:
                 shutil.move(f, Path(str(res_dir_scratch) + '/' + f.name + '2'))
         # Cleanup.
