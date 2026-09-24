@@ -3,44 +3,23 @@ r"""
 Extended PV yield comparison
 ----------------------------
 
-.. topic:: Use 'esprsim' to run and evaluate model variants
+.. topic:: Use ``esprsim`` to run and evaluate model variants
 
    * set up desired variants
 
    * run simulation model and postprocess results
 
-PV yield ...
+PV yield is compared for different orientations of the buildings.
 
 .. image:: ../../examples/model/images/wireframe_features.png
    :scale: 25%
 
 """
 
-# sphinx_gallery_thumbnail_number = -2
-import os
+# sphinx_gallery_thumbnail_number = -1
 import pathlib
 
 import esprsim as sim
-
-def _find_repo_root(start=None):
-        p = pathlib.Path(start or os.getcwd()).resolve()
-        for d in [p] + list(p.parents):
-                if (d / 'pyproject.toml').exists()\
-                or (d / '.git').exists()\
-                or (d / 'setup.py').exists():
-                        return d
-        return pathlib.Path(os.getcwd()).resolve()
-
-print('\tNow in working directory ' + os.getcwd() + '.\n')
-
-repo_root = _find_repo_root()
-cfg_path = (repo_root / 'examples' / 'model' / 'cfg') if repo_root is not None else None
-
-if cfg_path and cfg_path.exists():
-        os.chdir(str(cfg_path))
-        print('\tCurrent working directory ' + os.getcwd() + '.')
-else:
-        print('\tCould not locate cfg subfolder; staying in ' + os.getcwd() + '.')
 
 # %%
 # Define a simulation period master list. This must be present and include at least one

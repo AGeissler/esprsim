@@ -3,7 +3,7 @@ r"""
 PV yield comparison
 -------------------
 
-.. topic:: Use 'esprsim' to run and evaluate model variants
+.. topic:: Use ``esprsim`` to run and evaluate model variants
 
    * set up desired variants
 
@@ -16,7 +16,7 @@ PV yield ...
 
 """
 
-# sphinx_gallery_thumbnail_number = -2
+# sphinx_gallery_thumbnail_number = -1
 from pathlib import Path
 
 import esprsim as sim
@@ -70,4 +70,4 @@ variant_dict['cfg']['cfg_path'] = cfg_path
 # Run simulation for all variants in list 'VARLIST'.
 VARLIST = 'list'
 
-# sim.process_variants(variant_dict, PM, the_list=VARLIST, ptstep=6)
+results = sim.process_variants(variant_dict, PM, the_list=VARLIST, ptstep=6)

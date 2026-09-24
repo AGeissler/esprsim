@@ -10,8 +10,8 @@ Minimal working example
    * run simulation model and postprocess results
 
 The example model is a simple set of three buildings with different roof tilt angles.
-The roofs feature a PV installation. For model details see 'Readme.txt' in the model doc
-subfolder.
+The roofs feature an unventilated PV installation. For model details see 'Readme.txt'
+in the model doc subfolder.
 
 .. image:: ../../examples/model/images/scene1.png
    :scale: 30%
@@ -62,7 +62,7 @@ variant_dict['cfg']['cfg_path'] = cfg_path
 # that result.
 VARLIST = 'test'
 
-results = sim.process_variants(variant_dict, PM, the_list=VARLIST, ptstep=6)
+results = sim.process_variants(variant_dict, PM, the_list=VARLIST)
 
 
 # %%

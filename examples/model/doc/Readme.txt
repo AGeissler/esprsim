@@ -18,14 +18,18 @@ Air flow network
 The roof area is split into six individual 'panels', divided into two columns named
 'east' and 'west' based on their relative position in the base model orientation which
 is north-south. The PV modules with ventilation layer are modelled as thermal zones in
-order to allow setting up the air flow network.
+order to allow setting up the air flow network (afn). Several pre-defined afn variants
+can be found in the model 'nets' subfolder. The base case uses 'no_flow_S.afn', i.e.
+an afn with very small connections between zones that leads to a virtually unventilated
+case.
 
 PV modules of type BISOL BMU-240
 --------------------------------
+The standard module size and cell count is
+    1.649 x .991 m2 = 1.634159 m2, 60 cells
 
-1.649 x .991 m2 = 1.634159 m2, 60 cells
-
-Cells 0.156^2 m2 => 1.46016 m2 actually covered.
+The cells are 0.156^2 m2 in size, so only 1.46016 m2 or 89.4 % of the modules are
+actually covered with cells.
 
 STC 
 P_MPP = 240    W
