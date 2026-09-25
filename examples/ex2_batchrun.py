@@ -77,7 +77,9 @@ results = sim.process_variants(variant_dict, PM, the_list=VARLIST)
 # flow in the PV air gap.
 #
 # Results column used::
-#     building:spmatl:Z00 E2:misc data:pv power (W)
+#
+#     "building:spmatl:Z00 E2:misc data:pv power (W)"
+#
 print(f"Results sets: {list(results.keys())}")
 
 sim.plot_pv_bars_matplotlib(results).show()
