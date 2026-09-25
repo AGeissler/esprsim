@@ -131,6 +131,50 @@ def get_cnn_filename(config):
 
     return cnn_file[:-4]
 
+def get_afn_filename(config):
+    r"""Read name of air flow network file from configuration file contents.
+
+    Parameters
+    ----------
+    config : Path
+        Path object of configuration file. Full path but w/o file extension '.cfg'.
+
+    Returns
+    -------
+    afn_file : str | None
+        Name of air flow network file in model without extension.
+
+    """
+    file = open(str(config) + '.cfg', "r")
+    afn_file = [line.split() for line in file.readlines() if line.startswith('../nets')][0][0]
+
+    if afn_file:
+        return afn_file[8:-4]
+    else:
+        return None
+
+def get_spm_filename(config):
+    r"""Read name of special materials file from configuration file contents.
+
+    Parameters
+    ----------
+    config : Path
+        Path object of configuration file. Full path but w/o file extension '.cfg'.
+
+    Returns
+    -------
+    spm_file : str | None
+        Name of special materials file in model without extension.
+
+    """
+    file = open(str(config) + '.cfg', "r")
+    spm_file = [line.split() for line in file.readlines() if line.startswith('*spf')][0][1]
+
+    if spm_file:
+        return spm_file[8:-4]
+    else:
+        return None
+
 def get_domains_key(config):
     r"""Establish domains key from configuration file contents.
 
@@ -373,6 +417,8 @@ def simulate_variant(**kwargs):
     PTSTEP = kwargs['ptstep']
     PM = kwargs['PM']
 
+    rollback_dict = {}
+
     # Set configuration file name with (optional) path but w/o extension.
     config = kwargs['cfg_path'] / kwargs['cfg']
 
@@ -383,11 +429,13 @@ def simulate_variant(**kwargs):
     variant = kwargs['variant']
 
     if 'cnn' in kwargs:
+        rollback_dict['cnn'] = get_cnn_filename(config)
         cnn_file = kwargs['cnn']
     else:
         cnn_file = get_cnn_filename(config)
 
     if 'clm' in kwargs:
+        rollback_dict['clm'] = get_clm_filename(config)
         clm = kwargs['clm']
         set_clm(config, clm)
     else:
@@ -395,9 +443,11 @@ def simulate_variant(**kwargs):
 
     # Optionally set various parameters.
     if 'ctl' in kwargs:
+        # rollback_dict['ctl'] = get_ctl(config)
         ctl = kwargs['ctl']
         set_ctl(config, ctl)
     if 'afn' in kwargs:
+        rollback_dict['afn'] = get_afn_filename(config)
         afn = kwargs['afn']
         set_afn(config, afn)
     if 'setp' in kwargs:
@@ -405,11 +455,13 @@ def simulate_variant(**kwargs):
         loop = kwargs['setp'][0][1]
         set_ctl_temp_setpt(config, ctl, loop, setp)
     if 'spm' in kwargs:
+        rollback_dict['spm'] = get_spm_filename(config)
         spm = kwargs['spm']
         set_spm(config, cnn_file, spm)
     if 'rot' in kwargs.keys():
         rotdat = kwargs['rot']
         set_new_rotangle(config, rotdat[0], rotdat[1], rotdat[2])
+        rollback_dict['rot'] = 0 - rotdat[0]  # 'rotate by' to get back ... (?)
     if 'gtp' in kwargs.keys():
         GTP=kwargs['gtp_main']
         set_gtp(config, clm, GTP[clm])
@@ -442,6 +494,9 @@ def simulate_variant(**kwargs):
     qa_report(config, variant)
 
     simulate(dms, config, variant, BTSTEP, PTSTEP, **PM[per])
+
+    # Rollback
+    rollback()
 
     # Get results as df.
     res = read_variant_csv(variant, kwargs['cfg_path'])
@@ -499,7 +554,8 @@ def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=0,
         # BAS_2010_RCP00_DRY_25_1w_0.2_r0_st23_ht20.5_gp0.5_gs0.1_200
         # Concatenate the string entries to generate a variant name.
         variant_name = "".join(strings[key] + (
-                              str(args[key])) for key in keys) + "_"
+                          str(args[key][0]) if key == 'rot'
+                          else str(args[key])) for key in keys) + "_"
 
         # Add addtional parameters to the arguments for passing to single simulation
         # function.
@@ -748,11 +804,10 @@ def set_afn(config, afn_file):
             ]
 
     cmd = bytes("m\n"  # browse/ edit/ simulate
-                "e\n"  # flow network
-                "e\n"  # new flow network
-                "a\n"  # menues & lists
+                "f\n"  # network flow
+                "c\n"  # existing network
                 "../nets/" + afn_file + ".afn\n"  # afn filename?
-                "n\n"  # no synopsis
+                "n\n"  # Summary of flow network?
                 "!\n"  # save network
                 "\n"   # accept filename!
                 "y\n"  # overwrite this file
@@ -851,9 +906,9 @@ def set_obs_dim(config, zone, obs, width, depth, height):
                 + zone + "\n"
                 "h\n"  # solar obstruction
                 "a\n"  # dimensional input
-                + obs + "\n"
+                + str(obs) + "\n"
                 "b\n"  # block W D H
-                + width + " " + depth + " " + height + "\n"
+                + str(width) + " " + str(depth) + " " + str(height) + "\n"
                 "-\n"  # exit
                 "-\n"  # exit menu
                 "a\n"  # recalculate (silent)
@@ -985,10 +1040,10 @@ def set_new_rotangle(config, rotangle, x0, y0):
                 "c\n"  # composition
                 "*\n"  # global tasks
                 "b\n"  # rotate
-                + rotangle + "\n"
+                + str(rotangle) + "\n"
                 "b\n"  # user specified x & y
-                + x0 + "\n"
-                + y0 + "\n"
+                + str(x0) + "\n"
+                + str(y0) + "\n"
                 "*\n"  # all items
                 "-\n"  # exit menu
                 "-\n"  # exit menu
@@ -998,7 +1053,8 @@ def set_new_rotangle(config, rotangle, x0, y0):
                 "-\n",  # quite module
                 encoding="utf-8")
 
-    f = open(str(tmp_dir(config)) + '/' + config.name + "_rotate_" + rotangle + ".scratch", "w")  # create scratch file
+    f = open(str(tmp_dir(config)) + '/' + config.name\
+             + "_rotate_" + str(rotangle) + ".scratch", "w")  # create scratch file
 
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
@@ -1025,9 +1081,9 @@ def set_ctl_temp_setpt(config, ctl_file, loop, h_setpoint, c_setpoint='99'):
     """
 
     print("\n\tSetting new temperature setpoints in " + config.name + ".cfg for")
-    print("\t\theating to " + h_setpoint + " degC and for")
-    print("\t\tcooling to " + c_setpoint + " degC")
-    print("\t\tin control file " + ctl_file + ".ctl.")
+    print("\t\theating to " + str(h_setpoint) + " degC and for")
+    print("\t\tcooling to " + str(c_setpoint) + " degC")
+    print("\t\tin control file " + str(ctl_file) + ".ctl.")
 
     # Set arguments w/ config file.
     args = [
@@ -1040,19 +1096,19 @@ def set_ctl_temp_setpt(config, ctl_file, loop, h_setpoint, c_setpoint='99'):
     cmd = bytes("m\n"  # browse/ edit/ simulate
                 "j\n"  # zones control
                 "../ctl/" + ctl_file + ".ctl\n"  # control file?
-                + loop + "\n"
+                + str(loop) + "\n"
                 "c\n"  # period data
                 "a\n"  # first (only) period
                 "f\n"  # heating setpoint
-                + h_setpoint + "\n"
+                + str(h_setpoint) + "\n"
                 "g\n"  # cooling setpoint
-                + c_setpoint + "\n"
+                + str(c_setpoint) + "\n"
                 "-\n"  # exit period data
                 "Y\n"  # accept changes
                 "-\n"  # exit
                 "-\n"  # exit Editing options
                 ">\n"  # save control data
-                "../ctl/" + ctl_file + ".ctl\n"  # control file?
+                "../ctl/" + str(ctl_file) + ".ctl\n"  # control file?
                 "Y\n"  # overwrite file
                 "-\n"  # exit controls
                 "N\n"  # save changes (already done above!)
