@@ -60,9 +60,7 @@ Auxiliary functions
 
 .. autofunction:: esprsim.espr_sim.tmp_dir
 
-.. autofunction:: esprsim.espr_sim.get_clm_filename
-
-.. autofunction:: esprsim.espr_sim.get_cnn_filename
+.. autofunction:: esprsim.espr_sim.get_xxx_filename
 
 .. autofunction:: esprsim.espr_sim.list_of_files
 

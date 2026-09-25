@@ -2,6 +2,7 @@ from .__about__ import __version__
 
 import matplotlib.pyplot as plt
 
+from .espr_utilfun import *
 from .espr_ms_sim import *
 from .espr_sim import *
 from .espr_res import *

@@ -24,6 +24,9 @@ import pandas as pd
 from pathlib import Path
 from subprocess import run
 
+from espr_utilfun import generate_datetime_index
+
+
 """
 Module contains functions for ESP-r scripts and auxiliary functions for
 batch running of simulations.
@@ -92,86 +95,30 @@ def qa_report(config, variant):
 
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
 
-def get_clm_filename(config):
-    r"""Read name of climate file from configuration file contents.
+def get_xxx_filename(config, _start, _id=1):
+    r"""Read name of file 'xxx' from configuration file contents.
 
     Parameters
     ----------
     config : Path
-        Path object of configuration file. Full path but w/o file extension '.cfg'.
+        Path object of file 'xxx'. Full path but w/o file extension '.xxx'.
+    _start : str
+        Usually three-letter abbreviation for desired file type 'xxx' with
+        pre-pended '*'.
 
     Returns
     -------
-    clm_file : str
-        Name of climate file in model without extension.
+    file : str | None
+        Name of 'xxx' file in model without extension.
 
     """
     # Get domains key.
     file = open(str(config) + '.cfg', "r")
-    clm_file = [line.split() for line in file.readlines() if line.startswith('*clm')][0][1]
+    xxx_file = [line.split() for line in
+                file.readlines() if line.startswith(_start)][0][_id]
 
-    return str(Path(clm_file).name)  # .stem for name w/o extension if present
-
-def get_cnn_filename(config):
-    r"""Read name of connections file from configuration file contents.
-
-    Parameters
-    ----------
-    config : Path
-        Path object of configuration file. Full path but w/o file extension '.cfg'.
-
-    Returns
-    -------
-    cnn_file : str
-        Name of connections file in model without extension.
-
-    """
-    file = open(str(config) + '.cfg', "r")
-    cnn_file = [line.split() for line in file.readlines() if line.startswith('*cnn')][0][1]
-
-    return cnn_file[:-4]
-
-def get_afn_filename(config):
-    r"""Read name of air flow network file from configuration file contents.
-
-    Parameters
-    ----------
-    config : Path
-        Path object of configuration file. Full path but w/o file extension '.cfg'.
-
-    Returns
-    -------
-    afn_file : str | None
-        Name of air flow network file in model without extension.
-
-    """
-    file = open(str(config) + '.cfg', "r")
-    afn_file = [line.split() for line in file.readlines() if line.startswith('../nets')][0][0]
-
-    if afn_file:
-        return afn_file[8:-4]
-    else:
-        return None
-
-def get_spm_filename(config):
-    r"""Read name of special materials file from configuration file contents.
-
-    Parameters
-    ----------
-    config : Path
-        Path object of configuration file. Full path but w/o file extension '.cfg'.
-
-    Returns
-    -------
-    spm_file : str | None
-        Name of special materials file in model without extension.
-
-    """
-    file = open(str(config) + '.cfg', "r")
-    spm_file = [line.split() for line in file.readlines() if line.startswith('*spf')][0][1]
-
-    if spm_file:
-        return spm_file[8:-4]
+    if xxx_file:
+        return str(Path(xxx_file).stem)  # .stem for name w/o extension if present
     else:
         return None
 
@@ -429,17 +376,17 @@ def simulate_variant(**kwargs):
     variant = kwargs['variant']
 
     if 'cnn' in kwargs:
-        rollback_dict['cnn'] = get_cnn_filename(config)
+        rollback_dict['cnn'] = get_xxx_filename(config, '*cnn')
         cnn_file = kwargs['cnn']
     else:
-        cnn_file = get_cnn_filename(config)
+        cnn_file = get_xxx_filename(config, '*cnn')
 
     if 'clm' in kwargs:
-        rollback_dict['clm'] = get_clm_filename(config)
+        rollback_dict['clm'] = get_xxx_filename(config, '*clm')
         clm = kwargs['clm']
         set_clm(config, clm)
     else:
-        clm = get_clm_filename(config)
+        clm = get_xxx_filename(config, '*clm')
 
     # Optionally set various parameters.
     if 'ctl' in kwargs:
@@ -447,7 +394,7 @@ def simulate_variant(**kwargs):
         ctl = kwargs['ctl']
         set_ctl(config, ctl)
     if 'afn' in kwargs:
-        rollback_dict['afn'] = get_afn_filename(config)
+        rollback_dict['afn'] = get_xxx_filename(config, '../nets', _id=0)
         afn = kwargs['afn']
         set_afn(config, afn)
     if 'setp' in kwargs:
@@ -455,7 +402,7 @@ def simulate_variant(**kwargs):
         loop = kwargs['setp'][0][1]
         set_ctl_temp_setpt(config, ctl, loop, setp)
     if 'spm' in kwargs:
-        rollback_dict['spm'] = get_spm_filename(config)
+        rollback_dict['spm'] = get_xxx_filename(config, '*spf')
         spm = kwargs['spm']
         set_spm(config, cnn_file, spm)
     if 'rot' in kwargs.keys():
@@ -496,10 +443,10 @@ def simulate_variant(**kwargs):
     simulate(dms, config, variant, BTSTEP, PTSTEP, **PM[per])
 
     # Rollback
-    rollback()
+    # rollback()
 
     # Get results as df.
-    res = read_variant_csv(variant, kwargs['cfg_path'])
+    res = read_variant_csv(**kwargs)
 
     # Extract results via res.
     # PMV for zone "e" (living).
@@ -520,8 +467,8 @@ def simulate_variant(**kwargs):
     # move_files(variant, kwargs['cfg_path'])
     return res
 
-def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=0,
-                     run_clean=False):
+def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=1,
+                     year=2020, run_clean=False):
     r"""Method which processes variants based on dynamic nested for-loops using the
     dict-of-dicts parameter 'dict_of_variants'.
 
@@ -568,6 +515,7 @@ def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=0,
         if 'gtp' in dict_of_variants:
             args['gtp_main'] = dict_of_variants['gtp']['gtp_main']
         args['run_clean'] = run_clean
+        args['year'] = year
 
         results[args['variant']] = simulate_variant(**args)
 
@@ -821,6 +769,7 @@ def set_afn(config, afn_file):
     f = open(str(tmp_dir(config)) + '/' + config.name + "_set_" + afn_file + ".scratch", "w")  # creates scratch file
 
     run(args, input=cmd, stdout=f)  # runs prj (args), executes commands (cmd), writes scratch file (f)
+
 
 def set_plant(config, plant, plant_db):
     r"""Method which changes plant network file in .cfg using 'prj'.
@@ -1281,17 +1230,16 @@ def filtered_path_list(_dirlist, _ignore):
 
     return _filtered_paths
 
-def read_variant_csv(variant, cfg_dir):
+def read_variant_csv(**kwargs):
     r"""Method for reading .csv to dataframe after a simulation run.
 
     Parameters
     ----------
-    variant : str
-        Simulation variant to be addressed.
-    cfg_dir : Path
-        Path to model cfg directory.
+    **kwargs: dict
+        Dict containing keyword arguments used.
 
     """
+    cfg_dir = kwargs['cfg_path']
     res_dir = Path('/' + '/'.join(cfg_dir.parts[1:-1]) + '/tmp')
     base_dir = Path.cwd()  # can, but needn't be /cfg!
 
@@ -1310,7 +1258,14 @@ def read_variant_csv(variant, cfg_dir):
         if f.name.endswith(".csv"):
             res_df = pd.read_csv(f)
 
-    return res_df
+    return generate_datetime_index(
+        kwargs['year'],
+        kwargs['PM'][kwargs['per']]['FM'],
+        kwargs['PM'][kwargs['per']]['FD'],
+        kwargs['PM'][kwargs['per']]['TM'],
+        kwargs['PM'][kwargs['per']]['TD'],
+        kwargs['btstep']*kwargs['ptstep'],
+        existing_df=res_df)
 
 
 def move_clm_files(clm):

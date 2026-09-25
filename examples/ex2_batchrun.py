@@ -5,7 +5,7 @@ PV yield comparison
 
 .. topic:: Use ``esprsim`` to run and evaluate model variants
 
-   * set up desired variants
+   * set up desired variants via numpy.dict ``PM`` and ``variant_dict``
 
    * run simulation model and postprocess results
 
@@ -49,7 +49,7 @@ variant_dict = {
             "maxlist": ['bouyant_flow_N', 'bouyant_flow_S', 'bouyant_flow2_S',
                         'bouyant_flow12_S', 'force_flow_N', 'force_flow_S',
                         'no_flow_N', 'no_flow_S']},
-    "rot": {"abbrev": "_",
+    "rot": {"abbrev": "_r",
             "test": [(0, 7.5, 3.0, 'S')],
             "list": [(0, 7.5, 3.0, 'S')],
             "maxlist": [(0, 7.5, 3.0, 'S'), (180, 7.5, 3.0, 'N')]},
@@ -70,4 +70,14 @@ variant_dict['cfg']['cfg_path'] = cfg_path
 # Run simulation for all variants in list 'VARLIST'.
 VARLIST = 'list'
 
-results = sim.process_variants(variant_dict, PM, the_list=VARLIST, ptstep=6)
+results = sim.process_variants(variant_dict, PM, the_list=VARLIST)
+
+# %%
+# Available results sets and PV yield comparison for with and without bouyancy air
+# flow in the PV air gap.
+#
+# Results column used::
+#     building:spmatl:Z00 E2:misc data:pv power (W)
+print(f"Results sets: {list(results.keys())}")
+
+sim.plot_pv_bars_matplotlib(results).show()

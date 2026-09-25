@@ -12,3 +12,4 @@ API Reference
    esprsim/espr_ms_sim
    esprsim/espr_res
    esprsim/espr_sim
+   esprsim/espr_utilfun
