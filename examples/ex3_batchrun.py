@@ -17,7 +17,7 @@ PV yield is compared for different orientations of the buildings.
 """
 
 # sphinx_gallery_thumbnail_number = -1
-import pathlib
+from pathlib import Path
 
 import esprsim as sim
 

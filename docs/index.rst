@@ -59,8 +59,8 @@ and run
 License
 -------
 
-esprsim - ESP-r variant setup and simulation tool (C) 2026 Achim Geissler, Reinach BL
-(Switzerland).
+esprsim - ESP-r variant setup and batch simulation toolbox (C) 2026 Achim Geissler,
+Reinach BL (Switzerland).
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software

@@ -71,7 +71,7 @@ results = sim.process_variants(variant_dict, PM, the_list=VARLIST)
 #
 # Results column used::
 #
-#     "building:spmatl:Z00 E2:misc data:pv power (W)"
+#     "building:spmatl:Z?? ??:misc data:pv power (W)"
 #
 print(f"Results sets: {list(results.keys())}")
 

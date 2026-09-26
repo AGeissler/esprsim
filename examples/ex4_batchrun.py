@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 r"""
-PV yield and orientation
-------------------------
+More detailed building
+----------------------
 
 .. topic:: Use ``esprsim`` to run and evaluate model variants
 
@@ -9,7 +9,9 @@ PV yield and orientation
 
    * run simulation model and postprocess results
 
-PV yield is compared for different orientations of the buildings.
+For a more detailed building model ...
+
+.. attention:: This example is not yet available/functional!
 
 .. image:: ../../examples/model/images/wireframe_features.png
    :scale: 25%
@@ -17,7 +19,7 @@ PV yield is compared for different orientations of the buildings.
 """
 
 # sphinx_gallery_thumbnail_number = -1
-import pathlib
+from pathlib import Path
 
 import esprsim as sim
 

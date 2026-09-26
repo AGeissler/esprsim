@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""
-Module contains utility functions for esprsim.
+r"""
+This module contains utility functions for ``esprsim``.
 """
 import pandas as pd
 from datetime import datetime
