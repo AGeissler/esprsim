@@ -9,7 +9,8 @@ PV yield comparison
 
    * run simulation model and postprocess results
 
-PV yield ...
+PV yield for without and with bouyant air flow in the air gap between PV modules and
+the roof is compared.
 
 .. image:: ../../examples/model/images/wireframe.png
    :scale: 25%
@@ -45,9 +46,9 @@ variant_dict = {
             "maxlist": ['PVT_Douala']},
     "afn": {"abbrev": "_", # Enter air flow network file names without extension.
             "test": ['no_flow_S'],
-            "list": ['no_flow_S', 'bouyant_flow_S'],
-            "maxlist": ['bouyant_flow_N', 'bouyant_flow_S', 'bouyant_flow2_S',
-                        'bouyant_flow12_S', 'force_flow_N', 'force_flow_S',
+            "list": ['no_flow_S', 'buoyant_flow_S'],
+            "maxlist": ['buoyant_flow_N', 'buoyant_flow_S', 'buoyant_flow2_S',
+                        'buoyant_flow12_S', 'force_flow_N', 'force_flow_S',
                         'no_flow_N', 'no_flow_S']},
     "rot": {"abbrev": "_r",
             "test": [(0, 7.5, 3.0, 'S')],

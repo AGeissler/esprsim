@@ -429,7 +429,7 @@ def simulate_variant(**kwargs):
     if 'ctl' in kwargs:
         print("\twith control file          : " + ctl + ".ctl")
     if 'afn' in kwargs:
-        print("\twith air flow network file : " + afn + ".afn")
+        print("\twith air flow network file : " + get_xxx_filename(config, '../nets', _id=0) + ".afn")
     if 'setp' in kwargs:
         print("\twith heating setpoint      : " + setp + " for loop " + loop)
     print("\tfor period                 : " + per + "\n")
