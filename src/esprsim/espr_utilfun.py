@@ -15,20 +15,30 @@ def generate_datetime_index(year, from_month, from_day, to_month, to_day,
     r"""
     Generate a datetime timestamp series and attach it as index to an existing dataframe.
     
-    Parameters:
-    - year: str, e.g., '2024'
-    - from_month: str, e.g., '1' or '01'
-    - from_day: str, e.g., '15'
-    - to_month: str, e.g., '2' or '02'
-    - to_day: str, e.g., '10'
-    - steps_per_hour: str or int, number of timestamps per hour (e.g., '4' for 15-min intervals)
-    - existing_df: pd.DataFrame, optional dataframe to attach the index to
-    
-    Returns:
-    - pd.DatetimeIndex if existing_df is None, otherwise the dataframe with new index
+    Parameters
+    ----------
+    year: str
+        Year of data, e.g., '2024'
+    from_month: str
+        Start month of data, e.g., '1' or '01'.
+    from_day: str
+        Start day of data, e.g., '15'.
+    to_month: str
+        End month of data e.g., '2' or '02'.
+    to_day: str
+        End day of data, e.g., '10'.
+    steps_per_hour: str or int
+        Number of timestamps per hour (e.g., '4' for 15-min intervals).
+    existing_df: pd.DataFrame, optional
+        Dataframe to attach the index to.
 
-    Note:
-      Code by PerplexityAI.
+    Returns
+    -------
+    pandas.DatetimeIndex if existing_df is None, otherwise the dataframe with new index.
+
+    Notes
+    -----
+    Code by PerplexityAI.
     """
     # Convert all inputs to integers
     year = int(year)
@@ -69,17 +79,22 @@ def generate_datetime_index(year, from_month, from_day, to_month, to_day,
     return datetime_index
 
 def get_timestep_hours(df):
-    """
+    r"""
     Extract the time-step duration in decimal hours from a dataframe's DatetimeIndex.
     
-    Parameters:
-    - df: pd.DataFrame with a DatetimeIndex
-    
-    Returns:
-    - float: time-step duration in hours (e.g., 0.25 for 15-minute intervals)
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Dataframe with a DatetimeIndex.
 
-    Note:
-      Code by PerplexityAI.
+    Returns
+    -------
+    timestep : float 
+        Time-step duration in hours (e.g., 0.25 for 15-minute intervals).
+
+    Notes
+    -----
+    Code by PerplexityAI.
     """
     if len(df) < 2:
         raise ValueError("Dataframe must have at least 2 rows to calculate timestep")
@@ -96,19 +111,25 @@ def aggregate_pv_by_zone(df, zone_groups=['Z00', 'Z20', 'Z40']):
     Aggregate PV power columns by zone group (default 'Z00', 'Z20', 'Z40').
     Converts W to kWh using the dataframe's timestep.
 
-    Parameters:
-    - df: pd.DataFrame with PV power columns (in W) and DatetimeIndex
-    - zone_groups: list of zone strings to group by
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Dataframe with PV power columns (in W) and DatetimeIndex.
+    zone_groups: list, default: ['Z00', 'Z20', 'Z40']
+        Zone strings to group by.
 
-    Returns:
-    - dict: {zone: total_energy_kWh} for each zone group
+    Returns
+    -------
+    zone_totals : dict
+        Dictionary {zone: total_energy_kWh} for each zone group.
 
-    Note:
+    Notes
+    -----
       The physics: if you have power readings in W at regular intervals :math:`\Delta t`
-      (hours), the energy is:
+      (hours), the electrical energy yield is:
 
       .. math::
-         E\,=\,\sum{i}P_i\,×\,\Delta t
+         E\,=\,\sum{i}{} P_i\,×\,\Delta t
 
       So summing all W values, multiplying by the timestep (and dividing by 1000) gives
       kWh.
@@ -137,15 +158,26 @@ def aggregate_pv_by_zone(df, zone_groups=['Z00', 'Z20', 'Z40']):
 def plot_pv_bars_matplotlib(data_dict, zone_groups=['Z00', 'Z20', 'Z40'],
                             figsize=(10, 6), colors=['#3498db', '#e74c3c', '#2ecc71'],
                             save_path=None):
-    """
-    Create a grouped bar chart showing PV yield by zone for each case.
-    
-    Parameters:
-    - data_dict: dict of {case_name: dataframe}
-    - zone_groups: list of zone strings to group by
-    - figsize: tuple (width, height)
-    - colors: list of colors for each zone group
-    - save_path: optional path to save the figure
+    r"""
+    Create a grouped bar chart showing PV yield by zone for each case using
+    ``matplotlib``.
+
+    Parameters
+    ----------
+    data_dict : dict
+        Dictionary of {case_name: dataframe}.
+    zone_groups : list, default: ['Z00', 'Z20', 'Z40']
+        List of zone strings to group by.
+    figsize : tuple, default: (10, 6)
+        Size of figure, inches (width, height).
+    colors : list, default: ['#3498db', '#e74c3c', '#2ecc71']
+        List of colors for each zone group, hex. The default values are blue, red, green.
+    save_path: str, optional
+        Optional path to save the figure to.
+
+    Notes
+    -----
+    Code by PerplexityAI.
     """
     cases = list(data_dict.keys())
     n_cases = len(cases)
@@ -189,15 +221,26 @@ def plot_pv_bars_plotly(data_dict, zone_groups=['Z00', 'Z20', 'Z40'],
                         colors=['#3498db', '#e74c3c', '#2ecc71'],
                         title='PV Yield by Zone Group',
                         save_path=None):
-    """
-    Create an interactive grouped bar chart showing PV yield by zone for each case.
-    
-    Parameters:
-    - data_dict: dict of {case_name: dataframe}
-    - zone_groups: list of zone strings to group by
-    - colors: list of colors for each zone group
-    - title: plot title
-    - save_path: optional path to save the figure as HTML
+    r"""
+    Create an interactive grouped bar chart showing PV yield by zone for each case using
+    ``plotly``.
+
+    Parameters
+    ----------
+    data_dict : dict
+        Dictionary of {case_name: pandas.DataFrame}.
+    zone_groups : list, default: ['Z00', 'Z20', 'Z40']
+        List of zone strings to group by.
+    colors : list, default:
+        List of colors for each zone group. The default values are blue, red, green.
+    title : str, default: 'PV Yield by Zone Group'
+        Plot title.
+    save_path : str
+        Optional path to save the figure as HTML to.
+
+    Notes
+    -----
+    Code by PerplexityAI.
     """
     cases = list(data_dict.keys())
     n_cases = len(cases)
