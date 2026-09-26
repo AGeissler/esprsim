@@ -1,0 +1,145 @@
+# Radiance glazing definitions
+# (first line of file must not be edited)
+  
+void  glass  unknown_glz
+0 
+0 
+3    0.87    0.87    0.87
+  
+void glass CT_Ext_Window
+0 
+0 
+3    0.95  0.95  0.95
+  
+void glass CT_PVT_semi_Tr
+0 
+0 
+3    0.02  0.02  0.02
+  
+void glass CT_PVT_Opq
+0 
+0 
+3    0.02  0.02  0.02
+  
+# Cellar Surface defs..
+  
+# WC Surface defs..
+  
+  
+#@mkillum e=CT_Ext_Window d=48 s=32
+CT_Ext_Window  polygon  WC:Win_WC
+0 
+0 
+ 12
+   10.60000    7.00000    2.25000
+   11.60000    7.00000    2.25000
+   11.60000    7.00000    1.75000
+   10.60000    7.00000    1.75000
+# Garage Surface defs..
+  
+  
+#@mkillum e=CT_Ext_Window d=48 s=32
+CT_Ext_Window  polygon  Garage:glz_gar
+0 
+0 
+ 12
+    5.00000    8.80000    2.75000
+    5.00000    6.20000    2.75000
+    5.00000    6.20000    2.50000
+    5.00000    8.80000    2.50000
+# BedRoom_1 Surface defs..
+  
+  
+#@mkillum e=CT_Ext_Window d=48 s=32
+CT_Ext_Window  polygon  BedRoom_1:Win_Bd1
+0 
+0 
+ 12
+    8.35000   16.30000    2.25000
+    6.35000   16.30000    2.25000
+    6.35000   16.30000    1.00000
+    8.35000   16.30000    1.00000
+# Bath1 Surface defs..
+  
+  
+#@mkillum e=CT_Ext_Window d=48 s=32
+CT_Ext_Window  polygon  Bath1:Win_Bth1
+0 
+0 
+ 12
+    5.00000   11.75000    2.25000
+    5.00000   10.75000    2.25000
+    5.00000   10.75000    1.75000
+    5.00000   11.75000    1.75000
+# Salon Surface defs..
+  
+  
+#@mkillum e=CT_Ext_Window d=48 s=32
+CT_Ext_Window  polygon  Salon:Win_Sal_1
+0 
+0 
+ 12
+   16.26250   16.30000    2.25000
+   14.26250   16.30000    2.25000
+   14.26250   16.30000    1.00000
+   16.26250   16.30000    1.00000
+  
+#@mkillum e=CT_Ext_Window d=48 s=32
+CT_Ext_Window  polygon  Salon:Win_Sal_2
+0 
+0 
+ 12
+   12.28750   16.30000    2.25000
+   10.28750   16.30000    2.25000
+   10.28750   16.30000    1.00000
+   12.28750   16.30000    1.00000
+# Kitchen Surface defs..
+  
+  
+#@mkillum e=CT_Ext_Window d=48 s=32
+CT_Ext_Window  polygon  Kitchen:Win_Kitc
+0 
+0 
+ 12
+   14.65000    7.00000    2.25000
+   16.65000    7.00000    2.25000
+   16.65000    7.00000    1.00000
+   14.65000    7.00000    1.00000
+# BedRoom_3 Surface defs..
+  
+  
+#@mkillum e=CT_Ext_Window d=48 s=32
+CT_Ext_Window  polygon  BedRoom_3:Win_Bd3
+0 
+0 
+ 12
+   18.15000    7.00000    2.25000
+   20.15000    7.00000    2.25000
+   20.15000    7.00000    1.00000
+   18.15000    7.00000    1.00000
+# BedRoom_2 Surface defs..
+  
+  
+#@mkillum e=CT_Ext_Window d=48 s=32
+CT_Ext_Window  polygon  BedRoom_2:Win_Bd2
+0 
+0 
+ 12
+   20.15000   16.30000    2.25000
+   18.15000   16.30000    2.25000
+   18.15000   16.30000    1.00000
+   20.15000   16.30000    1.00000
+# BathRoom_2 Surface defs..
+  
+# Roof Surface defs..
+  
+  
+#@mkillum e=CT_PVT_semi_Tr d=48 s=32
+CT_PVT_semi_Tr  polygon  Roof:Ripvt_syst
+0 
+0 
+ 12
+   18.87024    6.28067    4.16177
+    7.37976    6.28067    4.16177
+    7.37976   14.91233    3.19933
+   18.87024   14.91233    3.19933

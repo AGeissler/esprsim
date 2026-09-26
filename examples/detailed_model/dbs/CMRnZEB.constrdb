@@ -1,0 +1,242 @@
+*CONSTRUCTIONS,1.0 # multilayer constructions
+*Text
+A V1 format constructions file imported from a legacy file and
+based on material.db4.a and CFClayers db CFClayers.db1.a
+*End_text
+*date,Wed Jul 29 14:27:24 2020
+*Category,walls,opaque facade constructions,opaque facades representing different ages & performance
+*Category,partitions,internal partitions,partitions between zones (some have matching mirror versions)
+*Category,doors,inside and outside doors,doors of different ages types and performance characteristics
+*Category,glazing,glazing (transparent construc),transparent constructions (using TMC optical properties)
+*Category,frames,frames for doors & windows,frames of various types for use with windows and doors
+*Category,roofs,flat and sloped roofs,roof constructions various ages & performances & orientations
+*Category,ceil_floor,internal ceilings and floors,internal ceilings and floors (& matched mirror constructions)
+*Category,ground,ground floors & crawl-spaces,floors & earth - crawl spaces & ground contact floors & walls
+*Category,fittings,equipment cases furniture etc.,collection of cases for equipment and furnature or fittings
+*Category,legacy,legacy constructions & models,collection of legacy constructions for training & validation
+*Category,UK_code,constructions for UK compliance,collection of constructions taken from UK SBEM
+*Category,project,constructions unique for project,collection of constructions for this project
+#
+*item,CT_Ext_Wall,CT_Ext_Wall # tag name menu entry
+*itemdoc,Construction for external wall
+*incat,walls
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,1,0.0200,CT_Ceramic : Ceramic clay tile for external wall cover
+*layer,21,0.0150,CT_Cast_Concrete : cement plaster
+*layer,22,0.2500,CT_Block_Concrete : Bloc of cement (Parpaing)
+*layer,21,0.0150,CT_Cast_Concrete : cement plaster
+*end_item
+*item,CT_EW_aerated,CT_EW_aerated # tag name menu entry
+*itemdoc,Construction for external wall
+*incat,walls
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,1,0.0200,CT_Ceramic : Ceramic clay tile for external wall cover
+*layer,21,0.0150,CT_Cast_Concrete : cement plaster
+*layer,22,0.0500,CT_Block_Concrete : Bloc of cement (Parpaing)
+*layer,26,0.1500,CT_ae_b_inter : CT_aerated_block_interlayer (derived from CT_Mixed_Conc
+*layer,22,0.0500,CT_Block_Concrete : Bloc of cement (Parpaing)
+*layer,21,0.0150,CT_Cast_Concrete : cement plaster
+*end_item
+*item,CT_EW_brick,CT_EW_brick # tag name menu entry
+*itemdoc,Construction for external wall
+*incat,walls
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,1,0.0200,CT_Ceramic : Ceramic clay tile for external wall cover
+*layer,21,0.0150,CT_Cast_Concrete : cement plaster
+*layer,25,0.2500,CT_brick : ground burned brick
+*layer,21,0.0150,CT_Cast_Concrete : cement plaster
+*end_item
+*item,CT_EW_PCM,CT_EW_PCM # tag name menu entry
+*itemdoc,Construction for external wall
+*incat,walls
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,1,0.0200,CT_Ceramic : Ceramic clay tile for external wall cover
+*layer,21,0.0150,CT_Cast_Concrete : cement plaster
+*layer,22,0.1000,CT_Block_Concrete : Bloc of cement (Parpaing)
+*layer,202,0.1000,CT_wood_fiber_ins : CT_wood_fiber_ins (copy of CT_Insulation)
+*layer,22,0.1000,CT_Block_Concrete : Bloc of cement (Parpaing)
+*layer,21,0.0150,CT_Cast_Concrete : cement plaster
+*layer,161,0.0150,CT_Paraffin : PCM material paraffin with 22 - 26 degre melting point
+*end_item
+*item,CT_EW_Wood,CT_EW_Wood # tag name menu entry
+*itemdoc,Construction for external wall
+*incat,walls
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,1,0.0200,CT_Ceramic : Ceramic clay tile for external wall cover
+*layer,21,0.0150,CT_Cast_Concrete : cement plaster
+*layer,22,0.1000,CT_Block_Concrete : Bloc of cement (Parpaing)
+*layer,202,0.1000,CT_wood_fiber_ins : CT_wood_fiber_ins (copy of CT_Insulation)
+*layer,22,0.1000,CT_Block_Concrete : Bloc of cement (Parpaing)
+*layer,21,0.0150,CT_Cast_Concrete : cement plaster
+*end_item
+*item,CT_Int_Wall,CT_Int_Wall # tag name menu entry
+*itemdoc,Construction for the wall inside the room
+*incat,partitions
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,21,0.0150,CT_Cast_Concrete : cement plaster
+*layer,22,0.2200,CT_Block_Concrete : Bloc of cement (Parpaing)
+*layer,21,0.0150,CT_Cast_Concrete : cement plaster
+*end_item
+*item,CT_Ext_Door,CT_Ext_Door # tag name menu entry
+*itemdoc,External Door made with painted oak
+*incat,doors
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,61,0.0350,CT_Wood : Wood Painted Oak
+*end_item
+*item,CT_Int_Door,CT_Int_Door # tag name menu entry
+*itemdoc,Internal door (inside the room)
+*incat,doors
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,61,0.0250,CT_Wood : Wood Painted Oak
+*end_item
+*item,CT_Gar_Door,CT_Gar_Door # tag name menu entry
+*itemdoc,External door of Garage
+*incat,doors
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,42,0.0030,CT_Steel : Metal Steel for Garage door
+*layer,0,0.0100,gap  0.17 0.17 0.17
+*layer,42,0.0030,CT_Steel : Metal Steel for Garage door
+*end_item
+*item,CT_Ext_Window,CT_Glass # tag name menu entry
+*itemdoc,Windows on external wall
+*incat,glazing
+*type,TRAN,SCF8783_06nb,SYMMETRIC
+*layer,242,0.0050,clear float : clear float
+*end_item
+*item,CT_Wall_Roof,CT_Wall_Roof # tag name menu entry
+*itemdoc,External Wall for roof
+*incat,roofs
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,43,0.0020,Aluminium : Galvanised Aluminium
+*end_item
+*item,CT_Ceiling,CT_Ceiling # tag name menu entry
+*itemdoc,Construction for ceiling
+*incat,ceil_floor
+*type,OPAQ,OPAQUE,CT_Ceiling_inv
+*layer,62,0.0100,CT_Plywood : Plywood lightweigth
+*end_item
+*item,CT_Ground,CT_Ground # tag name menu entry
+*itemdoc,CT_Ground construction
+*incat,ground
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,261,0.5000,CT_Earth : Common earth
+*layer,261,0.3500,CT_Earth : Common earth
+*layer,261,0.2500,CT_Earth : Common earth
+*layer,261,0.1000,CT_Earth : Common earth
+*layer,263,0.1000,CT_Sand : sand
+*layer,262,0.1000,CT_Gravel : Gravel for ground
+*layer,21,0.1000,CT_Cast_Concrete : cement plaster
+*layer,1,0.0200,CT_Ceramic : Ceramic clay tile for external wall cover
+*end_item
+*item,CT_PVT_semi_Tr,CT_PVT_semi_Tr # tag name menu entry
+*itemdoc,Semi transparent photovoltaic module
+*incat,project
+*type,TRAN,PVmod_opt,NONSYMMETRIC
+*layer,243,0.0300,CT_Glass cover : Glass cover of PV module
+*layer,281,0.0025,CT_EVA : ethylene vynil acetate for PV
+*layer,24,0.0038,CT_solal_cell : Solar cell for PV module
+*layer,281,0.0100,CT_EVA : ethylene vynil acetate for PV
+*layer,201,0.0250,gap  0.17 0.17 0.17
+*layer,201,0.0100,CT_Insulation : Fibreboard
+*end_item
+*item,CT_PVT_Opq,CT_PVT_Opq # tag name menu entry
+*itemdoc,PVT opaque module
+*incat,project
+*type,TRAN,PVmod_opt,NONSYMMETRIC
+*layer,243,0.0300,CT_Glass cover : Glass cover of PV module
+*layer,281,0.0025,CT_EVA : ethylene vynil acetate for PV
+*layer,24,0.0038,CT_solal_cell : Solar cell for PV module
+*layer,281,0.0030,CT_EVA : ethylene vynil acetate for PV
+*layer,282,0.0030,CT_Tedlar : Tedlar at the back sheet of opaque PV module
+*layer,-99,0.0100,gap  0.17 0.17 0.17
+*layer,201,0.0100,CT_Insulation : Fibreboard
+*end_item
+*item,CT_PCM,CT_PCM # tag name menu entry
+*itemdoc,PCM construction
+*incat,project
+*type,OPAQ,OPAQUE,NONSYMMETRIC
+*layer,201,0.0150,CT_Insulation : Fibreboard
+*layer,221,0.0250,gap  0.17 0.17 0.17
+*layer,161,0.0100,CT_Paraffin : PCM material paraffin with 22 - 26 degre melting point
+*end_item
+*item,CT_PCM_Simple,CT_PCM_Simple # tag name menu entry
+*itemdoc,no documentation yet for CT_PCM_Simple
+*incat,project
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,161,0.0100,CT_Paraffin : PCM material paraffin with 22 - 26 degre melting point
+*end_item
+*item,CT_Pcm_NonSysm,CT_Pcm_NonSysm # tag name menu entry
+*itemdoc,no documentation yet for CT_Pcm_NonSysm inproject
+*incat,project
+*type,OPAQ,OPAQUE,CT_Pcm_NonSysm_inv
+*layer,201,0.0050,CT_Insulation : Fibreboard
+*layer,161,0.0100,CT_Paraffin : PCM material paraffin with 22 - 26 degre melting point
+*end_item
+*item,CT_Pcm_NonSysm_inv,CT_Pcm_NonSysm # tag name menu entry
+*itemdoc,no documentation yet for CT_Pcm_NonSysm inproject
+*incat,project
+*type,OPAQ,OPAQUE,CT_Pcm_NonSysm
+*layer,161,0.0100,CT_Paraffin : PCM material paraffin with 22 - 26 degre melting point
+*layer,201,0.0050,CT_Insulation : Fibreboard
+*end_item
+*item,CT_Ceiling_inv,CT_Ceiling_inv # tag name menu entry
+*itemdoc,Inverted construction for ceiling
+*incat,ceil_floor
+*type,OPAQ,OPAQUE,CT_Ceiling
+*layer,62,0.0100,CT_Plywood : Plywood lightweigth
+*end_item
+*item,CT_wall_obs,CT_wall_obs # tag name menu entry
+*itemdoc,CT_wall_obs is wall construction for solar obstruction
+*incat,walls
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,22,0.1000,CT_Block_Concrete : Bloc of cement (Parpaing)
+*end_item
+*item,CT_Ceil_20mm,CT_Ceil_20mm # tag name menu entry
+*itemdoc,CT_Ceil_insul is the false ceiling with 20 mm insulation.
+*incat,ceil_floor
+*type,OPAQ,OPAQUE,CT_Ceil_20mm_inv
+*layer,202,0.0200,CT_wood_fiber_ins : CT_wood_fiber_ins (copy of CT_Insulation)
+*layer,62,0.0100,CT_Plywood : Plywood lightweigth
+*end_item
+*item,CT_Ceil_20mm_inv,CT_Ceil_20mm_inv # tag name menu entry
+*itemdoc,CT_Ceil_insul is the inverted false ceiling with 20 mm insulation.
+*incat,ceil_floor
+*type,OPAQ,OPAQUE,CT_Ceil_20mm
+*layer,62,0.0100,CT_Plywood : Plywood lightweigth
+*layer,202,0.0200,CT_wood_fiber_ins : CT_wood_fiber_ins (copy of CT_Insulation)
+*end_item
+*item,CT_Ceil_50mm,CT_Ceil_50mm # tag name menu entry
+*itemdoc,CT_Ceil_50mm is the false ceiling with 50 mm insulation.
+*incat,ceil_floor
+*type,OPAQ,OPAQUE,CT_Ceil_50mm_inv
+*layer,202,0.0500,CT_wood_fiber_ins : CT_wood_fiber_ins (copy of CT_Insulation)
+*layer,62,0.0100,CT_Plywood : Plywood lightweigth
+*end_item
+*item,CT_Ceil_50mm_inv,CT_Ceil_50mm_inv # tag name menu entry
+*itemdoc,CT_Ceil_insul is the inverted false ceiling with 50 mm insulation.
+*incat,ceil_floor
+*type,OPAQ,OPAQUE,CT_Ceil_50mm
+*layer,62,0.0100,CT_Plywood : Plywood lightweigth
+*layer,202,0.0500,CT_wood_fiber_ins : CT_wood_fiber_ins (copy of CT_Insulation)
+*end_item
+*item,CT_Ceil_100mm,CT_Ceil_100mm # tag name menu entry
+*itemdoc,CT_Ceil_100mm is the false ceiling insulated with 100 mm.
+*incat,ceil_floor
+*type,OPAQ,OPAQUE,CT_Ceil_100mm_inv
+*layer,202,0.1000,CT_wood_fiber_ins : CT_wood_fiber_ins (copy of CT_Insulation)
+*layer,62,0.0100,CT_Plywood : Plywood lightweigth
+*end_item
+*item,CT_Ceil_100mm_inv,CT_Ceil_100mm_inv # tag name menu entry
+*itemdoc,CT_Ceil_100mm is the inverted false ceiling insulated with 100 mm.
+*incat,ceil_floor
+*type,OPAQ,OPAQUE,CT_Ceil_100mm
+*layer,62,0.0100,CT_Plywood : Plywood lightweigth
+*layer,202,0.1000,CT_wood_fiber_ins : CT_wood_fiber_ins (copy of CT_Insulation)
+*end_item
+*item,CT_Ceil_external,CT_Ceil_external # tag name menu entry
+*itemdoc,CT_Ceil_external is for roof floor surfaces which face the ambient
+*incat,ceil_floor
+*type,OPAQ,OPAQUE,SYMMETRIC
+*layer,62,0.0300,CT_Plywood : Plywood lightweigth
+*end_item
+*db_end

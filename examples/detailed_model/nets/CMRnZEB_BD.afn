@@ -1,0 +1,80 @@
+   16   11   38    1.000    (nodes, components, connections, wind reduction)
+ Node         Fld. Type   Height    Temperature    Data_1       Data_2
+ cellar          1    0   1.5000       20.000       0.0000       9.9000    
+ wc              1    0   1.5000       20.000       1.0000       7.2001    
+ garage          1    0   1.5000       20.000       0.0000       66.000    
+ bed_1           1    0   1.5000       20.000       0.0000       70.600    
+ bed_2           1    0   1.5000       20.000       0.0000       15.000    
+ bed_3           1    0   1.5000       20.000       1.0000       182.12    
+ salon           1    0   1.5000       20.000       0.0000       182.10    
+ kitchen         1    0   1.5000       20.000       0.0000       28.800    
+ bth_1           1    0   1.5000       20.000       0.0000       12.600    
+ bth_2           1    0   1.5000       20.000       0.0000       15.000    
+ roof            1    0   3.6806       20.000       1.0000       132.16    
+ Ext_S           1    3   1.6250       0.0000       1.0000       180.00    
+ Ext_N           1    3   1.6250       0.0000       1.0000       0.0000    
+ Ext_E           1    3   2.0000       0.0000       1.0000       90.000    
+ Roof_E          1    3   3.3120       0.0000       1.0000       90.000    
+ Roof_W          1    3   3.3120       0.0000       1.0000       270.00    
+ Component    Type C+ L+ Description
+ crk_small     120  3  0 Specific air flow crack             m = rho.f(W,L,dP)
+   1.00000000       1.00000005E-03   0.500000000
+ crk_win       120  3  0 Specific air flow crack             m = rho.f(W,L,dP)       
+   1.00000000       2.00000005E-03   7.00000000
+ crk_fls_ceil  120  3  0 Specific air flow crack             m = rho.f(W,L,dP)
+   1.00000000       2.00000005E-03   6.000000000
+ op_win_large  110  2  0 Specific air flow opening           m = rho.f(A,dP)
+   1.00000000       2.50000000    
+ op_win_small  110  2  0 Specific air flow opening           m = rho.f(A,dP)         
+   1.00000000      0.500000000    
+ int_door      130  5  0 Specific air flow door              m = rho.f(W,H,dP)       
+   1.00000000       1.00000000       2.25000000       1.50000000      0.600000024    
+ crk_int_door  120  3  0 Specific air flow crack             m = rho.f(W,L,dP)       
+   1.00000000       1.00000005E-03   6.00000000    
+ crk_ext_door  120  3  0 Specific air flow crack             m = rho.f(W,L,dP)       
+   1.00000000       3.00000005E-03   6.00000000
+ op_eaves      110  2  0 Specific air flow opening           m = rho.f(A,dP)         
+   1.00000000      0.800000012    
+ Dp_sens        50  3  0 Laminar pipe vol. flow rate comp.   m = rho.f(L,R,mu,dP)
+   1.00000000      0.150000006       5.00000005E-05
+ BlowerDoor     30  2  0 Constant vol. flow rate component   m = rho.a
+   1.00000000      0.500000005
+ +Node         dHght   -Node         dHght   via Component
+ Ext_S         0.000   bed_1         0.125   crk_win                                 
+ Ext_S         0.000   bed_2         0.125   crk_win                                 
+ Ext_N         0.000   bed_3         0.125   crk_win                                 
+ Ext_S         0.000   salon         0.125   crk_win                                 
+ Ext_N         0.000   kitchen       0.125   crk_win                                 
+ Ext_E         0.000   bth_1         0.500   crk_win                                 
+ Ext_N         0.000   wc            0.500   crk_win                                 
+ Ext_E         0.000   garage        1.125   crk_win                                 
+ Ext_N        -0.125   salon         0.000   crk_ext_door                            
+ Ext_N        -0.125   garage        0.000   crk_ext_door                            
+ bed_1         0.000   salon         0.000   int_door                                
+ bed_2         0.000   salon         0.000   int_door                                
+ bed_3         0.000   salon         0.000   int_door                                
+ kitchen       0.000   salon         0.000   int_door                                
+ wc            0.000   salon         0.000   crk_int_door                            
+ cellar        0.000   salon         0.000   crk_int_door                            
+ cellar        0.000   garage        0.000   crk_int_door                            
+ bed_1         0.000   bth_1         0.000   int_door                                
+ bed_2        -1.500   bth_2         1.500   crk_small                               
+ bth_2         0.000   salon         0.000   crk_int_door                            
+ Roof_E        0.000   roof          0.000   op_eaves                                
+ Roof_W        0.000   roof          0.000   op_eaves                                
+ salon         1.500   roof         -0.681   crk_fls_ceil
+ bed_1         1.500   roof         -0.681   crk_fls_ceil
+ bed_2         1.500   roof         -0.681   crk_fls_ceil
+ bed_3         1.500   roof         -0.681   crk_fls_ceil
+ bth_1         1.500   roof         -0.681   crk_fls_ceil
+ bth_2         1.500   roof         -0.681   crk_fls_ceil
+ kitchen       1.500   roof         -0.681   crk_fls_ceil
+ Ext_S         0.000   salon         0.125   op_win_large                            
+ Ext_N         0.000   kitchen       0.125   op_win_large
+ Ext_S         0.000   salon         0.000   Dp_sens
+ Ext_S         0.000   bed_1         0.000   Dp_sens
+ Ext_S         0.000   bed_2         0.000   Dp_sens
+ Ext_N         0.000   bed_3         0.000   Dp_sens
+ Ext_E         0.000   bth_1         0.000   Dp_sens
+ Ext_E         0.000   garage        0.000   Dp_sens
+ Ext_N         0.000   salon         0.000   BlowerDoor

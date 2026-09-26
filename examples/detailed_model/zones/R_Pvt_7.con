@@ -1,0 +1,30 @@
+# thermophysical properties of R_Pvt_7 defined in ../zones/R_Pvt_7.con
+# no of |air |surface(from geo)| multilayer construction
+# layers|gaps|number &  name   | database name 
+     1,     0  #   1 pvt_7_R      CT_Wall_Roof
+     6,     0  #   2 pvt_7        CT_PVT_semi_Tr
+     1,     0  #   3 pvt_7_W      CT_Wall_Roof
+     1,     0  #   4 pvt_7_N      CT_Wall_Roof
+     1,     0  #   5 pvt_7_6      CT_Wall_Roof
+     1,     0  #   6 pvt_7_8      CT_Wall_Roof
+# conduc-  |  density | specific | thick- |dpnd|  ref. |  temp. |moisture| surf|lyr
+# tivity   |          | heat     |ness(m) |type|  temp | factor | factor |     |  
+   160.0000,    2800.0,     880.0,  0.0020,   0,   0.00, 0.00000, 0.00000  #   1   1
+     1.0500,    2500.0,     750.0,  0.0300,   0,   0.00, 0.00000, 0.00000  #   2   1
+     0.0400,     930.0,    1413.0,  0.0025,   0,   0.00, 0.00000, 0.00000  #       2
+     0.3800,     920.0,    2100.0,  0.0038,   0,   0.00, 0.00000, 0.00000  #       3
+     0.0400,     930.0,    1413.0,  0.0100,   0,   0.00, 0.00000, 0.00000  #       4
+     0.0600,     300.0,    1000.0,  0.0250,   0,   0.00, 0.00000, 0.00000  #       5
+     0.0600,     300.0,    1000.0,  0.0100,   0,   0.00, 0.00000, 0.00000  #       6
+   160.0000,    2800.0,     880.0,  0.0020,   0,   0.00, 0.00000, 0.00000  #   3   1
+   160.0000,    2800.0,     880.0,  0.0020,   0,   0.00, 0.00000, 0.00000  #   4   1
+   160.0000,    2800.0,     880.0,  0.0020,   0,   0.00, 0.00000, 0.00000  #   5   1
+   160.0000,    2800.0,     880.0,  0.0020,   0,   0.00, 0.00000, 0.00000  #   6   1
+# for each surface: inside face emissivity
+ 0.3000,0.9000,0.3000,0.3000,0.3000,0.3000
+# for each surface: outside face emissivity
+ 0.3000,0.8300,0.3000,0.3000,0.3000,0.3000
+# for each surface: inside face solar absorptivity
+ 0.3000,0.5000,0.3000,0.3000,0.3000,0.3000
+# for each surface: outside face solar absorptivity
+ 0.3000,0.050000,0.3000,0.3000,0.3000,0.3000

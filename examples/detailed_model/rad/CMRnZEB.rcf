@@ -1,0 +1,10 @@
+*ESP-r visualisation scene configuration file.
+Thu Dec 26 14:39:44 2019 # latest file modification.
+  1 # No. of scenes
+# Scene number  1
+*rnm bipvt_pcm_Extern.rif                      # Rif name
+*srt bipvt_pcm_Extern                          # Scene root
+*rde Scene of bipvt_pcm for External analysis. # Description
+*rpu External                                  # Intended use
+*sceneEND
+*end

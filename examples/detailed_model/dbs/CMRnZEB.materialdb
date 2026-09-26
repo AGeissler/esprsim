@@ -1,0 +1,134 @@
+*Materials 1.2
+*date,Wed Nov 27 15:15:31 2019
+# materials database defined in ../dbs/bipvt_pcm.materialdb
+*doc,ESP-r Materials based on scan of a legacy ASCII materialsdatabase. Information in ASCII file is recorded as found. Additional infomation and documentation uses standard assumptions which should be updated as required.
+18  # number of classifications
+#  
+# Materials have the following attributes:
+#  conductivity (W/(m-K), density (kg/m**3) specific heat (J/(kg-K)
+#  emissivity out (-) emissivity in (-)#   absorptivity out (-) absorptivity in (-)
+#  diffusion resistance (MNs g^-1m^-1)
+#  default thickness (mm)
+#  flag [-] legacy [o] opaque [t] transparent
+#       [g] gas or air gap
+#  
+# Transparent material additonal attributes:
+#  longwave tran (-) solar direct tran (-) solar reflec out (-) solar refled in (-)
+#  visable tran (-) visable reflec out (-) visable reflec in (-) colour rendering (-)
+#  
+# Gas material additional attributes:
+#  air gap resistance for vert horiz other
+#  
+# class index |nb items|description (32 char)
+*class, 1, 1,Ceramic
+Category ( 1) was initially named Brick. No other documentation (yet).
+*item,CT_Ceramic,  1, 1,Ceramic clay tile for external wall cover
+0.8500,1900.000,840.000,0.800,0.800,0.100,0.100,19200.000,5.0,-
+# class index |nb items|description (32 char)
+*class, 2, 4,Concrete
+Category ( 2) was initially named Concrete. No other documentation (yet).
+*item,CT_Cast_Concrete, 21, 2,cement plaster
+1.1300,2000.000,1000.000,0.900,0.900,0.700,0.700,13.000,15.0,o
+*item,CT_Block_Concrete, 22, 2,Bloc of cement (Parpaing)
+0.1900,600.000,1000.000,0.900,0.900,0.400,0.400,18.000,250.0,o
+*item,CT_Mixed_Concrete, 23, 2,Mixed Concrete for ground
+1.4000,2100.000,655.000,0.900,0.900,0.650,0.650,19.000,30.0,o
+*item,CT_ae_b_inter, 26, 2,CT_aerated_block_interlayer (derived from CT_Mixed_Concrete)
+0.3630,500.000,655.000,0.900,0.900,0.650,0.650,19.000,250.0,o
+# class index |nb items|description (32 char)
+*class, 3, 2,Metal
+Category ( 3) was initially named Metal. No other documentation (yet).
+*item,CT_Steel, 42, 3,Metal Steel for Garage door
+50.0000,7800.000,450.000,0.300,0.300,0.300,0.300,10.000,3.0,-
+*item,CT_Aluminium, 43, 3,Aluminium for the back sheet of opaque PV module
+160.0000,2800.000,880.000,0.300,0.300,0.300,0.300,10.000,3.0,o
+# class index |nb items|description (32 char)
+*class, 4, 2,Wood
+Category ( 4) was initially named Wood. No other documentation (yet).
+*item,CT_Wood, 61, 4,Wood Painted Oak
+0.1900,700.000,2390.000,0.900,0.900,0.500,0.500,10.000,30.0,o
+*item,CT_Plywood, 62, 4,Plywood lightweigth
+0.1500,560.000,2500.000,0.900,0.900,0.650,0.650,576.000,5.0,o
+# class index |nb items|description (32 char)
+*class, 5, 1,Stone
+Category ( 5) was initially named Stone. No other documentation (yet).
+*item,CT_Marble, 81, 5,Sandstone
+2.0000,2500.000,880.000,0.900,0.900,0.460,0.460,38.000,10.0,o
+# class index |nb items|description (32 char)
+*class, 6, 1,Plaster
+Category ( 6) was initially named Plaster. No other documentation (yet).
+*item,Dense plaster,101, 6,Dense plaster
+0.5000,1300.000,1000.000,0.910,0.910,0.500,0.500,11.000,12.5,-
+# class index |nb items|description (32 char)
+*class, 7, 1,Screeds and renders
+Category ( 7) was initially named Screeds and renders. No other documentation (yet).
+*item,Ltwt concrete screed,121, 7,Ltwt concrete screed
+0.4100,1200.000,840.000,0.900,0.900,0.800,0.800,30.000,50.0,-
+# class index |nb items|description (32 char)
+*class, 8, 1,Tiles
+Category ( 8) was initially named Tiles. No other documentation (yet).
+*item,Clay tile,141, 8,Clay tile
+0.8500,1900.000,837.000,0.900,0.900,0.600,0.600,52.000,6.0,-
+# class index |nb items|description (32 char)
+*class, 9, 1,PCM
+Category ( 9) was initially named Asphalt and bitumen. No other documentation (yet).
+*item,CT_Paraffin,161, 9,PCM material paraffin with 22 - 26 degre melting point
+0.2000,1000.000,2000.000,0.900,0.900,0.600,0.600,10.000,10.0,o
+# class index |nb items|description (32 char)
+*class,10, 1,Fabric
+Category (10) was initially named Fabric. No other documentation (yet).
+*item,wool,181,10,wool
+0.0600,198.000,1360.000,0.900,0.900,0.600,0.600,10.000,6.0,-
+# class index |nb items|description (32 char)
+*class,11, 2,Insulation
+Category (11) was initially named Insulation. No other documentation (yet).
+*item,CT_Insulation,201,11,Fibreboard
+0.0600,300.000,1000.000,0.900,0.900,0.500,0.500,13.000,100.0,o
+*item,CT_wood_fiber_ins,202,11,CT_wood_fiber_ins (copy of CT_Insulation)
+0.0380,45.000,2100.000,0.600,0.600,0.500,0.500,13.000,100.0,o
+# class index |nb items|description (32 char)
+*class,12, 1,Carpet
+Category (12) was initially named Carpet. No other documentation (yet).
+*item,Wilton,221,12,Wilton
+0.0600,186.000,1360.000,0.900,0.900,0.600,0.600,10.000,5.0,-
+# class index |nb items|description (32 char)
+*class,13, 2,Glass
+Category (13) was initially named Glass. No other documentation (yet).
+*item,clear float,242,13,clear float
+1.0500,2500.000,750.000,0.830,0.830,0.050,0.050,19200.000,6.0,t,0.000,0.837,0.000,0.075,0.898,0.081,0.081,0.000
+*item,CT_Glass cover,243,13,Glass cover of PV module
+1.0500,2500.000,750.000,0.830,0.830,0.050,0.050,19200.000,3.0,t,0.000,0.837,0.000,0.075,0.898,0.081,0.081,0.000
+# class index |nb items|description (32 char)
+*class,14, 3,Earth
+Category (14) was initially named Earth. No other documentation (yet).
+*item,CT_Earth,261,14,Common earth
+1.2000,1460.000,880.000,0.900,0.900,0.850,0.850,5.000,200.0,o
+*item,CT_Gravel,262,14,Gravel for ground
+0.5500,2050.000,185.000,0.900,0.900,0.850,0.850,2.000,200.0,o
+*item,CT_Sand,263,14,sand
+1.7000,2240.000,920.000,0.900,0.900,0.850,0.850,5.000,200.0,o
+# class index |nb items|description (32 char)
+*class,15, 2,Plastic
+Category (15) was initially named Plastic. No other documentation (yet).
+*item,CT_EVA,281,15,ethylene vynil acetate for PV
+0.0400,930.000,1413.000,0.900,0.900,0.400,0.400,1000.000,100.0,-
+*item,CT_Tedlar,282,15,Tedlar at the back sheet of opaque PV module
+0.3800,930.000,1300.000,0.900,0.900,0.400,0.400,1000.000,1.0,-
+# class index |nb items|description (32 char)
+*class,16, 2,GAPS
+Category (16) holds the implied air material
+*item,CT_air,  0,16,Air gap
+0.0350,1.200,1006.000,0.990,0.990,0.990,0.990,1.000,25.0,g,0.0000,0.0000,0.0000
+*item,CT_pv_air_gap,-99,16,Cooling air flow at the back side of PV
+0.0350,1.200,1006.000,0.990,0.990,0.990,0.990,1.000,25.0,g,0.0000,0.0000,0.0000
+# class index |nb items|description (32 char)
+*class,17, 1,Solar Cell
+Solar cell material documentation (yet).
+*item,CT_solal_cell, 24,17,Solar cell for PV module
+0.3800,920.000,2100.000,0.900,0.900,0.500,0.500,19200.000,3.0,t,0.000,0.000,0.500,0.000,0.000,0.000,0.000,0.000
+# class index |nb items|description (32 char)
+*class,18, 1,brick
+Category (18) named brick was inserted manually. No other documentation (yet).
+*item,CT_brick, 25,18,ground burned brick
+0.8400,1500.000,840.000,0.900,0.900,0.600,0.600,25.000,100.0,o
+*end

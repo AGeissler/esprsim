@@ -1,0 +1,144 @@
+*connections for PVT_Douala
+*Date Sat Sep 26 17:09:28 2026
+    141  # number of connections
+   1   1   0   0   0  #    1 Wall-1 in Z00 is External
+   1   2   0   0   0  #    2 Wall-2 in Z00 is External
+   1   3   0   0   0  #    3 Wall-3 in Z00 is External
+   1   4   0   0   0  #    4 Wall-4 in Z00 is External
+   1   5   4   1   0  #    5 Base-6 in Z00 >|< ground profile 1
+   1   6   3   2   6  #    6 Z00_PVT_W1 in Z00 >|< Base-6 in Z00_PVT_W1
+   1   7   3   3   6  #    7 Z00_PVT_W2 in Z00 >|< Base-6 in Z00_PVT_W2
+   1   8   3   4   6  #    8 Z00_PVT_W3 in Z00 >|< Base-6 in Z00_PVT_W3
+   1   9   3   5   6  #    9 Z00_PVT_E1 in Z00 >|< Base-6 in Z00_PVT_E1
+   1  10   3   6   6  #   10 Z00_PVT_E2 in Z00 >|< Base-6 in Z00_PVT_E2
+   1  11   3   7   6  #   11 Z00_PVT_E3 in Z00 >|< Base-6 in Z00_PVT_E3
+   2   1   0   0   0  #   12 Wall-1 in Z00_PVT_W1 is External
+   2   2   3   5   4  #   13 Wall-2 in Z00_PVT_W1 >|< Wall-4 in Z00_PVT_E1
+   2   3   3   3   1  #   14 Wall-3 in Z00_PVT_W1 >|< Wall-1 in Z00_PVT_W2
+   2   4   0   0   0  #   15 Wall-4 in Z00_PVT_W1 is External
+   2   5   0   0   0  #   16 Top-5 in Z00_PVT_W1 is External
+   2   6   3   1   6  #   17 Base-6 in Z00_PVT_W1 >|< Z00_PVT_W1 in Z00
+   3   1   3   2   3  #   18 Wall-1 in Z00_PVT_W2 >|< Wall-3 in Z00_PVT_W1
+   3   2   3   6   4  #   19 Wall-2 in Z00_PVT_W2 >|< Wall-4 in Z00_PVT_E2
+   3   3   3   4   1  #   20 Wall-3 in Z00_PVT_W2 >|< Wall-1 in Z00_PVT_W3
+   3   4   0   0   0  #   21 Wall-4 in Z00_PVT_W2 is External
+   3   5   0   0   0  #   22 Top-5 in Z00_PVT_W2 is External
+   3   6   3   1   7  #   23 Base-6 in Z00_PVT_W2 >|< Z00_PVT_W2 in Z00
+   4   1   3   3   3  #   24 Wall-1 in Z00_PVT_W3 >|< Wall-3 in Z00_PVT_W2
+   4   2   3   7   4  #   25 Wall-2 in Z00_PVT_W3 >|< Wall-4 in Z00_PVT_E3
+   4   3   0   0   0  #   26 Wall-3 in Z00_PVT_W3 is External
+   4   4   0   0   0  #   27 Wall-4 in Z00_PVT_W3 is External
+   4   5   0   0   0  #   28 Top-5 in Z00_PVT_W3 is External
+   4   6   3   1   8  #   29 Base-6 in Z00_PVT_W3 >|< Z00_PVT_W3 in Z00
+   5   1   0   0   0  #   30 Wall-1 in Z00_PVT_E1 is External
+   5   2   0   0   0  #   31 Wall-2 in Z00_PVT_E1 is External
+   5   3   3   6   1  #   32 Wall-3 in Z00_PVT_E1 >|< Wall-1 in Z00_PVT_E2
+   5   4   3   2   2  #   33 Wall-4 in Z00_PVT_E1 >|< Wall-2 in Z00_PVT_W1
+   5   5   0   0   0  #   34 Top-5 in Z00_PVT_E1 is External
+   5   6   3   1   9  #   35 Base-6 in Z00_PVT_E1 >|< Z00_PVT_E1 in Z00
+   6   1   3   5   3  #   36 Wall-1 in Z00_PVT_E2 >|< Wall-3 in Z00_PVT_E1
+   6   2   0   0   0  #   37 Wall-2 in Z00_PVT_E2 is External
+   6   3   3   7   1  #   38 Wall-3 in Z00_PVT_E2 >|< Wall-1 in Z00_PVT_E3
+   6   4   3   3   2  #   39 Wall-4 in Z00_PVT_E2 >|< Wall-2 in Z00_PVT_W2
+   6   5   0   0   0  #   40 Top-5 in Z00_PVT_E2 is External
+   6   6   3   1  10  #   41 Base-6 in Z00_PVT_E2 >|< Z00_PVT_E2 in Z00
+   7   1   3   6   3  #   42 Wall-1 in Z00_PVT_E3 >|< Wall-3 in Z00_PVT_E2
+   7   2   0   0   0  #   43 Wall-2 in Z00_PVT_E3 is External
+   7   3   0   0   0  #   44 Wall-3 in Z00_PVT_E3 is External
+   7   4   3   4   2  #   45 Wall-4 in Z00_PVT_E3 >|< Wall-2 in Z00_PVT_W3
+   7   5   0   0   0  #   46 Top-5 in Z00_PVT_E3 is External
+   7   6   3   1  11  #   47 Base-6 in Z00_PVT_E3 >|< Z00_PVT_E3 in Z00
+   8   1   0   0   0  #   48 Wall-1 in Z20 is External
+   8   2   0   0   0  #   49 Wall-2 in Z20 is External
+   8   3   0   0   0  #   50 Wall-3 in Z20 is External
+   8   4   0   0   0  #   51 Wall-4 in Z20 is External
+   8   5   4   1   0  #   52 Base-6 in Z20 >|< ground profile 1
+   8   6   3   9   6  #   53 Z20_PVT_W1 in Z20 >|< Base-6 in Z20_PVT_W1
+   8   7   3  10   6  #   54 Z20_PVT_W2 in Z20 >|< Base-6 in Z20_PVT_W2
+   8   8   3  11   6  #   55 Z20_PVT_W3 in Z20 >|< Base-6 in Z20_PVT_W3
+   8   9   3  12   6  #   56 Z20_PVT_E1 in Z20 >|< Base-6 in Z20_PVT_E1
+   8  10   3  13   6  #   57 Z20_PVT_E2 in Z20 >|< Base-6 in Z20_PVT_E2
+   8  11   3  14   6  #   58 Z20_PVT_E3 in Z20 >|< Base-6 in Z20_PVT_E3
+   9   1   0   0   0  #   59 Wall-1 in Z20_PVT_W1 is External
+   9   2   3  12   4  #   60 Wall-2 in Z20_PVT_W1 >|< Wall-4 in Z20_PVT_E1
+   9   3   3  10   1  #   61 Wall-3 in Z20_PVT_W1 >|< Wall-1 in Z20_PVT_W2
+   9   4   0   0   0  #   62 Wall-4 in Z20_PVT_W1 is External
+   9   5   0   0   0  #   63 Top-5 in Z20_PVT_W1 is External
+   9   6   3   8   6  #   64 Base-6 in Z20_PVT_W1 >|< Z20_PVT_W1 in Z20
+  10   1   3   9   3  #   65 Wall-1 in Z20_PVT_W2 >|< Wall-3 in Z20_PVT_W1
+  10   2   3  13   4  #   66 Wall-2 in Z20_PVT_W2 >|< Wall-4 in Z20_PVT_E2
+  10   3   3  11   1  #   67 Wall-3 in Z20_PVT_W2 >|< Wall-1 in Z20_PVT_W3
+  10   4   0   0   0  #   68 Wall-4 in Z20_PVT_W2 is External
+  10   5   0   0   0  #   69 Top-5 in Z20_PVT_W2 is External
+  10   6   3   8   7  #   70 Base-6 in Z20_PVT_W2 >|< Z20_PVT_W2 in Z20
+  11   1   3  10   3  #   71 Wall-1 in Z20_PVT_W3 >|< Wall-3 in Z20_PVT_W2
+  11   2   3  14   4  #   72 Wall-2 in Z20_PVT_W3 >|< Wall-4 in Z20_PVT_E3
+  11   3   0   0   0  #   73 Wall-3 in Z20_PVT_W3 is External
+  11   4   0   0   0  #   74 Wall-4 in Z20_PVT_W3 is External
+  11   5   0   0   0  #   75 Top-5 in Z20_PVT_W3 is External
+  11   6   3   8   8  #   76 Base-6 in Z20_PVT_W3 >|< Z20_PVT_W3 in Z20
+  12   1   0   0   0  #   77 Wall-1 in Z20_PVT_E1 is External
+  12   2   0   0   0  #   78 Wall-2 in Z20_PVT_E1 is External
+  12   3   3  13   1  #   79 Wall-3 in Z20_PVT_E1 >|< Wall-1 in Z20_PVT_E2
+  12   4   3   9   2  #   80 Wall-4 in Z20_PVT_E1 >|< Wall-2 in Z20_PVT_W1
+  12   5   0   0   0  #   81 Top-5 in Z20_PVT_E1 is External
+  12   6   3   8   9  #   82 Base-6 in Z20_PVT_E1 >|< Z20_PVT_E1 in Z20
+  13   1   3  12   3  #   83 Wall-1 in Z20_PVT_E2 >|< Wall-3 in Z20_PVT_E1
+  13   2   0   0   0  #   84 Wall-2 in Z20_PVT_E2 is External
+  13   3   3  14   1  #   85 Wall-3 in Z20_PVT_E2 >|< Wall-1 in Z20_PVT_E3
+  13   4   3  10   2  #   86 Wall-4 in Z20_PVT_E2 >|< Wall-2 in Z20_PVT_W2
+  13   5   0   0   0  #   87 Top-5 in Z20_PVT_E2 is External
+  13   6   3   8  10  #   88 Base-6 in Z20_PVT_E2 >|< Z20_PVT_E2 in Z20
+  14   1   3  13   3  #   89 Wall-1 in Z20_PVT_E3 >|< Wall-3 in Z20_PVT_E2
+  14   2   0   0   0  #   90 Wall-2 in Z20_PVT_E3 is External
+  14   3   0   0   0  #   91 Wall-3 in Z20_PVT_E3 is External
+  14   4   3  11   2  #   92 Wall-4 in Z20_PVT_E3 >|< Wall-2 in Z20_PVT_W3
+  14   5   0   0   0  #   93 Top-5 in Z20_PVT_E3 is External
+  14   6   3   8  11  #   94 Base-6 in Z20_PVT_E3 >|< Z20_PVT_E3 in Z20
+  15   1   0   0   0  #   95 Wall-1 in Z40 is External
+  15   2   0   0   0  #   96 Wall-2 in Z40 is External
+  15   3   0   0   0  #   97 Wall-3 in Z40 is External
+  15   4   0   0   0  #   98 Wall-4 in Z40 is External
+  15   5   4   1   0  #   99 Base-6 in Z40 >|< ground profile 1
+  15   6   3  16   6  #  100 Z40_PVT_W1 in Z40 >|< Base-6 in Z40_PVT_W1
+  15   7   3  17   6  #  101 Z40_PVT_W2 in Z40 >|< Base-6 in Z40_PVT_W2
+  15   8   3  18   6  #  102 Z40_PVT_W3 in Z40 >|< Base-6 in Z40_PVT_W3
+  15   9   3  19   6  #  103 Z40_PVT_E1 in Z40 >|< Base-6 in Z40_PVT_E1
+  15  10   3  20   6  #  104 Z40_PVT_E2 in Z40 >|< Base-6 in Z40_PVT_E2
+  15  11   3  21   6  #  105 Z40_PVT_E3 in Z40 >|< Base-6 in Z40_PVT_E3
+  16   1   0   0   0  #  106 Wall-1 in Z40_PVT_W1 is External
+  16   2   3  19   4  #  107 Wall-2 in Z40_PVT_W1 >|< Wall-4 in Z40_PVT_E1
+  16   3   3  17   1  #  108 Wall-3 in Z40_PVT_W1 >|< Wall-1 in Z40_PVT_W2
+  16   4   0   0   0  #  109 Wall-4 in Z40_PVT_W1 is External
+  16   5   0   0   0  #  110 Top-5 in Z40_PVT_W1 is External
+  16   6   3  15   6  #  111 Base-6 in Z40_PVT_W1 >|< Z40_PVT_W1 in Z40
+  17   1   3  16   3  #  112 Wall-1 in Z40_PVT_W2 >|< Wall-3 in Z40_PVT_W1
+  17   2   3  20   4  #  113 Wall-2 in Z40_PVT_W2 >|< Wall-4 in Z40_PVT_E2
+  17   3   3  18   1  #  114 Wall-3 in Z40_PVT_W2 >|< Wall-1 in Z40_PVT_W3
+  17   4   0   0   0  #  115 Wall-4 in Z40_PVT_W2 is External
+  17   5   0   0   0  #  116 Top-5 in Z40_PVT_W2 is External
+  17   6   3  15   7  #  117 Base-6 in Z40_PVT_W2 >|< Z40_PVT_W2 in Z40
+  18   1   3  17   3  #  118 Wall-1 in Z40_PVT_W3 >|< Wall-3 in Z40_PVT_W2
+  18   2   3  21   4  #  119 Wall-2 in Z40_PVT_W3 >|< Wall-4 in Z40_PVT_E3
+  18   3   0   0   0  #  120 Wall-3 in Z40_PVT_W3 is External
+  18   4   0   0   0  #  121 Wall-4 in Z40_PVT_W3 is External
+  18   5   0   0   0  #  122 Top-5 in Z40_PVT_W3 is External
+  18   6   3  15   8  #  123 Base-6 in Z40_PVT_W3 >|< Z40_PVT_W3 in Z40
+  19   1   0   0   0  #  124 Wall-1 in Z40_PVT_E1 is External
+  19   2   0   0   0  #  125 Wall-2 in Z40_PVT_E1 is External
+  19   3   3  20   1  #  126 Wall-3 in Z40_PVT_E1 >|< Wall-1 in Z40_PVT_E2
+  19   4   3  16   2  #  127 Wall-4 in Z40_PVT_E1 >|< Wall-2 in Z40_PVT_W1
+  19   5   0   0   0  #  128 Top-5 in Z40_PVT_E1 is External
+  19   6   3  15   9  #  129 Base-6 in Z40_PVT_E1 >|< Z40_PVT_E1 in Z40
+  20   1   3  19   3  #  130 Wall-1 in Z40_PVT_E2 >|< Wall-3 in Z40_PVT_E1
+  20   2   0   0   0  #  131 Wall-2 in Z40_PVT_E2 is External
+  20   3   3  21   1  #  132 Wall-3 in Z40_PVT_E2 >|< Wall-1 in Z40_PVT_E3
+  20   4   3  17   2  #  133 Wall-4 in Z40_PVT_E2 >|< Wall-2 in Z40_PVT_W2
+  20   5   0   0   0  #  134 Top-5 in Z40_PVT_E2 is External
+  20   6   3  15  10  #  135 Base-6 in Z40_PVT_E2 >|< Z40_PVT_E2 in Z40
+  21   1   3  20   3  #  136 Wall-1 in Z40_PVT_E3 >|< Wall-3 in Z40_PVT_E2
+  21   2   0   0   0  #  137 Wall-2 in Z40_PVT_E3 is External
+  21   3   0   0   0  #  138 Wall-3 in Z40_PVT_E3 is External
+  21   4   3  18   2  #  139 Wall-4 in Z40_PVT_E3 >|< Wall-2 in Z40_PVT_W3
+  21   5   0   0   0  #  140 Top-5 in Z40_PVT_E3 is External
+  21   6   3  15  11  #  141 Base-6 in Z40_PVT_E3 >|< Z40_PVT_E3 in Z40

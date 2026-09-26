@@ -11,7 +11,7 @@ PV yield and orientation
 
 PV yield is compared for different orientations of the buildings.
 
-.. image:: ../../examples/model/images/wireframe_features.png
+.. image:: ../../examples/simple_model/images/wireframe_features.png
    :scale: 25%
 
 """
@@ -66,7 +66,7 @@ variant_dict = {
 # %%
 # Set the model configuration path and set 'variant_dict['cfg']['cfg_path']' to this
 # path value.
-cfg_path = (Path.cwd() / 'model' / 'cfg')
+cfg_path = (Path.cwd() / 'simple_model' / 'cfg')
 variant_dict['cfg']['cfg_path'] = cfg_path
 
 

@@ -1,0 +1,191 @@
+*connections for CMRnZEB
+*Date Wed Nov  9 21:41:49 2022
+    188  # number of connections
+   1   1   0   0   0  #    1 Cel_frt in Cellar is External
+   1   2   3   2   6  #    2 Cel-WC in Cellar >|< Cel-WC in WC
+   1   3   3   6  14  #    3 Sal-Cel_1 in Cellar >|< Sal-Cel_1 in Salon
+   1   4   3   6  15  #    4 Sal-Cal_2 in Cellar >|< Sal-Cal_2 in Salon
+   1   5   3   3  10  #    5 Cel-Gar in Cellar >|< Cel-Gar in Garage
+   1   6   3  11   4  #    6 Ceil-Cel in Cellar >|< Ceil-Cel in Roof
+   1   7   4   0   2  #    7 Grd_cellar in Cellar >|< user def ground profile 2
+   1   8   3   6  19  #    8 door-Sal_Cel in Cellar >|< door-Sal_Cel in Salon
+   1   9   3   3  11  #    9 door-Cel_Gar in Cellar >|< door-Cel_Gar in Garage
+   2   1   0   0   0  #   10 WC_frt in WC is External
+   2   2   3   6  16  #   11 Sal-WC_1 in WC >|< Sal-WC_1 in Salon
+   2   3   3   6  17  #   12 Sal-WC_2 in WC >|< Sal-WC_2 in Salon
+   2   4   3  11   5  #   13 Ceil-WC in WC >|< Ceil-WC in Roof
+   2   5   4   0   1  #   14 Grd-WC in WC >|< user def ground profile 1
+   2   6   3   1   2  #   15 Cel-WC in WC >|< Cel-WC in Cellar
+   2   7   0   0   0  #   16 Win_WC in WC is External
+   2   8   3   6  20  #   17 door-Sal_WC in WC >|< door-Sal_WC in Salon
+   3   1   0   0   0  #   18 Gar_frt in Garage is External
+   3   2   0   0   0  #   19 Gar_W in Garage is External
+   3   3   3   4  11  #   20 Bd1_Gar in Garage >|< Bd1_Gar in BedRoom_1
+   3   4   3   5   4  #   21 Bth_Gar in Garage >|< Bth_Gar in Bath1
+   3   5   0   0   0  #   22 Gar_E in Garage is External
+   3   6   3  11   6  #   23 Ceil_gar in Garage >|< Ceil_gar in Roof
+   3   7   4   0   3  #   24 Grd_gar in Garage >|< user def ground profile 3
+   3   8   0   0   0  #   25 door_gar in Garage is External
+   3   9   0   0   0  #   26 glz_gar in Garage is External
+   3  10   3   1   5  #   27 Cel-Gar in Garage >|< Cel-Gar in Cellar
+   3  11   3   1   9  #   28 door-Cel_Gar in Garage >|< door-Cel_Gar in Cellar
+   4   1   3   6  12  #   29 Sal_Bd1_1 in BedRoom_1 >|< Sal_Bd1_1 in Salon
+   4   2   3   6  13  #   30 Sal_Bd1_2 in BedRoom_1 >|< Sal_Bd1_2 in Salon
+   4   3   0   0   0  #   31 Bd1_N in BedRoom_1 is External
+   4   4   0   0   0  #   32 Bd1_E in BedRoom_1 is External
+   4   5   3   5   5  #   33 Bd1_Bth_1 in BedRoom_1 >|< Bd1_Bth_1 in Bath1
+   4   6   3   5   6  #   34 Bd1_Bth_2 in BedRoom_1 >|< Bd1_Bth_2 in Bath1
+   4   7   3   5   7  #   35 Bd1_Bth_3 in BedRoom_1 >|< Bd1_Bth_3 in Bath1
+   4   8   3   5   8  #   36 bd1_Bth_4 in BedRoom_1 >|< bd1_Bth_4 in Bath1
+   4   9   3  11   7  #   37 Ceil_Bd1 in BedRoom_1 >|< Ceil_Bd1 in Roof
+   4  10   4   0   3  #   38 Grd_Bd1 in BedRoom_1 >|< user def ground profile 3
+   4  11   3   3   3  #   39 Bd1_Gar in BedRoom_1 >|< Bd1_Gar in Garage
+   4  12   3   5   9  #   40 Door_Bd1_Bth in BedRoom_1 >|< Door_Bd1_Bth in Bath1
+   4  13   0   0   0  #   41 Win_Bd1 in BedRoom_1 is External
+   4  14   3   6  18  #   42 Door_Sal_Bd1 in BedRoom_1 >|< Door_Sal_Bd1 in Salon
+   5   1   0   0   0  #   43 Bth_E in Bath1 is External
+   5   2   3  11   8  #   44 Ceil_Bath1 in Bath1 >|< Ceil_Bath1 in Roof
+   5   3   4   0   1  #   45 Grd_Bath1 in Bath1 >|< user def ground profile 1
+   5   4   3   3   4  #   46 Bth_Gar in Bath1 >|< Bth_Gar in Garage
+   5   5   3   4   5  #   47 Bd1_Bth_1 in Bath1 >|< Bd1_Bth_1 in BedRoom_1
+   5   6   3   4   6  #   48 Bd1_Bth_2 in Bath1 >|< Bd1_Bth_2 in BedRoom_1
+   5   7   3   4   7  #   49 Bd1_Bth_3 in Bath1 >|< Bd1_Bth_3 in BedRoom_1
+   5   8   3   4   8  #   50 bd1_Bth_4 in Bath1 >|< bd1_Bth_4 in BedRoom_1
+   5   9   3   4  12  #   51 Door_Bd1_Bth in Bath1 >|< Door_Bd1_Bth in BedRoom_1
+   5  10   0   0   0  #   52 Win_Bth1 in Bath1 is External
+   6   1   0   0   0  #   53 Sal_N in Salon is External
+   6   2   3   7   6  #   54 Sal_Kitc_1 in Salon >|< Sal_Kitc_1 in Kitchen
+   6   3   3   7   7  #   55 Sal_Kitc_2 in Salon >|< Sal_Kitc_2 in Kitchen
+   6   4   3   8   6  #   56 Sal_Bd3_1 in Salon >|< Sal_Bd3_1 in BedRoom_3
+   6   5   3   8   7  #   57 Sal_Bd3_2 in Salon >|< Sal_Bd3_2 in BedRoom_3
+   6   6   3  10   6  #   58 Sal_Bth2 in Salon >|< Sal_Bth2 in BathRoom_2
+   6   7   3   9   7  #   59 Sal_Bd2_2 in Salon >|< Sal_Bd2_2 in BedRoom_2
+   6   8   3   9   6  #   60 Sal_Bd2_1 in Salon >|< Sal_Bd2_1 in BedRoom_2
+   6   9   0   0   0  #   61 Sal_S in Salon is External
+   6  10   3  11  26  #   62 Ceil_Sal in Salon >|< Ceil_Sal in Roof
+   6  11   4   0   3  #   63 grd_Sal in Salon >|< user def ground profile 3
+   6  12   3   4   1  #   64 Sal_Bd1_1 in Salon >|< Sal_Bd1_1 in BedRoom_1
+   6  13   3   4   2  #   65 Sal_Bd1_2 in Salon >|< Sal_Bd1_2 in BedRoom_1
+   6  14   3   1   3  #   66 Sal-Cel_1 in Salon >|< Sal-Cel_1 in Cellar
+   6  15   3   1   4  #   67 Sal-Cal_2 in Salon >|< Sal-Cal_2 in Cellar
+   6  16   3   2   2  #   68 Sal-WC_1 in Salon >|< Sal-WC_1 in WC
+   6  17   3   2   3  #   69 Sal-WC_2 in Salon >|< Sal-WC_2 in WC
+   6  18   3   4  14  #   70 Door_Sal_Bd1 in Salon >|< Door_Sal_Bd1 in BedRoom_1
+   6  19   3   1   8  #   71 door-Sal_Cel in Salon >|< door-Sal_Cel in Cellar
+   6  20   3   2   8  #   72 door-Sal_WC in Salon >|< door-Sal_WC in WC
+   6  21   0   0   0  #   73 Door_Sal in Salon is External
+   6  22   3   7   8  #   74 Door_Sal_Kit in Salon >|< Door_Sal_Kit in Kitchen
+   6  23   3   8   9  #   75 Door_Sal_Bd3 in Salon >|< Dr_Sal_Bd3 in BedRoom_3
+   6  24   3  10   7  #   76 Dr_Sal_Bth22 in Salon >|< Dr_Sal_Bth2 in BathRoom_2
+   6  25   3   9   8  #   77 Door_Sal_Bd2 in Salon >|< Dr_Sal_Bd2 in BedRoom_2
+   6  26   0   0   0  #   78 Win_Sal_1 in Salon is External
+   6  27   0   0   0  #   79 Win_Sal_2 in Salon is External
+   6  28   3  11  25  #   80 PCM_option in Salon >|< PCM_option in Roof
+   7   1   0   0   0  #   81 Kitc_N in Kitchen is External
+   7   2   3   8   8  #   82 Kitc_Bd3 in Kitchen >|< Kitc_Bd3 in BedRoom_3
+   7   3   3  11   9  #   83 Ceil_Kitc in Kitchen >|< Ceil_Kitc in Roof
+   7   4   4   0   2  #   84 Grd_Kitc in Kitchen >|< user def ground profile 2
+   7   5   0   0   0  #   85 Win_Kitc in Kitchen is External
+   7   6   3   6   2  #   86 Sal_Kitc_1 in Kitchen >|< Sal_Kitc_1 in Salon
+   7   7   3   6   3  #   87 Sal_Kitc_2 in Kitchen >|< Sal_Kitc_2 in Salon
+   7   8   3   6  22  #   88 Door_Sal_Kit in Kitchen >|< Door_Sal_Kit in Salon
+   8   1   0   0   0  #   89 Bd3_S in BedRoom_3 is External
+   8   2   0   0   0  #   90 Bd3_W in BedRoom_3 is External
+   8   3   3  10   4  #   91 Bd3_Bth2 in BedRoom_3 >|< Bd3_Bth2 in BathRoom_2
+   8   4   3  11  10  #   92 Ceil_Bd3 in BedRoom_3 >|< Ceil_Bd3 in Roof
+   8   5   4   0   3  #   93 Grd_Bd3 in BedRoom_3 >|< user def ground profile 3
+   8   6   3   6   4  #   94 Sal_Bd3_1 in BedRoom_3 >|< Sal_Bd3_1 in Salon
+   8   7   3   6   5  #   95 Sal_Bd3_2 in BedRoom_3 >|< Sal_Bd3_2 in Salon
+   8   8   3   7   2  #   96 Kitc_Bd3 in BedRoom_3 >|< Kitc_Bd3 in Kitchen
+   8   9   3   6  23  #   97 Dr_Sal_Bd3 in BedRoom_3 >|< Door_Sal_Bd3 in Salon
+   8  10   0   0   0  #   98 Win_Bd3 in BedRoom_3 is External
+   9   1   3  10   5  #   99 Bd2_Bth2 in BedRoom_2 >|< Bd2_Bth2 in BathRoom_2
+   9   2   0   0   0  #  100 Bd2_W in BedRoom_2 is External
+   9   3   0   0   0  #  101 Bd2_N in BedRoom_2 is External
+   9   4   3  11  11  #  102 Ceil_Bd2 in BedRoom_2 >|< Ceil_Bd2 in Roof
+   9   5   4   0   3  #  103 Grd_Bd2 in BedRoom_2 >|< user def ground profile 3
+   9   6   3   6   8  #  104 Sal_Bd2_1 in BedRoom_2 >|< Sal_Bd2_1 in Salon
+   9   7   3   6   7  #  105 Sal_Bd2_2 in BedRoom_2 >|< Sal_Bd2_2 in Salon
+   9   8   3   6  25  #  106 Dr_Sal_Bd2 in BedRoom_2 >|< Door_Sal_Bd2 in Salon
+   9   9   0   0   0  #  107 Win_Bd2 in BedRoom_2 is External
+  10   1   0   0   0  #  108 Bth2_W in BathRoom_2 is External
+  10   2   3  11  12  #  109 Ceil_Bth2 in BathRoom_2 >|< Ceil_Bth2 in Roof
+  10   3   4   0   2  #  110 Grd_Bth2 in BathRoom_2 >|< user def ground profile 2
+  10   4   3   8   3  #  111 Bd3_Bth2 in BathRoom_2 >|< Bd3_Bth2 in BedRoom_3
+  10   5   3   9   1  #  112 Bd2_Bth2 in BathRoom_2 >|< Bd2_Bth2 in BedRoom_2
+  10   6   3   6   6  #  113 Sal_Bth2 in BathRoom_2 >|< Sal_Bth2 in Salon
+  10   7   3   6  24  #  114 Dr_Sal_Bth2 in BathRoom_2 >|< Dr_Sal_Bth22 in Salon
+  11   1   0   0   0  #  115 Roof_top in Roof is External
+  11   2   0   0   0  #  116 Roof_S1 in Roof is External
+  11   3   0   0   0  #  117 Roof_S2 in Roof is External
+  11   4   3   1   6  #  118 Ceil-Cel in Roof >|< Ceil-Cel in Cellar
+  11   5   3   2   4  #  119 Ceil-WC in Roof >|< Ceil-WC in WC
+  11   6   3   3   6  #  120 Ceil_gar in Roof >|< Ceil_gar in Garage
+  11   7   3   4   9  #  121 Ceil_Bd1 in Roof >|< Ceil_Bd1 in BedRoom_1
+  11   8   3   5   2  #  122 Ceil_Bath1 in Roof >|< Ceil_Bath1 in Bath1
+  11   9   3   7   3  #  123 Ceil_Kitc in Roof >|< Ceil_Kitc in Kitchen
+  11  10   3   8   4  #  124 Ceil_Bd3 in Roof >|< Ceil_Bd3 in BedRoom_3
+  11  11   3   9   4  #  125 Ceil_Bd2 in Roof >|< Ceil_Bd2 in BedRoom_2
+  11  12   3  10   2  #  126 Ceil_Bth2 in Roof >|< Ceil_Bth2 in BathRoom_2
+  11  13   0   0   0  #  127 Ceil_Grd2 in Roof is External
+  11  14   0   0   0  #  128 Ceil_Grd1 in Roof is External
+  11  15   0   0   0  #  129 roof_W in Roof is External
+  11  16   0   0   0  #  130 roof_E in Roof is External
+  11  17   3  12   1  #  131 pvt_R_1 in Roof >|< pvt_1_R in R_Pvt_1
+  11  18   3  13   1  #  132 pvt_R_2 in Roof >|< pvt_2_R in R_Pvt_2
+  11  19   3  14   1  #  133 pvt_R_3 in Roof >|< pvt_3_R in R_Pvt_3
+  11  20   3  15   1  #  134 pvt_R_4 in Roof >|< pvt_4_R in R_Pvt_4
+  11  21   3  16   1  #  135 pvt_R_5 in Roof >|< pvt_5_R in R_Pvt_5
+  11  22   3  17   1  #  136 pvt_R_6 in Roof >|< pvt_6_R in R_Pvt_6
+  11  23   3  18   1  #  137 pvt_R_7 in Roof >|< pvt_7_R in R_Pvt_7
+  11  24   3  19   1  #  138 pvt_R_8 in Roof >|< pvt_8_R in R_Pvt_8
+  11  25   3   6  28  #  139 PCM_option in Roof >|< PCM_option in Salon
+  11  26   3   6  10  #  140 Ceil_Sal in Roof >|< Ceil_Sal in Salon
+  12   1   3  11  17  #  141 pvt_1_R in R_Pvt_1 >|< pvt_R_1 in Roof
+  12   2   0   0   0  #  142 pvt_1 in R_Pvt_1 is External
+  12   3   3  13   6  #  143 pvt_1_2 in R_Pvt_1 >|< pvt_2_1 in R_Pvt_2
+  12   4   0   0   0  #  144 pvt_1_E in R_Pvt_1 is External
+  12   5   0   0   0  #  145 pvt_1_S in R_Pvt_1 is External
+  12   6   3  15   4  #  146 pvt_1_4 in R_Pvt_1 >|< pvt_4_1 in R_Pvt_4
+  13   1   3  11  18  #  147 pvt_2_R in R_Pvt_2 >|< pvt_R_2 in Roof
+  13   2   0   0   0  #  148 pvt_2 in R_Pvt_2 is External
+  13   3   3  14   6  #  149 pvt_2_3 in R_Pvt_2 >|< pvt_3_2 in R_Pvt_3
+  13   4   0   0   0  #  150 pvt_2_N in R_Pvt_2 is External
+  13   5   0   0   0  #  151 pvt_2_E in R_Pvt_2 is External
+  13   6   3  12   3  #  152 pvt_2_1 in R_Pvt_2 >|< pvt_1_2 in R_Pvt_1
+  14   1   3  11  19  #  153 pvt_3_R in R_Pvt_3 >|< pvt_R_3 in Roof
+  14   2   0   0   0  #  154 pvt_3 in R_Pvt_3 is External
+  14   3   3  15   5  #  155 pvt_3_4 in R_Pvt_3 >|< pvt_4_3 in R_Pvt_4
+  14   4   3  17   5  #  156 pvt_3_6 in R_Pvt_3 >|< pvt_6_3 in R_Pvt_6
+  14   5   0   0   0  #  157 pvt_3_N in R_Pvt_3 is External
+  14   6   3  13   3  #  158 pvt_3_2 in R_Pvt_3 >|< pvt_2_3 in R_Pvt_2
+  15   1   3  11  20  #  159 pvt_4_R in R_Pvt_4 >|< pvt_R_4 in Roof
+  15   2   0   0   0  #  160 pvt_4 in R_Pvt_4 is External
+  15   3   0   0   0  #  161 pvt_4_S in R_Pvt_4 is External
+  15   4   3  12   6  #  162 pvt_4_1 in R_Pvt_4 >|< pvt_1_4 in R_Pvt_1
+  15   5   3  14   3  #  163 pvt_4_3 in R_Pvt_4 >|< pvt_3_4 in R_Pvt_3
+  15   6   3  16   6  #  164 pvt_4_5 in R_Pvt_4 >|< pvt_5_4 in R_Pvt_5
+  16   1   3  11  21  #  165 pvt_5_R in R_Pvt_5 >|< pvt_R_5 in Roof
+  16   2   0   0   0  #  166 pvt_5 in R_Pvt_5 is External
+  16   3   3  19   6  #  167 pvt_5_8 in R_Pvt_5 >|< pvt_8_5 in R_Pvt_8
+  16   4   3  17   6  #  168 pvt_5_6 in R_Pvt_5 >|< pvt_6_5 in R_Pvt_6
+  16   5   0   0   0  #  169 pvt_5_S in R_Pvt_5 is External
+  16   6   3  15   6  #  170 pvt_5_4 in R_Pvt_5 >|< pvt_4_5 in R_Pvt_4
+  17   1   3  11  22  #  171 pvt_6_R in R_Pvt_6 >|< pvt_R_6 in Roof
+  17   2   0   0   0  #  172 pvt_6 in R_Pvt_6 is External
+  17   3   0   0   0  #  173 pvt_6_N in R_Pvt_6 is External
+  17   4   3  18   5  #  174 pvt_6_7 in R_Pvt_6 >|< pvt_7_6 in R_Pvt_7
+  17   5   3  14   4  #  175 pvt_6_3 in R_Pvt_6 >|< pvt_3_6 in R_Pvt_3
+  17   6   3  16   4  #  176 pvt_6_5 in R_Pvt_6 >|< pvt_5_6 in R_Pvt_5
+  18   1   3  11  23  #  177 pvt_7_R in R_Pvt_7 >|< pvt_R_7 in Roof
+  18   2   0   0   0  #  178 pvt_7 in R_Pvt_7 is External
+  18   3   0   0   0  #  179 pvt_7_W in R_Pvt_7 is External
+  18   4   0   0   0  #  180 pvt_7_N in R_Pvt_7 is External
+  18   5   3  17   4  #  181 pvt_7_6 in R_Pvt_7 >|< pvt_6_7 in R_Pvt_6
+  18   6   3  19   5  #  182 pvt_7_8 in R_Pvt_7 >|< pvt_8_7 in R_Pvt_8
+  19   1   3  11  24  #  183 pvt_8_R in R_Pvt_8 >|< pvt_R_8 in Roof
+  19   2   0   0   0  #  184 pvt_8 in R_Pvt_8 is External
+  19   3   0   0   0  #  185 pvt_8_S in R_Pvt_8 is External
+  19   4   0   0   0  #  186 pvt_8_W in R_Pvt_8 is External
+  19   5   3  18   6  #  187 pvt_8_7 in R_Pvt_8 >|< pvt_7_8 in R_Pvt_7
+  19   6   3  16   3  #  188 pvt_8_5 in R_Pvt_8 >|< pvt_5_8 in R_Pvt_5

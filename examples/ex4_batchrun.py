@@ -13,7 +13,7 @@ For a more detailed building model ...
 
 .. attention:: This example is not yet available/functional!
 
-.. image:: ../../examples/model/images/wireframe_features.png
+.. image:: ../../examples/detailed_model/images/CMRnZEB_wireframe.png
    :scale: 25%
 
 """
@@ -105,7 +105,7 @@ variant_dict = {
 # %%
 # Set the model configuration path and set 'variant_dict['cfg']['cfg_path']' to this
 # path value.
-cfg_path = (Path.cwd() / 'model' / 'cfg')
+cfg_path = (Path.cwd() / 'detailed_model' / 'cfg')
 variant_dict['cfg']['cfg_path'] = cfg_path
 
 
@@ -121,6 +121,6 @@ PMV = { 'CLlo': {'clo' : "1.2", 'met' : "1.0", 'veloc' : "0.1"},
 
 # %%
 # Run simulation for all variants in list 'VARLIST'.
-VARLIST = 'test'
+VARLIST = 'list'
 
 # sim.process_variants(variant_dict, PM, the_list=VARLIST)

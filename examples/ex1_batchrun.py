@@ -13,7 +13,7 @@ The example model is a simple set of three buildings with different roof tilt an
 The roofs feature an unventilated PV installation. For model details see 'Readme.txt'
 in the model doc subfolder.
 
-.. image:: ../../examples/model/images/scene1.png
+.. image:: ../../examples/simple_model/images/scene1.png
    :scale: 30%
 
 """
@@ -51,7 +51,7 @@ variant_dict = {
 # %%
 # Set the model configuration path and set 'variant_dict['cfg']['cfg_path']' to this
 # path value.
-cfg_path = (Path.cwd() / 'model' / 'cfg')
+cfg_path = (Path.cwd() / 'simple_model' / 'cfg')
 variant_dict['cfg']['cfg_path'] = cfg_path
 
 

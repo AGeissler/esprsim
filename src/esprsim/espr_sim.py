@@ -408,7 +408,7 @@ def simulate_variant(**kwargs):
     if 'rot' in kwargs.keys():
         rotdat = kwargs['rot']
         set_new_rotangle(config, rotdat[0], rotdat[1], rotdat[2])
-        rollback_dict['rot'] = 0 - rotdat[0]  # 'rotate by' to get back ... (?)
+        rollback_dict['rot'] = (0 - rotdat[0], rotdat[1], rotdat[2]) # 'rotate by' to get back ... (?)
     if 'gtp' in kwargs.keys():
         GTP=kwargs['gtp_main']
         set_gtp(config, clm, GTP[clm])
@@ -443,7 +443,8 @@ def simulate_variant(**kwargs):
     simulate(dms, config, variant, BTSTEP, PTSTEP, **PM[per])
 
     # Rollback
-    # rollback()
+    for key, val in rollback_dict.items():
+        rollback(config, key, val)
 
     # Get results as df.
     res = read_variant_csv(**kwargs)
@@ -484,6 +485,8 @@ def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=1,
         Building time-steps per hour.
     ptstep : int (optional, default: 0)
         Plant time-steps per building time-step.
+    year : int or str
+        Year for simulation, not directly used; for DateTimeIndex of results df.
     run_clean : bool, default: False
         Toggle for 'cleaning' of results files after simulation, e.g. to avoid disk
         space issues in cases with many variants.
@@ -520,6 +523,30 @@ def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=1,
         results[args['variant']] = simulate_variant(**args)
 
     return results
+
+
+def rollback(config, key, val):
+    r"""
+    Return state of .cfg file and settings to starting point after each variant has
+    been simulated.
+
+    Parameters
+    ----------
+    config : str
+        Configuration file.
+    key : str
+        Parameter to roll back, see keys from **kwargs.
+    val : str | tuple
+        Original value(s) as stored prior to setting variant specific values.
+
+    Returns
+    -------
+    None
+    """
+    if key == 'afn':
+        set_afn(config, val)
+    if key == 'rot':
+        set_new_rotangle(config, val[0], val[1], val[2])
 
 def set_ctl(config, ctl_file):
     r"""Method which sets the control file in .cfg of model using 'prj'.

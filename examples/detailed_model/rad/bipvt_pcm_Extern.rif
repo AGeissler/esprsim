@@ -1,0 +1,23 @@
+# Radiance RIF file: bipvt_pcm_Extern.rif
+#e2r_gen_view   0 -1
+#e2r_glaz_type   1
+view= def -vtv -vp -100.00 -100.00  100.00 -vd  0.608  0.595 -0.526 -vu  0.00 0.00 1.00 -vh   5.4 -vv   5.4 -vs 0 -vl 0 -vo   0.0 -va   0.0
+view= myView_1 -vtv -vp -100.00 -100.00  100.00 -vd  0.601  0.586 -0.544 -vu  0.00 0.00 1.00 -vh   8.1 -vv   8.1 -vs 0 -vl 0 -vo 0 -va 0
+scene= bipvt_pcm_Extern.sky
+scene= bipvt_pcm_Extern-glz.rad
+scene= bipvt_pcm_Extern.mat
+scene= bipvt_pcm_Extern-out.rad
+scene= bipvt_pcm_Extern-in.rad
+UP= Z
+QUALITY= Medium
+DETAIL= High  
+VARIABILITY= High  
+RESOLUTION=  1200
+INDIRECT=  2
+PENUMBRAS= False
+REPORT=    1
+render= -av 21.5000 21.5000 21.5000
+ZONE= Exterior   -17.36   43.61  -19.89   41.08    0.00   30.49
+OPTFILE= bipvt_pcm_Extern.opt
+OCTREE= bipvt_pcm_Extern.oct
+PICTURE= bipvt_pcm_Extern
