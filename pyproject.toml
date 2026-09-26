@@ -46,7 +46,10 @@ dynamic = ["version"]
 dependencies = [
   "pandas",
   "pyvista",
-  "trame-vtk"
+  "plotly",
+  "matplotlib",
+  "numpy",
+  "pathlib",
 ]
 
 [project.optional-dependencies]
