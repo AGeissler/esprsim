@@ -92,26 +92,28 @@ def get_timestep_hours(df):
 
 
 def aggregate_pv_by_zone(df, zone_groups=['Z00', 'Z20', 'Z40']):
-    """
-    Aggregate PV power columns by zone group (Z00, Z20, Z40).
-    Converts W to Wh using the dataframe's timestep.
-    
+    r"""
+    Aggregate PV power columns by zone group (default 'Z00', 'Z20', 'Z40').
+    Converts W to kWh using the dataframe's timestep.
+
     Parameters:
     - df: pd.DataFrame with PV power columns (in W) and DatetimeIndex
     - zone_groups: list of zone strings to group by
-    
+
     Returns:
-    - dict: {zone: total_energy_Wh} for each zone group
+    - dict: {zone: total_energy_kWh} for each zone group
 
     Note:
-      The physics: if you have power readings in W at regular intervals Δt (hours), the
-      energy is:
-    
-      E = ∑P_i × Δt
+      The physics: if you have power readings in W at regular intervals :math:`\Delta t`
+      (hours), the energy is:
 
-      So summing all W values and multiplying by the timestep gives you Wh.
+      .. math::
+         E\,=\,\sum{i}P_i\,×\,\Delta t
 
-      Code by PerplexityAI.
+      So summing all W values, multiplying by the timestep (and dividing by 1000) gives
+      kWh.
+
+    Code by PerplexityAI.
     """
     if len(df) < 2:
         raise ValueError("Dataframe must have at least 2 rows")
@@ -125,8 +127,9 @@ def aggregate_pv_by_zone(df, zone_groups=['Z00', 'Z20', 'Z40']):
         if 'pv power' in col.lower():
             for zone in zone_groups:
                 if zone in col:
-                    # Sum power (W) and multiply by timestep (h) to get energy (Wh)
-                    zone_totals[zone] += df[col].sum() * timestep_hours
+                    # Sum power (W), multiply by timestep (h) and divide by W/kW to get
+                    # energy in (kWh)
+                    zone_totals[zone] += df[col].sum() * timestep_hours / 1000
                     break
 
     return zone_totals
@@ -135,7 +138,7 @@ def plot_pv_bars_matplotlib(data_dict, zone_groups=['Z00', 'Z20', 'Z40'],
                             figsize=(10, 6), colors=['#3498db', '#e74c3c', '#2ecc71'],
                             save_path=None):
     """
-    Create a grouped bar chart showing PV power by zone for each case.
+    Create a grouped bar chart showing PV yield by zone for each case.
     
     Parameters:
     - data_dict: dict of {case_name: dataframe}
@@ -168,8 +171,8 @@ def plot_pv_bars_matplotlib(data_dict, zone_groups=['Z00', 'Z20', 'Z40'],
                edgecolor='white', linewidth=0.5)
 
     ax.set_xlabel('Case')
-    ax.set_ylabel('Total PV Power (Wh)')
-    ax.set_title('PV Power by Zone Group')
+    ax.set_ylabel('Total PV Yield (kWh)')
+    ax.set_title('PV Yield by Zone Group')
     ax.set_xticks(x)
     ax.set_xticklabels(cases)
     ax.legend(title='Zone')
@@ -184,10 +187,10 @@ def plot_pv_bars_matplotlib(data_dict, zone_groups=['Z00', 'Z20', 'Z40'],
 
 def plot_pv_bars_plotly(data_dict, zone_groups=['Z00', 'Z20', 'Z40'],
                         colors=['#3498db', '#e74c3c', '#2ecc71'],
-                        title='PV Power by Zone Group',
+                        title='PV Yield by Zone Group',
                         save_path=None):
     """
-    Create an interactive grouped bar chart showing PV power by zone for each case.
+    Create an interactive grouped bar chart showing PV yield by zone for each case.
     
     Parameters:
     - data_dict: dict of {case_name: dataframe}
@@ -215,7 +218,7 @@ def plot_pv_bars_plotly(data_dict, zone_groups=['Z00', 'Z20', 'Z40'],
             y=data_matrix[:, j],
             name=zone,
             marker_color=colors[j % len(colors)],
-            hovertemplate=f'<b>{zone}</b><br>Power: %{{y:.0f}} Wh<extra></extra>'
+            hovertemplate=f'<b>{zone}</b><br>Yield: %{{y:.0f}} kWh<extra></extra>'
         )
         traces.append(trace)
 
@@ -224,7 +227,7 @@ def plot_pv_bars_plotly(data_dict, zone_groups=['Z00', 'Z20', 'Z40'],
     fig.update_layout(
         title=title,
         xaxis_title='Case',
-        yaxis_title='Total PV Power (Wh)',
+        yaxis_title='Total PV Yield (kWh)',
         barmode='group',
         bargap=0.15,
         bargroupgap=0.1,
