@@ -475,9 +475,9 @@ def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=1,
     Parameters
     ----------
     dict_of_variants : dict
-        Dict of variables which are dicts containing variant values.
+        Dictionary of variables which are dicts containing variant values.
     pm : dict
-        Simulation period master list.
+        Master dictionay of simulation period dicts.
     the_list : str
         Name of list to take from 'dict_of_variants'.
     btstep : int (optional, default: 10)

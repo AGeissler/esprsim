@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 r"""
-PV yield comparison
--------------------
+PV yield and buoyant flow
+-------------------------
 
 .. topic:: Use ``esprsim`` to run and evaluate model variants
 
-   * set up desired variants via numpy.dict ``PM`` and ``variant_dict``
+   * set up desired variants via dict's ``PM`` and ``variant_dict``
 
    * run simulation model and postprocess results
 
@@ -34,13 +34,9 @@ PM = {'year'    : {'FD' : "01", 'FM' : "01", 'TD' : "31", 'TM' : "12", 'PP' : "2
 
 # %%
 # Set up model specific dict of dicts. The main keys correspond to model parameter names
-# for which a range of values is to be simulated.
+# for which a range of values is to be simulated. The keys 'cfg' and 'per' are required.
 variant_dict = {
     "cfg": {"abbrev": "",
-            "test": ['PVT_Douala'],
-            "list": ['PVT_Douala'],
-            "maxlist": ['PVT_Douala']},
-    "cnn": {"abbrev": "",
             "test": ['PVT_Douala'],
             "list": ['PVT_Douala'],
             "maxlist": ['PVT_Douala']},
@@ -50,10 +46,6 @@ variant_dict = {
             "maxlist": ['buoyant_flow_N', 'buoyant_flow_S', 'buoyant_flow2_S',
                         'buoyant_flow12_S', 'force_flow_N', 'force_flow_S',
                         'no_flow_N', 'no_flow_S']},
-    "rot": {"abbrev": "_r",
-            "test": [(0, 7.5, 3.0, 'S')],
-            "list": [(0, 7.5, 3.0, 'S')],
-            "maxlist": [(0, 7.5, 3.0, 'S'), (180, 7.5, 3.0, 'N')]},
     "per": {"abbrev": "_",
             "test": ['test'],
             "list": ['weeksum'],

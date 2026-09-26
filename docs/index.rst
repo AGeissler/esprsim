@@ -19,8 +19,16 @@ command-line option for 'prj' and 'res'. The methods are tested with ESP-r V13.3
       :link: esprsim-api
       :link-type: ref
 
-      The reference guide contains a detailed description of the ISO_13786 API.
+      The reference guide contains a detailed description of the ``esprsim`` API.
       It describes how the methods work and which parameters can be used.
+
+.. grid::
+
+   .. grid-item-card:: 📚 Examples
+      :link: examples
+      :link-type: ref
+
+      A gallery of examples.
 
 .. admonition:: Highlights
    :class: admonition
@@ -45,13 +53,14 @@ and run
    :caption: Contents:
    
    howto
-   esprsim
    examples/index
+   esprsim
 
 License
 -------
 
-esprsim - (C) 2026 Achim Geissler, Reinach BL (Switzerland).
+esprsim - ESP-r variant setup and simulation tool (C) 2026 Achim Geissler, Reinach BL
+(Switzerland).
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
