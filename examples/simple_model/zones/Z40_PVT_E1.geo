@@ -1,13 +1,13 @@
 *Geometry 1.1,GEN,Z40_PVT_E1 # tag version, format, zone name
-*date Sun Sep 27 17:02:36 2026  # latest file modification 
+*date Sun Sep 27 21:05:13 2026  # latest file modification 
 Z40_PVT_E1 describes the PVT E1 air channel zone
 # tag, X co-ord, Y co-ord, Z co-ord
-*vertex,13.50000,-0.00000,2.70000  #   1
-*vertex,15.00000,-0.00000,2.70000  #   2
+*vertex,13.50000,0.00000,2.70000  #   1
+*vertex,15.00000,0.00000,2.70000  #   2
 *vertex,15.00000,1.53209,3.98557  #   3
 *vertex,13.50000,1.53209,3.98557  #   4
-*vertex,13.50000,-0.00000,2.75000  #   5
-*vertex,15.00000,-0.00000,2.75000  #   6
+*vertex,13.50000,0.00000,2.75000  #   5
+*vertex,15.00000,0.00000,2.75000  #   6
 *vertex,15.00000,1.53209,4.03557  #   7
 *vertex,13.50000,1.53209,4.03557  #   8
 # 

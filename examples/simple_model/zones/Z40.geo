@@ -1,16 +1,16 @@
 *Geometry 1.1,GEN,Z40 # tag version, format, zone name
-*date Sun Sep 27 17:02:36 2026  # latest file modification 
+*date Sun Sep 27 21:05:13 2026  # latest file modification 
 Z40 describes the flat PVT orientation
 # tag, X co-ord, Y co-ord, Z co-ord
-*vertex,12.00000,-0.00000,0.00000  #   1
-*vertex,15.00000,-0.00000,0.00000  #   2
+*vertex,12.00000,0.00000,0.00000  #   1
+*vertex,15.00000,0.00000,0.00000  #   2
 *vertex,15.00000,4.59627,0.00000  #   3
 *vertex,12.00000,4.59627,0.00000  #   4
-*vertex,12.00000,-0.00000,2.70000  #   5
-*vertex,15.00000,-0.00000,2.70000  #   6
+*vertex,12.00000,0.00000,2.70000  #   5
+*vertex,15.00000,0.00000,2.70000  #   6
 *vertex,15.00000,4.59627,6.55673  #   7
 *vertex,12.00000,4.59627,6.55673  #   8
-*vertex,13.50000,-0.00000,2.70000  #   9
+*vertex,13.50000,0.00000,2.70000  #   9
 *vertex,13.50000,4.59627,6.55673  #  10
 *vertex,12.00000,1.53209,3.98557  #  11
 *vertex,12.00000,3.06418,5.27115  #  12
