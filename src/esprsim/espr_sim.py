@@ -1040,6 +1040,7 @@ def set_new_rotangle(config, rotangle, x0, y0):
     args = [
             "prj",
             "-act rotate ", rotangle, x0, y0,
+            "-mode", "text",
             "-file", str(config) + ".cfg"
             ]
 
