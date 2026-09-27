@@ -1,7 +1,6 @@
 *Geometry 1.1,GEN,Z00_PVT_E2 # tag version, format, zone name
-*date Sat Mar  9 18:26:00 2019  # latest file modification 
+*date Sun Sep 27 17:02:36 2026  # latest file modification 
 Z00_PVT_E2 describes the PVT E2 air channel zone
-*previous_rotate   180.00,   7.500,   3.000  # prior rotation angle X Y
 # tag, X co-ord, Y co-ord, Z co-ord
 *vertex,1.50000,2.00000,2.70000  #   1
 *vertex,3.00000,2.00000,2.70000  #   2

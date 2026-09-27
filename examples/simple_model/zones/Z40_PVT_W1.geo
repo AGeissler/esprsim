@@ -1,14 +1,13 @@
 *Geometry 1.1,GEN,Z40_PVT_W1 # tag version, format, zone name
-*date Sat Mar  9 18:26:00 2019  # latest file modification 
+*date Sun Sep 27 17:02:36 2026  # latest file modification 
 Z40_PVT_W1 describes the PVT W1 air channel zone
-*previous_rotate   180.00,   7.500,   3.000  # prior rotation angle X Y
 # tag, X co-ord, Y co-ord, Z co-ord
-*vertex,12.00000,0.00000,2.70000  #   1
-*vertex,13.50000,0.00000,2.70000  #   2
+*vertex,12.00000,-0.00000,2.70000  #   1
+*vertex,13.50000,-0.00000,2.70000  #   2
 *vertex,13.50000,1.53209,3.98557  #   3
 *vertex,12.00000,1.53209,3.98557  #   4
-*vertex,12.00000,0.00000,2.75000  #   5
-*vertex,13.50000,0.00000,2.75000  #   6
+*vertex,12.00000,-0.00000,2.75000  #   5
+*vertex,13.50000,-0.00000,2.75000  #   6
 *vertex,13.50000,1.53209,4.03557  #   7
 *vertex,12.00000,1.53209,4.03557  #   8
 # 

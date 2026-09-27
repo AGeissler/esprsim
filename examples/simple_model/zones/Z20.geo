@@ -1,14 +1,13 @@
 *Geometry 1.1,GEN,Z20 # tag version, format, zone name
-*date Sat Mar  9 18:26:00 2019  # latest file modification 
+*date Sun Sep 27 17:02:36 2026  # latest file modification 
 Z20 describes the flat PVT orientation
-*previous_rotate   180.00,   7.500,   3.000  # prior rotation angle X Y
 # tag, X co-ord, Y co-ord, Z co-ord
-*vertex,6.00000,-0.00000,0.00000  #   1
-*vertex,9.00000,0.00000,0.00000  #   2
+*vertex,6.00000,0.00000,0.00000  #   1
+*vertex,9.00000,-0.00000,0.00000  #   2
 *vertex,9.00000,5.63816,0.00000  #   3
 *vertex,6.00000,5.63816,0.00000  #   4
-*vertex,6.00000,-0.00000,2.70000  #   5
-*vertex,9.00000,0.00000,2.70000  #   6
+*vertex,6.00000,0.00000,2.70000  #   5
+*vertex,9.00000,-0.00000,2.70000  #   6
 *vertex,9.00000,5.63816,4.75212  #   7
 *vertex,6.00000,5.63816,4.75212  #   8
 *vertex,7.50000,0.00000,2.70000  #   9
