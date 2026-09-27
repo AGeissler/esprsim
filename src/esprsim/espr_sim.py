@@ -543,6 +543,31 @@ def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=1,
 
     return results
 
+def set_default_contents_file(config):
+    """
+    (Re-)set default contents file name, i.e. 'config.contents'.
+
+    Parameters
+    ----------
+    config : str
+        Configuration file.
+    """
+    # Set contents file via sed.
+    wd=os.getcwd() # must be <modelpath>/cfg <<check?>>
+
+    cmd1='cp ' + config + '.cfg temp.cfg'
+
+    new_cnt="*contents " + config +\
+        ".contents                   # contents report for the project"
+
+    cmd2=r'sed \'s%\*contents.*%' + new_cnt + r'%\' temp.cfg > ' + config + '.cfg'
+
+    cmd3='rm temp.cfg'
+
+    run(cmd1, shell=True, cwd=wd)
+    run(cmd2, shell=True, cwd=wd)
+    run(cmd3, shell=True, cwd=wd)
+
 
 def rollback(config, key, val):
     r"""
@@ -566,6 +591,9 @@ def rollback(config, key, val):
         set_afn(config, val)
     if key == 'rot':
         set_new_rotangle(config, val[0], val[1], val[2])
+
+    set_default_contents_file(config)
+
 
 def set_ctl(config, ctl_file):
     r"""Method which sets the control file in .cfg of model using 'prj'.
@@ -1007,6 +1035,23 @@ def set_con(config, cnn_file, old_con_str, old_class, old_con, new_class, new_co
 
 
 def set_new_rotangle(config, rotangle, x0, y0):
+    print(f"\n\tRotating model {Path(config).stem}.cfg by {rotangle} degrees ...")
+
+    args = [
+            "prj",
+            "-act rotate ", rotangle, x0, y0,
+            "-file", str(config) + ".cfg"
+            ]
+
+    f = open(str(tmp_dir(config)) + '/' + config.name\
+             + "_rotate_" + str(rotangle) + ".scratch", "w")  # create scratch file
+
+    run(args, stdout=f)  # runs prj (args), writes scratch file (f)
+
+    print("done.")
+
+
+def set_new_rotangle_legacy(config, rotangle, x0, y0):
     r"""Method which rotates the whole model around point (x0,y0) by 'rotangle' degrees
     using 'prj'. The rotation is counterclockwise.
 
