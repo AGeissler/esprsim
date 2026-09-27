@@ -80,7 +80,7 @@ sphinx_gallery_conf = {
     "within_subsection_order": FileNameSortKey,
 }
 intersphinx_mapping = {
-    "esprsim": ("https://esprsim.readthedocs.io/en/latest/", None),
+    "esprsim": ("https://esprsim.readthedocs.io/en/stable/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
     "pandas": ("https://pandas.pydata.org/docs/", None),
     "python": ("https://docs.python.org/3/", None),
