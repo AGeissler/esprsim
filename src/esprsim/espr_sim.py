@@ -24,7 +24,7 @@ import pandas as pd
 from pathlib import Path
 from subprocess import run
 
-from espr_utilfun import generate_datetime_index
+from .espr_utilfun import generate_datetime_index
 
 
 """
@@ -365,7 +365,7 @@ def simulate_variant(**kwargs):
     PM = kwargs['PM']
 
     rollback_dict = {}
-
+    rollback_dict['cnt'] = 'default'
     # Set configuration file name with (optional) path but w/o extension.
     config = kwargs['cfg_path'] / kwargs['cfg']
 
@@ -521,7 +521,7 @@ def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=1,
         # where applicable.
         variant_name = "".join(
             strings[key] + (
-                str(get_val(key, args[key])[0]) if key == 'rot'
+                str(get_val(key, args[key])[3]) if key == 'rot'
                 else str(get_val(key, args[key]))
             ) for key in keys
         ) + "_"
@@ -549,24 +549,16 @@ def set_default_contents_file(config):
 
     Parameters
     ----------
-    config : str
-        Configuration file.
+    config : Path
+        Configuration file full path and name w/o extension.
     """
-    # Set contents file via sed.
-    wd=os.getcwd() # must be <modelpath>/cfg <<check?>>
+    script = rf"s/\*contents [^[:space:]]*\.contents/\*contents {config.name}.contents/"
 
-    cmd1='cp ' + config + '.cfg temp.cfg'
-
-    new_cnt="*contents " + config +\
-        ".contents                   # contents report for the project"
-
-    cmd2=r'sed \'s%\*contents.*%' + new_cnt + r'%\' temp.cfg > ' + config + '.cfg'
-
-    cmd3='rm temp.cfg'
-
-    run(cmd1, shell=True, cwd=wd)
-    run(cmd2, shell=True, cwd=wd)
-    run(cmd3, shell=True, cwd=wd)
+    run([
+        "sed", "-i", "",  # macOS/BSD style in-place, without backup
+        script,
+        str(config) + '.cfg'
+    ])
 
 
 def rollback(config, key, val):
@@ -591,8 +583,8 @@ def rollback(config, key, val):
         set_afn(config, val)
     if key == 'rot':
         set_new_rotangle(config, val[0], val[1], val[2])
-
-    set_default_contents_file(config)
+    if key == 'cnt':
+        set_default_contents_file(config)
 
 
 def set_ctl(config, ctl_file):
@@ -658,11 +650,11 @@ def set_clm(config, clm_file):
 
     wd=os.getcwd() # must be <modelpath>/cfg <<check?>>
 
-    cmd1='cp ' + config + '.cfg temp.cfg'
+    cmd1='cp ' + str(config) + '.cfg temp.cfg'
 
     new_clm='*clm ../dbs/' + clm_file
 
-    cmd2=r'sed \'s%\*clm ../dbs/.*%' + new_clm + r'%\' temp.cfg > ' + config + '.cfg'
+    cmd2=r'sed \'s%\*clm ../dbs/.*%' + new_clm + r'%\' temp.cfg > ' + str(config) + '.cfg'
 
     cmd3='rm temp.cfg'
 
@@ -1034,12 +1026,12 @@ def set_con(config, cnn_file, old_con_str, old_class, old_con, new_class, new_co
     print("done.")
 
 
-def set_new_rotangle(config, rotangle, x0, y0):
+def set_new_rotangle_act(config, rotangle, x0, y0):
     print(f"\n\tRotating model {Path(config).stem}.cfg by {rotangle} degrees ...")
 
     args = [
             "prj",
-            "-act rotate ", rotangle, x0, y0,
+            "-act rotate", str(rotangle), str(x0), str(y0),
             "-mode", "text",
             "-file", str(config) + ".cfg"
             ]
@@ -1052,7 +1044,7 @@ def set_new_rotangle(config, rotangle, x0, y0):
     print("done.")
 
 
-def set_new_rotangle_legacy(config, rotangle, x0, y0):
+def set_new_rotangle(config, rotangle, x0, y0):
     r"""Method which rotates the whole model around point (x0,y0) by 'rotangle' degrees
     using 'prj'. The rotation is counterclockwise.
 
@@ -1089,7 +1081,8 @@ def set_new_rotangle_legacy(config, rotangle, x0, y0):
                 "-\n"  # exit menu
                 "-\n"  # exit menu
                 "!\n"  # save model
-                "y\n"  # update config file
+                "\n"  # update config file
+                "\n"  # update cnn file
                 "-\n"
                 "-\n",  # quite module
                 encoding="utf-8")
