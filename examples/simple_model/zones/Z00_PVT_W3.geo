@@ -1,15 +1,15 @@
 *Geometry 1.1,GEN,Z00_PVT_W3 # tag version, format, zone name
-*date Sun Sep 27 21:05:13 2026  # latest file modification 
+*date Sun Sep 27 21:11:22 2026  # latest file modification 
 Z00_PVT_W3 describes the PVT W3 air channel zone
 # tag, X co-ord, Y co-ord, Z co-ord
 *vertex,0.00000,4.00000,2.70000  #   1
 *vertex,1.50000,4.00000,2.70000  #   2
 *vertex,1.50000,6.00000,2.70000  #   3
-*vertex,-0.00000,6.00000,2.70000  #   4
+*vertex,0.00000,6.00000,2.70000  #   4
 *vertex,0.00000,4.00000,2.75000  #   5
 *vertex,1.50000,4.00000,2.75000  #   6
 *vertex,1.50000,6.00000,2.75000  #   7
-*vertex,-0.00000,6.00000,2.75000  #   8
+*vertex,0.00000,6.00000,2.75000  #   8
 # 
 # tag, number of vertices followed by list of associated vert
 *edges,4,1,2,6,5  #   1

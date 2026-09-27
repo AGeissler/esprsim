@@ -1,13 +1,13 @@
 *Geometry 1.1,GEN,Z20_PVT_E1 # tag version, format, zone name
-*date Sun Sep 27 21:05:13 2026  # latest file modification 
+*date Sun Sep 27 21:11:22 2026  # latest file modification 
 Z20_PVT_E1 describes the PVT E1 air channel zone
 # tag, X co-ord, Y co-ord, Z co-ord
 *vertex,7.50000,0.00000,2.70000  #   1
-*vertex,9.00000,0.00000,2.70000  #   2
+*vertex,9.00000,-0.00000,2.70000  #   2
 *vertex,9.00000,1.87938,3.38404  #   3
 *vertex,7.50000,1.87938,3.38404  #   4
 *vertex,7.50000,0.00000,2.75000  #   5
-*vertex,9.00000,0.00000,2.75000  #   6
+*vertex,9.00000,-0.00000,2.75000  #   6
 *vertex,9.00000,1.87938,3.43404  #   7
 *vertex,7.50000,1.87938,3.43404  #   8
 # 
