@@ -43,6 +43,7 @@ variant_dict = {
     "afn": {"abbrev": "_", # Enter air flow network file names without extension.
             "test": ['no_flow_S'],
             "list": ['no_flow_S', 'buoyant_flow_S'],
+            "short": ['nofl_s', 'bouy_s'],
             "maxlist": ['buoyant_flow_N', 'buoyant_flow_S', 'buoyant_flow2_S',
                         'buoyant_flow12_S', 'force_flow_N', 'force_flow_S',
                         'no_flow_N', 'no_flow_S']},

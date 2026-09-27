@@ -49,12 +49,13 @@ variant_dict = {
     "afn": {"abbrev": "_", # Enter air flow network file names without extension.
             "test": ['no_flow_S'],
             "list": ['bouyant_flow_S'],
+            "short": ['bouy_s'],
             "maxlist": ['bouyant_flow_N', 'bouyant_flow_S', 'bouyant_flow2_S',
                         'bouyant_flow12_S', 'force_flow_N', 'force_flow_S',
                         'no_flow_N', 'no_flow_S']},
     "rot": {"abbrev": "_r",
             "test": [(0, 7.5, 3.0, 'S')],
-            "list": [(0, 7.5, 3.0, 'S')],
+            "list": [(0, 7.5, 3.0, 'S'), (180, 7.5, 3.0, 'N')],
             "maxlist": [(0, 7.5, 3.0, 'S'), (180, 7.5, 3.0, 'N')]},
     "per": {"abbrev": "_",
             "test": ['test'],
@@ -72,6 +73,15 @@ variant_dict['cfg']['cfg_path'] = cfg_path
 
 # %%
 # Run simulation for all variants in list 'VARLIST'.
-VARLIST = 'test'
+VARLIST = 'list'
 
-# sim.process_variants(variant_dict, PM, the_list=VARLIST)
+results = sim.process_variants(variant_dict, PM, the_list=VARLIST)
+
+# %%
+# Available results sets and PV yield comparison for south and north orientation.
+#
+# Results column used::
+#     building:spmatl:Z00 E2:misc data:pv power (W)
+print(f"Results sets: {list(results.keys())}")
+
+sim.plot_pv_bars_matplotlib(results).show()

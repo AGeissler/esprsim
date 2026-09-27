@@ -491,21 +491,40 @@ def process_variants(dict_of_variants, pm, the_list='list', btstep=10, ptstep=1,
         Toggle for 'cleaning' of results files after simulation, e.g. to avoid disk
         space issues in cases with many variants.
 
+    Returns
+    -------
+    results : dict of pandas.DataFrame
+        Dictionary of dataframes containing time-step results from simulations. The key
+        of each dataframe is the variant name.
     """
     keys = list(dict_of_variants.keys())
     lists = [d[the_list] for d in dict_of_variants.values()]
     strings = {key: d['abbrev'] for key, d in dict_of_variants.items()}
+
+    # Create a mapping from full value → short value for each key that has 'short'.
+    short_mappings = {}
+    for key, d in dict_of_variants.items():
+        if 'short' in d:
+            full_list = d.get('list', d.get('maxlist', []))
+            short_list = d['short']
+            short_mappings[key] = dict(zip(full_list, short_list))
 
     results={}
 
     for variant in itertools.product(*lists):
         args = {keys[i]: variant[i] for i in range(len(keys))}
 
-        # BAS_2010_RCP00_DRY_25_1w_0.2_r0_st23_ht20.5_gp0.5_gs0.1_200
-        # Concatenate the string entries to generate a variant name.
-        variant_name = "".join(strings[key] + (
-                          str(args[key][0]) if key == 'rot'
-                          else str(args[key])) for key in keys) + "_"
+        def get_val(key, val):
+            return short_mappings.get(key, {}).get(val, val)
+
+        # Concatenate the string entries to generate a variant name using short name
+        # where applicable.
+        variant_name = "".join(
+            strings[key] + (
+                str(get_val(key, args[key])[0]) if key == 'rot'
+                else str(get_val(key, args[key]))
+            ) for key in keys
+        ) + "_"
 
         # Add addtional parameters to the arguments for passing to single simulation
         # function.
