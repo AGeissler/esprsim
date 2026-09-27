@@ -65,7 +65,7 @@ variant_dict = {
 
 
 # %%
-# Set the model configuration path and set 'variant_dict['cfg']['cfg_path']' to this
+# Get/set the model configuration path and set 'variant_dict['cfg']['cfg_path']' to this
 # path value.
 cfg_path = (Path.cwd() / 'simple_model' / 'cfg')
 variant_dict['cfg']['cfg_path'] = cfg_path
@@ -81,7 +81,9 @@ results = sim.process_variants(variant_dict, PM, the_list=VARLIST)
 # Available results sets and PV yield comparison for south and north orientation.
 #
 # Results column used::
+#
 #     building:spmatl:Z00 E2:misc data:pv power (W)
+#
 print(f"Results sets: {list(results.keys())}")
 
 sim.plot_pv_bars_matplotlib(results).show()

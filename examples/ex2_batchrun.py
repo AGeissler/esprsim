@@ -34,7 +34,7 @@ PM = {'year'    : {'FD' : "01", 'FM' : "01", 'TD' : "31", 'TM' : "12", 'PP' : "2
 
 # %%
 # Set up model specific dict of dicts. The main keys correspond to model parameter names
-# for which a range of values is to be simulated. The keys 'cfg' and 'per' are required.
+# for which a range of values is to be simulated. The keys 'cfg' and 'per' are mandatory.
 variant_dict = {
     "cfg": {"abbrev": "",
             "test": ['PVT_Douala'],
@@ -54,7 +54,7 @@ variant_dict = {
 }
 
 # %%
-# Set the model configuration path and set 'variant_dict['cfg']['cfg_path']' to this
+# Get/set the model configuration path and set 'variant_dict['cfg']['cfg_path']' to this
 # path value.
 cfg_path = (Path.cwd() / 'simple_model' / 'cfg')
 variant_dict['cfg']['cfg_path'] = cfg_path
