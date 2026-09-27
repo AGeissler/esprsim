@@ -79,6 +79,6 @@ all = ["esprsim[plot]"]
 version = {attr = "esprsim.__about__.__version__"}
 
 [project.urls]
-Homepage = "https://esprsim.readthedocs.io/en/latest"
-Documentation = "https://esprsim.readthedocs.io/en/latest"
+Homepage = "https://esprsim.readthedocs.io/en/stable"
+Documentation = "https://esprsim.readthedocs.io/en/stable"
 Repository = "https://github.com/AGeissler/esprsim"
