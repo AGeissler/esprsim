@@ -72,17 +72,15 @@ variant_dict['cfg']['cfg_path'] = cfg_path
 
 
 # %%
-# Run simulation for all variants in list 'VARLIST'.
-VARLIST = 'list'
-
-results = sim.process_variants(variant_dict, PM, the_list=VARLIST)
+# Run simulation for all variants in desired list of `variant_dict`.
+results = sim.process_variants(variant_dict, PM, the_list='list')
 
 # %%
 # Available results sets and PV yield comparison for south and north orientation.
 #
 # Results column used::
 #
-#     building:spmatl:Z00 E2:misc data:pv power (W)
+#     building:spmatl:Z?? ??:misc data:pv power (W)
 #
 print(f"Results sets: {list(results.keys())}")
 

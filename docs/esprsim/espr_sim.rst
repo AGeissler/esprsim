@@ -34,6 +34,8 @@ Functions for simulation domain management
 Functions for setting simulation parameters
 -------------------------------------------
 
+.. autofunction:: esprsim.espr_sim.set_default_contents_file
+
 .. autofunction:: esprsim.espr_sim.set_ctl
 
 .. autofunction:: esprsim.espr_sim.set_clm
@@ -50,6 +52,8 @@ Functions for setting simulation parameters
 
 .. autofunction:: esprsim.espr_sim.set_con
 
+.. autofunction:: esprsim.espr_sim.set_new_rotangle_act
+
 .. autofunction:: esprsim.espr_sim.set_new_rotangle
 
 .. autofunction:: esprsim.espr_sim.set_ctl_temp_setpt
@@ -61,6 +65,8 @@ Auxiliary functions
 .. autofunction:: esprsim.espr_sim.tmp_dir
 
 .. autofunction:: esprsim.espr_sim.get_xxx_filename
+
+.. autofunction:: esprsim.espr_sim.rollback
 
 .. autofunction:: esprsim.espr_sim.list_of_files
 

@@ -1027,6 +1027,25 @@ def set_con(config, cnn_file, old_con_str, old_class, old_con, new_class, new_co
 
 
 def set_new_rotangle_act(config, rotangle, x0, y0):
+    r"""Method which rotates the whole model arount point (x0, y0) by 'rotangle' using
+    the '-act rotate' command line argument of 'prj'.
+
+    Parameters
+    ----------
+    config : Path
+        Path object of configuration file. Full path but w/o file extension '.cfg'.
+    rotangle : float
+        Desired rotation angle (degrees counterclockwise).
+    x0 : float
+        X-coordinate of rotation centre in m
+    y0 : float
+        Y-coordinate of rotation centre in m
+
+    Notes
+    -----
+    .. attention:: currently not functional, hangs up.
+
+    """
     print(f"\n\tRotating model {Path(config).stem}.cfg by {rotangle} degrees ...")
 
     args = [
