@@ -106,6 +106,83 @@ def get_timestep_hours(df):
     return timestep.total_seconds() / 3600
 
 
+def get_data_pairs(df):
+    """Extract specific data-pairs from simulation results dataframe.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Results dataframe from :py:func:`esprsim.espr_sim.process_variants`.
+
+    Returns
+    -------
+    pairs : pandas.DataFrame of x,y data pairs.
+
+    Notes
+    -----
+    Code by PerplexityAI.
+    """
+    cols = pd.Series(df.columns, name="column")
+    parts = cols.str.split(":", expand=True)
+
+    is_temp = cols.str.contains(":Top-5:node 04:temperature ", regex=False)
+    is_eff = cols.str.endswith(":misc data:efficiency %")
+
+    temp_keys = parts.loc[is_temp, 1].str.replace(" PVT", "", regex=False)
+    eff_keys = parts.loc[is_eff, 2]
+
+    pairs = pd.concat(
+        {"temperature": pd.Series(cols[is_temp].to_numpy(), index=temp_keys),
+         "efficiency": pd.Series(cols[is_eff].to_numpy(), index=eff_keys)
+         },
+        axis=1,
+    ).dropna()
+
+    return pairs
+
+
+def plot_efficiency_vs_temperature(df, title):
+    """Bespoke function to generate a simple x,y figure based on data pairs.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Dataframe containing x,y data pairs to be plotted.
+    title : str
+        Plot title.
+
+    Returns
+    -------
+    fig : matplotlib.pyplot
+
+    Notes
+    -----
+    Code by PerplexityAI.
+    """
+    pairs = get_data_pairs(df)
+
+    fig, ax = plt.subplots(figsize=(9, 6))
+
+    for key, pair in pairs.iterrows():
+        ax.scatter(
+            df[pair["temperature"]][df[pair["efficiency"]]>0],
+            df[pair["efficiency"]][df[pair["efficiency"]]>0],
+            label=key,
+            alpha=0.7,
+        )
+
+    ax.set(
+        xlabel="Cell temperature (°C)",
+        ylabel="Cell efficiency (%)",
+        title=title,
+    )
+    ax.grid(True, alpha=0.3)
+    ax.legend(title="Panel")
+    fig.tight_layout()
+
+    return fig
+
+
 def aggregate_pv_by_zone(df, zone_groups=['Z00', 'Z20', 'Z40']):
     r"""
     Aggregate PV power columns by zone group (default 'Z00', 'Z20', 'Z40').

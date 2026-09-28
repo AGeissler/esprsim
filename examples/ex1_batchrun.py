@@ -66,78 +66,26 @@ results = sim.process_variants(variant_dict, PM, the_list=VARLIST)
 
 
 # %%
-# We want to show the temperature dependancy of the PV module efficiency. The results
-# include following data columns::
+# Temperature dependancy of the PV module efficiency is of interest. The results include
+# following data columns::
 #
-#     "building:Z20 PVT E2:Top-5:node 04:temperature (oC)"
-#     "building:spmatl:Z20 E2:misc data:efficiency %"
+#     "building:Z?? PVT ??:Top-5:node 04:temperature (oC)"
+#     "building:spmatl:Z?? ??:misc data:efficiency %"
 #
-# The first column containds the time-step data of the temperature of the PV cell, the
-# second column contains the cell efficiency. For a x,y graph of these metrics, we need
-# to generate data-pairs for each time-step. For this, we define a bespoke function
-# (code by Perplexity).
-def get_data_pairs(df):
-    """Extract specific data-pairs from simulation results dataframe.
-
-    Parameters
-    ----------
-    df : pandas.DataFrame
-        Results dataframe from :py:func:`esprsim.espr_sim.process_variants`.
-
-    """
-    cols = pd.Series(df.columns, name="column")
-    parts = cols.str.split(":", expand=True)
-
-    is_temp = cols.str.contains(":Top-5:node 04:temperature ", regex=False)
-    is_eff = cols.str.endswith(":misc data:efficiency %")
-
-    temp_keys = parts.loc[is_temp, 1].str.replace(" PVT", "", regex=False)
-    eff_keys = parts.loc[is_eff, 2]
-
-    pairs = pd.concat(
-        {"temperature": pd.Series(cols[is_temp].to_numpy(), index=temp_keys),
-         "efficiency": pd.Series(cols[is_eff].to_numpy(), index=eff_keys)
-         },
-        axis=1,
-    ).dropna()
-
-    return pairs
-
-
-# %%
-# Define a a bespoke function to generate a simple graph showing cell efficieny vs. cell
-# temperature (code by Perplexity). Ignore night-time values (efficiency = 0).
-def plot_efficiency_vs_temperature(df, title):
-    pairs = get_data_pairs(df)
-
-    fig, ax = plt.subplots(figsize=(9, 6))
-
-    for key, pair in pairs.iterrows():
-        ax.scatter(
-            df[pair["temperature"]][df[pair["efficiency"]]>0],
-            df[pair["efficiency"]][df[pair["efficiency"]]>0],
-            label=key,
-            alpha=0.7,
-        )
-
-    ax.set(
-        xlabel="Cell temperature (°C)",
-        ylabel="Cell efficiency (%)",
-        title=title,
-    )
-    ax.grid(True, alpha=0.3)
-    ax.legend(title="Panel")
-    fig.tight_layout()
-
-    return fig
-
-# %%
+# The first column contains time-step data of the temperature of the PV cell, the second
+# column contains cell efficiency. For a x,y graph of these metrics, data-pairs for each
+# time-step are required. For this, the bespoke function
+# :py:func:`~esprsim.espr_utilfun.get_data_pairs` is available. Based the data pairs,
+# a simple  graph showing cell efficieny vs. cell temperature is created using
+# :py:func:`~esprsim.espr_utilfun.plot_efficiency_vs_temperature`. Night-time values
+# (efficiency = 0) are ignored.
+#
 # .. note::
-#    The method :py:func:`esprsim.espr_sim.process_variants` returns a dict containing
+#    The method :py:func:`~esprsim.espr_sim.process_variants` returns a dict containing
 #    a `pandas.DataFrame` for each variant, where the variant name is used as key.
 #
 # In this simple example we have only one variant, therefore we can use the first dict
 # entry via index without knowing the key beforehand.
 the_variant = list(results.keys())[0]
 
-plot_efficiency_vs_temperature(results[the_variant], the_variant).show()
+sim.plot_efficiency_vs_temperature(results[the_variant], the_variant).show()
