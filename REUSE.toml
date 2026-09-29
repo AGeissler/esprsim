@@ -8,31 +8,25 @@ version = 1
 path = ".gitignore"
 precedence = "override"
 SPDX-FileCopyrightText = "None"
-SPDX-License-Identifier = "None"
+SPDX-License-Identifier = "Unlicense"
 
 [[annotations]]
 path = ".readthedocs.yaml"
 precedence = "override"
 SPDX-FileCopyrightText = "None"
-SPDX-License-Identifier = "None"
+SPDX-License-Identifier = "Unlicense"
 
 [[annotations]]
 path = "docs/_static/*.css"
 precedence = "override"
 SPDX-FileCopyrightText = "None"
-SPDX-License-Identifier = "None"
+SPDX-License-Identifier = "Unlicense"
 
 [[annotations]]
 path = "docs/_static/esplogosmall.bmp"
 precedence = "override"
 SPDX-FileCopyrightText = "Copyright (C) 1989, 1991 Free Software Foundation, Inc."
 SPDX-License-Identifier = "GPL-2.0-or-later"
-
-[[annotations]]
-path = "docs/Makefile"
-precedence = "override"
-SPDX-FileCopyrightText = "None"
-SPDX-License-Identifier = "None"
 
 [[annotations]]
 path = ["docs/*.rst", "examples/*.rst"]
@@ -68,4 +62,4 @@ SPDX-License-Identifier = "GPL-3.0-or-later"
 path = "src/esprsim/__about__.py"
 precedence = "override"
 SPDX-FileCopyrightText = "None"
-SPDX-License-Identifier = "None"
+SPDX-License-Identifier = "Unlicense"

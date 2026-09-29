@@ -1,4 +1,6 @@
-# SPDX-FileCopyrightText = None
+# SPDX-FileCopyrightText: None
+# SPDX-License-Identifier: Unlicense
+#
 # Minimal makefile for Sphinx documentation
 SPHINXOPTS  ?=
 SPHINXBUILD ?= sphinx-build
