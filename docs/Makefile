@@ -1,3 +1,4 @@
+# SPDX-FileCopyrightText = None
 # Minimal makefile for Sphinx documentation
 SPHINXOPTS  ?=
 SPHINXBUILD ?= sphinx-build
