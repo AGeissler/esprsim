@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: None
+# SPDX-License-Identifier: None
+
 [build-system]
 requires = ["setuptools>=77.0.3"]
 build-backend = "setuptools.build_meta"
@@ -13,7 +16,7 @@ name = "esprsim"
 description = "Run and evaluate ESP-r simulations using Python. "
 readme = "Readme.md"
 authors = [
-  {name = "Achim Geissler", email = "achim.geissler@nothere.ch"},
+  {name = "Achim Geissler", email = "achim.geissler@acatalepsy.ch"},
 ]
 requires-python = ">=3.10"
 license = "GPL-3.0-or-later"

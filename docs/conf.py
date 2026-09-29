@@ -1,4 +1,5 @@
-# SPDX-FileCopyrightText = None
+# SPDX-FileCopyrightText: None
+# SPDX-License-Identifier: None
 #
 # Configuration file for the Sphinx documentation builder.
 #
