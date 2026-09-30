@@ -27,31 +27,33 @@ which is either the ESP-r project path if this is 'stand alone' or the path of t
 project of which ESP-r files are in a subdirectory. The following assumes you are working
 in a console window.
 
-    1. Create virtual environment by 
-        <project path>$ python3 -m venv env (evironment name is name arbitrary)
-        
-    2. Activate the virtual environment by 
-        Windows    : <project_path>$ .\env\Scripts\activate”
-        MacOS/Linux: <project_path>$ source env/bin/activate
-        
-    3. The prompt should look like this: “(env) <project_path> $ ”
-
-    4. Run 
-        pip install --upgrade pip
-        pip install wheel
-        pip install setuptools
+1. Create virtual environment by
+```
+<project path>$ python3 -m venv env (evironment name is name arbitrary)
+```        
+2. Activate the virtual environment by
+Windows: `<project_path>$ .\env\Scripts\activate`
+MacOS/Linux: `<project_path>$ source env/bin/activate`
+3. The prompt should look like this: 
+```
+(env) <project_path> $ ”
+```
+4. Run
+``` 
+pip install --upgrade pip
+pip install wheel
+pip install setuptools
+```
 
 Note: to avoid clutter in git "changed files" tracking, add the environment subdirectory
 to .gitignore of the project.
 
 ### Step Three
-In the console with active environment from step two, change to the source directory of
-esprsim and issue the command
+In the console with active environment from step two, change to the source directory of esprsim and issue the command
 
     $ pip install .
 
-That's it. Now, esprsim should be available in your project-specific virtual environment
-every time you activate it.
+That's it. Now, esprsim should be available in your project-specific virtual environment every time you activate it.
 
 ## Usage example
 The subdirectory 'examples' contains a simple and a more detailed example model and examples of increasing complexity using the functionality of the 'esprsim' package.
