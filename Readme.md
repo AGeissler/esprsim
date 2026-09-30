@@ -4,6 +4,8 @@ SPDX-License-Identifier: GPL-3.0-or-later
 -->
 # esprsim
 
+[![REUSE status](https://api.reuse.software/badge/github.com/AGeissler/esprsim)](https://api.reuse.software/info/github.com/AGeissler/esprsim)
+
 ## Introduction
 The 'esprsim' package provides an interface for running [ESP-r](https://www.strath.ac.uk/research/energysystemsresearchunit/applications/esp-r/) using Python scripts. Therefore, a pre-requisite for using this package is an installed version of ESP-r on the computer. The package is tested with version 13.3.17. The scripts use ``mode -text`` for model manipulation, any changes in ESP-r concerning text mode in earlier or later versions may lead to errors.
 There are examples of how automation of ESP-r simulations can be set up in the examples folder.
