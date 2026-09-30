@@ -1,27 +1,9 @@
-#!/usr/bin/env python3
-
-# Last changed: 22/09/2020
-# Status: Usable
-#
-# Module contains following model specific / dependant functions for ESP-r:
-#
-#  27: def set_corecon(config, cnn_file, old_coreclass, old_corecon, new_coreclass, new_corecon):
-#            Switch ...
-#  96: def set_htc(config, cnn_file, set_unset):
-#            Set / unset? convection coefficients file.
-# 156: def set_lam_w6CFC(config, mat_class, mat_entry, lam):
-#            Set thermal conductivity for specific material in materials
-#            database for model w/ 6 zones featuring CFC(!).
-# 210: def set_lam(config, matclass, material, lam):
-#            Set thermal conductivity for materials in model w/o CFC
-#            constructions(!).
-# 261: def set_abs_o(config, matclass, material, abs):
-#            Set outside solar absorption for materials in model w/o CFC
-#            constructions(!).
+# SPDX-FileCopyrightText: 2026 Achim Geissler <achim.geissler@acatalepsy.ch>
+# SPDX-License-Identifier: GPL-3.0-or-later
 from subprocess import run
 
 """
-Module contains model specific functions using ESP-r project manager
+This module contains model specific functions using ESP-r project manager
 in text mode.
 """
 
