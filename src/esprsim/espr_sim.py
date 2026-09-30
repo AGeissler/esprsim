@@ -1,21 +1,5 @@
-# -*- coding: utf-8 -*-
-"""
-This file is part of esprsim.
-
-esprsim is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-esprsim is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with esprsim.  If not, see <http://www.gnu.org/licenses/>.
-"""
-
+# SPDX-FileCopyrightText: 2026 Achim Geissler <achim.geissler@acatalepsy.ch>
+# SPDX-License-Identifier: GPL-3.0-or-later
 import os
 import shutil
 import glob
@@ -26,9 +10,8 @@ from subprocess import run
 
 from .espr_utilfun import generate_datetime_index
 
-
 """
-Module contains functions for ESP-r scripts and auxiliary functions for
+This module contains functions for ESP-r scripts and auxiliary functions for
 batch running of simulations.
 """
 
@@ -1027,6 +1010,25 @@ def set_con(config, cnn_file, old_con_str, old_class, old_con, new_class, new_co
 
 
 def set_new_rotangle_act(config, rotangle, x0, y0):
+    r"""Method which rotates the whole model arount point (x0, y0) by 'rotangle' using
+    the '-act rotate' command line argument of 'prj'.
+
+    Parameters
+    ----------
+    config : Path
+        Path object of configuration file. Full path but w/o file extension '.cfg'.
+    rotangle : float
+        Desired rotation angle (degrees counterclockwise).
+    x0 : float
+        X-coordinate of rotation centre in m
+    y0 : float
+        Y-coordinate of rotation centre in m
+
+    Notes
+    -----
+    .. attention:: currently not functional, hangs up.
+
+    """
     print(f"\n\tRotating model {Path(config).stem}.cfg by {rotangle} degrees ...")
 
     args = [
