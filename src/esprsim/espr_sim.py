@@ -167,7 +167,7 @@ def list_dms(dms, variant):
         1: "\tbuilding results  : " + variant + ".res",
         2: "\tbuilding results  : " + variant + ".res\n" +
            "\tair flow results  : " + variant + ".mfr",
-        3: "\tbuilding results  : " + variant + ".res" +
+        3: "\tbuilding results  : " + variant + ".res\n" +
            "\tplant results     : " + variant + ".plr",
         4: "\tbuilding results  : " + variant + ".res\n" +
            "\tplant results     : " + variant + ".mfr\n" +
