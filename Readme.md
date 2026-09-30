@@ -7,7 +7,11 @@ SPDX-License-Identifier: GPL-3.0-or-later
 [![REUSE status](https://api.reuse.software/badge/github.com/AGeissler/esprsim)](https://api.reuse.software/info/github.com/AGeissler/esprsim)
 
 ## Introduction
-The 'esprsim' package provides an interface for running [ESP-r](https://www.strath.ac.uk/research/energysystemsresearchunit/applications/esp-r/) using Python scripts. Therefore, a pre-requisite for using this package is an installed version of ESP-r on the computer. The package is tested with version 13.3.17. The scripts use ``mode -text`` for model manipulation, any changes in ESP-r concerning text mode in earlier or later versions may lead to errors.
+The 'esprsim' package provides an interface for running [ESP-r](https://www.strath.ac.uk/research/energysystemsresearchunit/applications/esp-r/) using Python scripts. Therefore, a pre-requisite for using this package is an installed version of ESP-r on the computer. 
+
+> [!WARNING]
+> The package is tested with version 13.3.17. The scripts use ``mode -text`` for model manipulation, any changes in ESP-r concerning text mode in earlier or later versions may lead to errors.
+
 There are examples of how automation of ESP-r simulations can be set up in the examples folder.
 
 ## Installing esprsim
@@ -40,7 +44,7 @@ in a console window.
 Note: to avoid clutter in git "changed files" tracking, add the environment subdirectory
 to .gitignore of the project.
 
-### Step three
+### Step Three
 In the console with active environment from step two, change to the source directory of
 esprsim and issue the command
 
@@ -50,13 +54,10 @@ That's it. Now, esprsim should be available in your project-specific virtual env
 every time you activate it.
 
 ## Usage example
-The subdirectory 'examples' contains a simple example model and examples of increasing
-complexity using the functionality of the 'esprsim' package.
-
-The examples and the package are tested for an ESP-r installation @ version 13.3.17. If
-earlier or later version work depends on possible differences in prj|res '-mode text'.
-
+The subdirectory 'examples' contains a simple and a more detailed example model and examples of increasing complexity using the functionality of the 'esprsim' package.
 
 ## Contribution
-If any functionality you desire is missing, feel free to extend the code via a fork of
-the repository and pull requests to the maintainer.
+Feel free to extend the code via a fork of the repository for any missing functionality you desire and submit a pull request to the maintainer.
+
+## Maintainer
+Author and maintainer is achim.geissler@acatalepsy.ch.
