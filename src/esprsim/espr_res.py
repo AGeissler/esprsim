@@ -1,19 +1,9 @@
-#!/usr/bin/env python3
-
-# Last changed: 07/11/2022
-# Status: development
-#
-# Module contains following functions calling res for ESP-r:
-#
-# 17:  def res_supplied_energy(resfile):
-#          """ Extract summary of energy delivered.
-#
-# 55:  def res_PMV(resfile, zone, PMVdat):
-#          """Function extracts PMV data from simulation results.
+# SPDX-FileCopyrightText: 2026 Achim Geissler <achim.geissler@acatalepsy.ch>
+# SPDX-License-Identifier: GPL-3.0-or-later
 from subprocess import run
 
 """
-Module contains functions for ESP-r res module text mode scripts.
+This module contains functions for ESP-r res module text mode scripts.
 """
 def res_supplied_energy(resfile):
     r"""Extract summary of energy delivered.

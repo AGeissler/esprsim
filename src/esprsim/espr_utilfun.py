@@ -1,7 +1,5 @@
-#!/usr/bin/env python3
-r"""
-This module contains utility functions for ``esprsim``.
-"""
+# SPDX-FileCopyrightText: 2026 Achim Geissler <achim.geissler@acatalepsy.ch>
+# SPDX-License-Identifier: GPL-3.0-or-later
 import pandas as pd
 from datetime import datetime
 import numpy as np
@@ -9,6 +7,9 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 from collections import defaultdict
 
+r"""
+This module contains utility functions for ``esprsim``.
+"""
 
 def generate_datetime_index(year, from_month, from_day, to_month, to_day,
                             steps_per_hour, existing_df=None):
